@@ -544,13 +544,20 @@
   </scm>
 
   <repositories>
-    <!-- Snapshot repo for polyflow -->
+    <!-- Snapshot repo for polyflow library -->
     <repository>
       <id>ossrh</id>
+      <name>ossrh</name>
       <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
     </repository>
   </repositories>
-  
+
   <developers>
     <developer>
       <id>zambrovski</id>
