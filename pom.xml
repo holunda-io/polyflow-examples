@@ -407,7 +407,6 @@
   </build>
 
   <profiles>
-
     <!-- Frontend -->
     <profile>
       <id>frontend</id>
@@ -544,14 +543,14 @@
     <tag>HEAD</tag>
   </scm>
 
-  <distributionManagement>
-    <site>
-      <id>docs</id>
-      <name>Documentation</name>
-      <url>https://www.holunda.io/camunda-bpm-taskpool/</url>
-    </site>
-  </distributionManagement>
-
+  <repositories>
+    <!-- Snapshot repo for polyflow -->
+    <repository>
+      <id>ossrh</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+    </repository>
+  </repositories>
+  
   <developers>
     <developer>
       <id>zambrovski</id>
