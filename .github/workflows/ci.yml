@@ -1,0 +1,51 @@
+name: CI for branches
+
+on:
+  push:
+    branches:
+      - '!master'
+      - '!develop'
+      - '!release/*'
+      - '*'
+      - '**/*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        jdk: ['11.0.5']
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v1
+
+      - name: Cache .m2
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven
+
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.jdk }}
+
+      - name: Prepare Maven Wrapper
+        run: chmod +x ./mvnw
+
+      - name: Build with Maven
+        run: ./mvnw clean verify -U -B -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=120
+
+      - name: Prepare I-Tests
+        run: mkdir -p target/jgiven-reports/json
+
+      - name: Run I-Tests with Maven
+        run: ./mvnw integration-test failsafe:verify -Pitest -DskipFrontend -B
+
+      - name: Upolad coverage information
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }} #required

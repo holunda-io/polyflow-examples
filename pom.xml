@@ -1,0 +1,579 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>io.holunda.polyflow</groupId>
+  <artifactId>polyflow-examples-parent</artifactId>
+  <version>3.1.6-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>POM: ${project.artifactId}</name>
+  <description>Polyflow Examples Parent POM</description>
+  <url>https://github.com/holunda-io/polyflow-examples/</url>
+
+  <properties>
+
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    <java.version>11</java.version>
+    <version.java>${java.version}</version.java>
+    <version.java>${java.version}</version.java>
+
+    <kotlin.version>1.6.0</kotlin.version>
+    <kotlin.compiler.jvmTarget>${java.version}</kotlin.compiler.jvmTarget>
+    <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
+    <kotlin-logging.version>2.1.14</kotlin-logging.version>
+
+    <!-- Never deploy examples -->
+    <maven.deploy.skip>true</maven.deploy.skip>
+
+    <version.java>${java.version}</version.java>
+    <npm.version>6.14.12</npm.version>
+    <node.version>v14.16.1</node.version>
+
+    <!--
+      <camunda-ee>false</camunda-ee>
+      Use the system property: -Dcamunda-ee to enable EE
+    -->
+
+    <springboot.version>2.6.1</springboot.version>
+    <polyflow.version>3.1.6-SNAPSHOT</polyflow.version>
+
+    <camunda-ce.version>7.16.0</camunda-ce.version>
+    <camunda-ee.version>7.16.1-ee</camunda-ee.version>
+    <camunda-springboot.version>${camunda-ce.version}</camunda-springboot.version>
+
+    <camunda-bpm-assert.version>13.0.0</camunda-bpm-assert.version>
+    <!-- pin assert-core it because BPM Assert can't work with larger version -->
+    <assert-core.version>3.18.1</assert-core.version>
+
+    <camunda-bpm-mockito.version>5.16.0</camunda-bpm-mockito.version>
+    <camunda-bpm-data.version>1.2.4</camunda-bpm-data.version>
+    <version.camunda.spin>1.12.0</version.camunda.spin>
+
+    <springboot-swagger-starter.version>0.3.0</springboot-swagger-starter.version>
+    <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
+
+  </properties>
+
+  <modules>
+    <!-- Shared backend modules -->
+    <module>components/users</module>
+    <module>components/tasklist-reactive-backend</module>
+    <module>components/tasklist-backend</module>
+    <module>components/process-backend</module>
+
+    <!-- Example implementations for different scenarios -->
+    <module>scenarios</module>
+  </modules>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.camunda.bpm</groupId>
+        <artifactId>camunda-bom</artifactId>
+        <version>${camunda.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+
+      <dependency>
+        <groupId>io.holunda.polyflow</groupId>
+        <artifactId>polyflow-taskpool-dependencies</artifactId>
+        <version>${polyflow.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+
+      <dependency>
+        <groupId>io.holunda.polyflow</groupId>
+        <artifactId>polyflow-example-tasklist-backend</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.holunda.polyflow</groupId>
+        <artifactId>polyflow-example-tasklist-angular</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.holunda.polyflow</groupId>
+        <artifactId>polyflow-example-process-backend</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.holunda.polyflow</groupId>
+        <artifactId>polyflow-example-process-forms</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.holunda.polyflow</groupId>
+        <artifactId>polyflow-example-users</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+
+      <!-- Swagger -->
+      <dependency>
+        <groupId>org.openapitools</groupId>
+        <artifactId>jackson-databind-nullable</artifactId>
+        <version>0.2.2</version>
+      </dependency>
+      <dependency>
+        <groupId>io.springfox</groupId>
+        <artifactId>springfox-swagger2</artifactId>
+        <version>3.0.0</version>
+      </dependency>
+      <!-- Camunda BPM Data -->
+      <dependency>
+        <groupId>io.holunda.data</groupId>
+        <artifactId>camunda-bpm-data</artifactId>
+        <version>${camunda-bpm-data.version}</version>
+      </dependency>
+
+      <!-- MapStruct -->
+      <dependency>
+        <groupId>org.mapstruct</groupId>
+        <artifactId>mapstruct</artifactId>
+        <version>${org.mapstruct.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.mockito.kotlin</groupId>
+        <artifactId>mockito-kotlin</artifactId>
+        <version>4.0.0</version>
+        <scope>test</scope>
+      </dependency>
+
+      <dependency>
+        <groupId>org.assertj</groupId>
+        <artifactId>assertj-core</artifactId>
+        <version>${assert-core.version}</version>
+        <scope>test</scope>
+      </dependency>
+
+    </dependencies>
+  </dependencyManagement>
+
+  <build>
+    <pluginManagement>
+      <plugins>
+
+        <plugin>
+          <!-- cleaning -->
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+
+        <plugin>
+          <!-- java compiler -->
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.1</version>
+          <configuration>
+            <encoding>UTF-8</encoding>
+            <source>${java.version}</source>
+            <target>${java.version}</target>
+          </configuration>
+          <executions>
+            <!-- Replacing default-compile as it is treated specially by maven -->
+            <execution>
+              <id>default-compile</id>
+              <phase>none</phase>
+            </execution>
+            <!-- Replacing default-testCompile as it is treated specially by maven -->
+            <execution>
+              <id>default-testCompile</id>
+              <phase>none</phase>
+            </execution>
+            <execution>
+              <id>java-compile</id>
+              <phase>compile</phase>
+              <goals>
+                <goal>compile</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>java-test-compile</id>
+              <phase>test-compile</phase>
+              <goals>
+                <goal>testCompile</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+
+        <plugin>
+          <!-- resources -->
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-resources-plugin</artifactId>
+          <version>3.2.0</version>
+          <configuration>
+            <encoding>UTF-8</encoding>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <!-- Open API generator -->
+          <groupId>org.openapitools</groupId>
+          <artifactId>openapi-generator-maven-plugin</artifactId>
+          <version>5.3.0</version>
+        </plugin>
+
+        <plugin>
+          <!-- kotlin compiler -->
+          <artifactId>kotlin-maven-plugin</artifactId>
+          <groupId>org.jetbrains.kotlin</groupId>
+          <version>${kotlin.version}</version>
+          <configuration>
+            <compilerPlugins>
+              <plugin>spring</plugin>
+              <plugin>jpa</plugin>
+              <plugin>no-arg</plugin>
+              <plugin>all-open</plugin>
+            </compilerPlugins>
+            <pluginOptions>
+              <option>all-open:annotation=org.axonframework.eventhandling.EventHandler</option>
+              <option>all-open:annotation=org.axonframework.queryhandling.QueryHandler</option>
+              <option>all-open:annotation=com.tngtech.jgiven.integration.spring.JGivenStage</option>
+            </pluginOptions>
+            <jvmTarget>${java.version}</jvmTarget>
+          </configuration>
+          <executions>
+            <execution>
+              <id>kapt</id>
+              <goals>
+                <goal>kapt</goal>
+              </goals>
+              <configuration>
+                <sourceDirs>
+                  <sourceDir>${project.basedir}/target/generated-sources/openapi/src/main/java</sourceDir>
+                  <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
+                </sourceDirs>
+                <annotationProcessorPaths>
+                  <annotationProcessorPath>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-configuration-processor</artifactId>
+                    <version>${springboot.version}</version>
+                  </annotationProcessorPath>
+                </annotationProcessorPaths>
+              </configuration>
+            </execution>
+            <execution>
+              <id>compile</id>
+              <goals>
+                <goal>compile</goal>
+              </goals>
+              <configuration>
+                <sourceDirs>
+                  <sourceDir>${project.basedir}/target/generated-sources/openapi/src/main/java</sourceDir>
+                  <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
+                </sourceDirs>
+              </configuration>
+            </execution>
+            <execution>
+              <id>test-compile</id>
+              <goals>
+                <goal>test-compile</goal>
+              </goals>
+              <configuration>
+                <sourceDirs>
+                  <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
+                </sourceDirs>
+              </configuration>
+            </execution>
+          </executions>
+          <dependencies>
+            <dependency>
+              <groupId>org.jetbrains.kotlin</groupId>
+              <artifactId>kotlin-maven-allopen</artifactId>
+              <version>${kotlin.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>org.jetbrains.kotlin</groupId>
+              <artifactId>kotlin-maven-noarg</artifactId>
+              <version>${kotlin.version}</version>
+            </dependency>
+          </dependencies>
+        </plugin>
+
+        <plugin>
+          <!-- for packaging springboot application -->
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+          <version>${springboot.version}</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>repackage</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <excludes>
+              <exclude>
+                <groupId>commons-logging</groupId>
+                <artifactId>commons-logging</artifactId>
+              </exclude>
+              <exclude>
+                <groupId>log4j</groupId>
+                <artifactId>log4j</artifactId>
+              </exclude>
+              <exclude>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-core</artifactId>
+              </exclude>
+              <exclude>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+              </exclude>
+            </excludes>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <!-- for running npm build -->
+          <groupId>com.github.eirslett</groupId>
+          <artifactId>frontend-maven-plugin</artifactId>
+          <version>1.12.0</version>
+        </plugin>
+
+        <plugin>
+          <!-- gitflow -->
+          <groupId>com.amashchenko.maven.plugin</groupId>
+          <artifactId>gitflow-maven-plugin</artifactId>
+          <version>1.16.0</version>
+          <configuration>
+            <gitFlowConfig>
+              <productionBranch>master</productionBranch>
+              <developmentBranch>develop</developmentBranch>
+              <featureBranchPrefix>feature/</featureBranchPrefix>
+              <releaseBranchPrefix>release/</releaseBranchPrefix>
+              <hotfixBranchPrefix>hotfix/</hotfixBranchPrefix>
+              <supportBranchPrefix>support/</supportBranchPrefix>
+              <origin>origin</origin>
+            </gitFlowConfig>
+            <useSnapshotInHotfix>true</useSnapshotInHotfix>
+            <useSnapshotInRelease>true</useSnapshotInRelease>
+            <keepBranch>false</keepBranch>
+            <pushRemote>true</pushRemote>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <!-- versions plugin -->
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>versions-maven-plugin</artifactId>
+          <version>2.8.1</version>
+          <configuration>
+            <generateBackupPoms>false</generateBackupPoms>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
+    <plugins>
+      <plugin>
+        <!-- Enforce -->
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <id>enforce-maven</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <configuration>
+              <rules>
+                <requireMavenVersion>
+                  <version>3.6.0</version>
+                </requireMavenVersion>
+                <requireJavaVersion>
+                  <version>11</version>
+                </requireJavaVersion>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <!-- Kotlin -->
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-maven-plugin</artifactId>
+      </plugin>
+
+    </plugins>
+  </build>
+
+  <profiles>
+
+    <!-- Frontend -->
+    <profile>
+      <id>frontend</id>
+      <activation>
+        <property>
+          <name>!skipFrontend</name>
+        </property>
+      </activation>
+      <modules>
+        <!-- Shared frontend modules -->
+        <module>components/tasklist-angular</module>
+        <module>components/process-forms</module>
+      </modules>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.github.eirslett</groupId>
+            <artifactId>frontend-maven-plugin</artifactId>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <!-- I-Test profile (refined in sub-modules) -->
+    <profile>
+      <id>itest</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+      </activation>
+      <properties>
+        <skipFrontend>true</skipFrontend>
+      </properties>
+    </profile>
+
+    <!--
+      Profile for selecting the Camunda BPM Engine version.
+      CE stands for Community Edition
+      EE stands for Enterprise Edition
+    -->
+    <profile>
+      <id>camunda-ce</id>
+      <activation>
+        <property>
+          <name>!camunda-ee</name>
+        </property>
+      </activation>
+      <properties>
+        <camunda.version>${camunda-ce.version}</camunda.version>
+      </properties>
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>org.camunda.bpm.springboot</groupId>
+            <artifactId>camunda-bpm-spring-boot-starter-webapp</artifactId>
+            <version>${camunda.version}</version>
+          </dependency>
+        </dependencies>
+      </dependencyManagement>
+    </profile>
+
+    <profile>
+      <id>camunda-ee</id>
+      <activation>
+        <property>
+          <name>camunda-ee</name>
+        </property>
+      </activation>
+      <properties>
+        <camunda.version>${camunda-ee.version}</camunda.version>
+      </properties>
+      <repositories>
+        <repository>
+          <id>camunda-bpm-ee</id>
+          <name>camunda-bpm-ee</name>
+          <url>https://app.camunda.com/nexus/content/repositories/camunda-bpm-ee</url>
+        </repository>
+      </repositories>
+      <dependencyManagement>
+        <dependencies>
+          <dependency>
+            <groupId>org.camunda.bpm.springboot</groupId>
+            <artifactId>camunda-bpm-spring-boot-starter-webapp-ee</artifactId>
+            <version>${camunda.version}</version>
+          </dependency>
+        </dependencies>
+      </dependencyManagement>
+    </profile>
+
+    <profile>
+      <id>generate-sql</id>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>de.juplo</groupId>
+            <artifactId>hibernate-maven-plugin</artifactId>
+            <version>2.1.1</version>
+            <executions>
+              <execution>
+                <id>generate-h2-ddl</id>
+                <goals>
+                  <goal>create</goal>
+                </goals>
+                <configuration>
+                  <dialect>org.hibernate.dialect.H2Dialect</dialect>
+                  <physicalNamingStrategy>
+                    org.springframework.boot.orm.jpa.hibernate.CamelCaseToUnderscoresNamingStrategy
+                  </physicalNamingStrategy>
+                  <execute>false</execute>
+                  <show>true</show>
+                  <format>true</format>
+                  <outputFile>h2_ddl.sql</outputFile>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+  </profiles>
+
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <scm>
+    <connection>scm:git:git@github.com:holunda-io/polyflow-examples.git</connection>
+    <url>scm:git:git@github.com:holunda-io/polyflow-examples.git</url>
+    <developerConnection>scm:git:git@github.com:holunda-io/polyflow-examples.git</developerConnection>
+    <tag>HEAD</tag>
+  </scm>
+
+  <distributionManagement>
+    <site>
+      <id>docs</id>
+      <name>Documentation</name>
+      <url>https://www.holunda.io/camunda-bpm-taskpool/</url>
+    </site>
+  </distributionManagement>
+
+  <developers>
+    <developer>
+      <id>zambrovski</id>
+      <name>Simon Zambrovski</name>
+      <email>simon.zambrovski@holisticon.de</email>
+      <organization>Holisticon AG</organization>
+      <organizationUrl>https://www.holisticon.de</organizationUrl>
+    </developer>
+    <developer>
+      <id>jangalinski</id>
+      <name>Jan Galinski</name>
+      <email>jan.galinski@holisticon.de</email>
+      <organization>Holisticon AG</organization>
+      <organizationUrl>https://www.holisticon.de</organizationUrl>
+    </developer>
+    <developer>
+      <id>lbilger</id>
+      <name>Lars Bilger</name>
+    </developer>
+    <developer>
+      <id>a-hegerath</id>
+      <name>Andre Hegerath</name>
+    </developer>
+  </developers>
+</project>

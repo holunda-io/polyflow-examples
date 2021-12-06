@@ -1,0 +1,10 @@
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: polyflow
+
+logging.level.io.holunda.polyflow:
+  view.mongo: DEBUG
+
