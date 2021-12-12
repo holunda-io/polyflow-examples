@@ -5,7 +5,7 @@ changelog:
     - title: ":bug: Bug Fixes"
       labels: [ "Type: bug" ]
     - title: ":hammer_and_wrench: Chore"
-      labels: [ "Type: dependencies" ]
+      labels: [ "Type: dependencies", "Type: javascript" ]
   issues:
     exclude:
       labels: [ "Type: Incorrect Repository", "Type: question" ]
