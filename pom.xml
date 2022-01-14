@@ -61,7 +61,8 @@
     <module>components/users</module>
     <module>components/tasklist-reactive-backend</module>
     <module>components/tasklist-backend</module>
-    <module>components/process-backend</module>
+    <module>components/approval/backend</module>
+    <module>components/order-processing/backend</module>
 
     <!-- Example implementations for different scenarios -->
     <module>scenarios</module>
@@ -418,7 +419,7 @@
       <modules>
         <!-- Shared frontend modules -->
         <module>components/tasklist-angular</module>
-        <module>components/process-forms</module>
+        <module>components/approval/process-forms</module>
       </modules>
       <build>
         <plugins>

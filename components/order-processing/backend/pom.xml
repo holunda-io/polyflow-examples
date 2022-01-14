@@ -7,15 +7,15 @@
     <groupId>io.holunda.polyflow</groupId>
     <artifactId>polyflow-examples-parent</artifactId>
     <version>3.1.6-SNAPSHOT</version>
-    <relativePath>../../pom.xml</relativePath>
+    <relativePath>../../../pom.xml</relativePath>
   </parent>
 
-  <artifactId>polyflow-example-process-backend</artifactId>
+  <artifactId>polyflow-example-order-processing-backend</artifactId>
   <name>examples/${project.artifactId}</name>
 
   <properties>
     <rest.api.location>src/main/api</rest.api.location>
-    <rest.api.base-package>io.holunda.polyflow.example.process.approval.rest</rest.api.base-package>
+    <rest.api.base-package>io.holunda.polyflow.example.process.orderprocessing.rest</rest.api.base-package>
     <maven.deploy.skip>true</maven.deploy.skip>
   </properties>
 
@@ -141,7 +141,7 @@
     <dependency>
       <groupId>io.swagger</groupId>
       <artifactId>swagger-annotations</artifactId>
-      <version>1.6.4</version>
+      <version>1.6.3</version>
     </dependency>
     <dependency>
       <groupId>org.openapitools</groupId>

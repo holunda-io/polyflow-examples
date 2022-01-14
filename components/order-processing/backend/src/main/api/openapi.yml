@@ -1,0 +1,35 @@
+openapi: '3.0.3'
+info:
+  title: Example Order Processing Process REST API
+  version: 0.0.1
+  description: API for the example order processing process.
+
+servers:
+  - url: http://localhost:8080/example-process-ordermanagement/rest
+    description: Local example process REST API
+
+paths:
+  '/environment':
+    get:
+      tags:
+        - Environment
+      summary: Retrieives information about the environment.
+      operationId: getEnvironment
+      responses:
+        200:
+          description: Environment can be retrieved.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Environment'
+components:
+  schemas:
+    Environment:
+      type: object
+      properties:
+        applicationName:
+          type: string
+          description: Name of this process application.
+        tasklistUrl:
+          type: string
+          description: URL of the tasklist.
