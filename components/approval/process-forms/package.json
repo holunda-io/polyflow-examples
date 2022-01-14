@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test --code-coverage --watch=false --browsers=ChromeHeadless",
-    "generate-sources": "ng-openapi-gen -i ../process-backend/src/main/api/openapi.yml -o ./src-gen/process",
+    "generate-sources": "ng-openapi-gen -i ../backend/src/main/api/openapi.yml -o ./src-gen/process",
     "watch-test": "ng test --watch=true",
     "lint": "ng lint --fix",
     "e2e": "ng e2e"

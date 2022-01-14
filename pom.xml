@@ -37,7 +37,7 @@
     -->
 
     <springboot.version>2.6.2</springboot.version>
-    <polyflow.version>3.1.6</polyflow.version>
+    <polyflow.version>3.1.8-SNAPSHOT</polyflow.version>
 
     <camunda-ce.version>7.16.0</camunda-ce.version>
     <camunda-ee.version>7.16.1-ee</camunda-ee.version>
@@ -226,6 +226,9 @@
           <groupId>org.jetbrains.kotlin</groupId>
           <version>${kotlin.version}</version>
           <configuration>
+            <jvmTarget>${java.version}</jvmTarget>
+            <languageVersion>1.5</languageVersion>
+            <apiVersion>1.5</apiVersion>
             <compilerPlugins>
               <plugin>spring</plugin>
               <plugin>jpa</plugin>
@@ -237,7 +240,6 @@
               <option>all-open:annotation=org.axonframework.queryhandling.QueryHandler</option>
               <option>all-open:annotation=com.tngtech.jgiven.integration.spring.JGivenStage</option>
             </pluginOptions>
-            <jvmTarget>${java.version}</jvmTarget>
           </configuration>
           <executions>
             <execution>
@@ -564,6 +566,20 @@
       <id>zambrovski</id>
       <name>Simon Zambrovski</name>
       <email>simon.zambrovski@holisticon.de</email>
+      <organization>Holisticon AG</organization>
+      <organizationUrl>https://www.holisticon.de</organizationUrl>
+    </developer>
+    <developer>
+      <id>luchsamapparat</id>
+      <name>Marvin Luchs</name>
+      <email>marvin.luchs@holisticon.de</email>
+      <organization>Holisticon AG</organization>
+      <organizationUrl>https://www.holisticon.de</organizationUrl>
+    </developer>
+    <developer>
+      <id>mrm1st3r</id>
+      <name>Lukas Taake</name>
+      <email>lukas.taakes@holisticon.de</email>
       <organization>Holisticon AG</organization>
       <organizationUrl>https://www.holisticon.de</organizationUrl>
     </developer>
