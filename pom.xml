@@ -49,7 +49,7 @@
 
     <camunda-bpm-mockito.version>5.16.0</camunda-bpm-mockito.version>
     <camunda-bpm-data.version>1.2.5</camunda-bpm-data.version>
-    <version.camunda.spin>1.13.0</version.camunda.spin>
+    <version.camunda.spin>1.13.1</version.camunda.spin>
 
     <springboot-swagger-starter.version>0.3.0</springboot-swagger-starter.version>
     <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
