@@ -13,7 +13,7 @@ class JacksonDataFormatConfigurator : DataFormatConfigurator<JacksonJsonDataForm
 
   override fun configure(dataFormat: JacksonJsonDataFormat) {
     val objectMapper = dataFormat.objectMapper
-    objectMapper.registerModule(KotlinModule())
+    objectMapper.registerModule(KotlinModule.Builder().build())
     objectMapper.registerModule(Jdk8Module())
     objectMapper.registerModule(JavaTimeModule())
   }

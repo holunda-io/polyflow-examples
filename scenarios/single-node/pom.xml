@@ -50,7 +50,7 @@
     <!-- Process application -->
     <dependency>
       <groupId>io.holunda.polyflow</groupId>
-      <artifactId>polyflow-example-process-backend</artifactId>
+      <artifactId>polyflow-example-approval-backend</artifactId>
       <exclusions>
         <exclusion>
           <groupId>org.axonframework</groupId>
@@ -99,7 +99,7 @@
       <dependencies>
         <dependency>
           <groupId>io.holunda.polyflow</groupId>
-          <artifactId>polyflow-example-process-forms</artifactId>
+          <artifactId>polyflow-example-approval-forms</artifactId>
         </dependency>
         <dependency>
           <groupId>io.holunda.polyflow</groupId>

@@ -10,7 +10,7 @@
     <relativePath>../../../pom.xml</relativePath>
   </parent>
 
-  <artifactId>polyflow-example-process-backend</artifactId>
+  <artifactId>polyflow-example-approval-backend</artifactId>
   <name>examples/${project.artifactId}</name>
 
   <properties>
