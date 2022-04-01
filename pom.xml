@@ -36,7 +36,7 @@
       Use the system property: -Dcamunda-ee to enable EE
     -->
 
-    <springboot.version>2.6.5</springboot.version>
+    <springboot.version>2.6.6</springboot.version>
     <polyflow.version>3.1.8-SNAPSHOT</polyflow.version>
 
     <camunda-ce.version>7.16.0</camunda-ce.version>
