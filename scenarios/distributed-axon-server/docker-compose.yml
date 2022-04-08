@@ -14,7 +14,7 @@ volumes:
 
 services:
   postgres:
-    image: postgres:9
+    image: postgres:latest
     container_name: postgres
     environment:
       - POSTGRES_USER=admin
@@ -23,7 +23,7 @@ services:
       - ./.docker/postgresql-init/init.sql:/docker-entrypoint-initdb.d/init.sql
       - postgres-data:/var/lib/postgresql/data
     ports:
-      - 5432:5432
+      - "5432:5432"
     networks:
       - taskpool-net
 
@@ -31,8 +31,8 @@ services:
     image: axoniq/axonserver
     container_name: axonserver
     ports:
-      - 8024:8024
-      - 8124:8124
+      - "8024:8024"
+      - "8124:8124"
     volumes:
       - axonserver-data:/opt/axonserver/data
     networks:
@@ -49,7 +49,7 @@ services:
     image: mongo
     container_name: mongodb
     ports:
-      - 27017:27017
+      - "27017:27017"
     volumes:
       - mongo-data:/data/db
       - ./.docker/mongodb-conf:/etc/mongo

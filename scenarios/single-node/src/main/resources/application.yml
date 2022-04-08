@@ -2,9 +2,17 @@ server:
   port: 8080
 
 spring:
+  profiles:
+    active: jpa
   application:
     name: example-process-approval
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
   jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
     generate-ddl: true
     hibernate.ddl-auto: create-drop
     show-sql: false
@@ -17,6 +25,11 @@ spring:
     template:
       check-template-location: false
 
+axon-gateway:
+  query:
+    type: revision-aware
+    revision-aware:
+      default-query-timeout: 10
 camunda:
   bpm:
     default-serialization-format: application/json
@@ -58,7 +71,7 @@ polyflow:
 
     form-url-resolver:
       default-application-template: "http://localhost:${server.port}/${applicationName}"
-      default-task-template:  "tasks/${formKey}/${id}?userId=%userId%"
+      default-task-template: "tasks/${formKey}/${id}?userId=%userId%"
       default-process-template: "${formKey}?userId=%userId%"
       applications:
         example-process-approval:
@@ -85,10 +98,15 @@ polyflow:
         send-within-transaction: true # Must be set to true in single node scenario.
     tasklist:
       tasklist-url: http://localhost:${server.port}/taskpool/tasks
+  view:
+    jpa:
+      payload-attribute-level-limit: 2
+      stored-items: task, process-instance, process-definition, data-entry
+
 
 logging.level:
   io.holunda.camunda:
-        taskpool.core: DEBUG
+    taskpool.core: DEBUG
   io.holunda.polyflow:
     taskpool:
       collector:
@@ -99,9 +117,11 @@ logging.level:
       view.simple: INFO
     datapool:
       sender: INFO
-
+    view.jpa: DEBUG
 
 # To log REST controllers
 #  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: TRACE
 # To log web access
 # org.springframework.web: DEBUG
+
+

@@ -26,6 +26,7 @@ import {TaskModule} from 'app/task/task.module';
 import {metaReducers} from 'app/meta-reducers';
 import {environment} from 'environments/environment';
 import { HttpClientModule } from '@angular/common/http';
+import {ApiConfiguration} from 'tasklist/api-configuration';
 
 
 registerLocaleData(localeFr, 'fr');
@@ -61,7 +62,10 @@ registerLocaleData(localeEn, 'en');
     TaskModule,
     SharedModule
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: [
+    { provide: ApiConfiguration, useValue: { rootUrl: '/polyflow-platform/rest' }}
+  ]
 })
 export class AppModule {
 }

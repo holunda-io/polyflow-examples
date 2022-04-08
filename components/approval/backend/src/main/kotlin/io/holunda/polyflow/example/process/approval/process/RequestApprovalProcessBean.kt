@@ -33,8 +33,8 @@ class RequestApprovalProcessBean(
    * @param revision revision of te command.
    */
   fun submitDraft(request: Request, originator: String, revision: Long = 1L) {
-    requestService.addRequest(request, originator, revision)
-    startProcess(request.id, originator, revision)
+    val lastRevision = requestService.addRequest(request, originator, revision)
+    startProcess(request.id, originator, lastRevision)
   }
 
   /**

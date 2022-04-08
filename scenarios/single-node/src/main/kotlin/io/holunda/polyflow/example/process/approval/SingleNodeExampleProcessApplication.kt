@@ -1,8 +1,14 @@
 package io.holunda.polyflow.example.process.approval
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.databind.SerializationFeature
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.thoughtworks.xstream.XStream
 import com.thoughtworks.xstream.security.AnyTypePermission
 import io.holixon.axon.gateway.query.RevisionValue
+import io.holunda.polyflow.bus.jackson.config.FallbackPayloadObjectMapperAutoConfiguration
+import io.holunda.polyflow.bus.jackson.configurePolyflowJacksonObjectMapper
 import io.holunda.polyflow.datapool.core.EnablePolyflowDataPool
 import io.holunda.polyflow.example.tasklist.EnableTasklist
 import io.holunda.polyflow.example.users.EnableExampleUsers
@@ -19,6 +25,7 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Primary
 
 /**
  * Starts the single node application.
@@ -43,6 +50,19 @@ fun main(args: Array<String>) {
 @EnableTasklist
 @EnablePropertyBasedFormUrlResolver
 class SingleNodeExampleProcessApplication {
+
+  /**
+   * Custom object mapper.
+   */
+  @Bean
+  @Primary
+  @Qualifier(FallbackPayloadObjectMapperAutoConfiguration.PAYLOAD_OBJECT_MAPPER)
+  fun myObjectMapper(): ObjectMapper {
+    return jacksonObjectMapper()
+      .registerModule(JavaTimeModule())
+      .configurePolyflowJacksonObjectMapper()
+      .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+  }
 
   /**
    * Factory function creating correlation data provider for revision information.

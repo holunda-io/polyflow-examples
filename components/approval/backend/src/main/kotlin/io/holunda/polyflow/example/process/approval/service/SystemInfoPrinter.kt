@@ -24,10 +24,14 @@ class SystemInfoPrinter(
   @Bean
   fun requestPrinter(): ApplicationRunner {
     return ApplicationRunner {
-      val requests = requestService.getAllRequests(1)
-      logger.info("Found ${requests.size} requests.")
-      requests.forEach {
-        logger.info("Request $it")
+      try {
+        val requests = requestService.getAllRequests(1)
+        logger.info("Found ${requests.size} requests.")
+        requests.forEach {
+          logger.info("Request $it")
+        }
+      } catch (e: Exception) {
+        logger.error(e) { "Error loading requests" }
       }
     }
   }
@@ -46,23 +50,27 @@ class SystemInfoPrinter(
   @Bean
   fun processInstancePrinter(): ApplicationRunner {
     return ApplicationRunner {
-      val subscription = queryGateway.subscriptionQuery(
-        ProcessInstancesByStateQuery(setOf(ProcessInstanceState.RUNNING, ProcessInstanceState.SUSPENDED, ProcessInstanceState.FINISHED)),
-        QueryResponseMessageResponseType.queryResponseMessageResponseType<ProcessInstanceQueryResult>(),
-        QueryResponseMessageResponseType.queryResponseMessageResponseType<ProcessInstanceQueryResult>()
-      )
+      try {
+        val subscription = queryGateway.subscriptionQuery(
+          ProcessInstancesByStateQuery(setOf(ProcessInstanceState.RUNNING, ProcessInstanceState.SUSPENDED, ProcessInstanceState.FINISHED)),
+          QueryResponseMessageResponseType.queryResponseMessageResponseType<ProcessInstanceQueryResult>(),
+          QueryResponseMessageResponseType.queryResponseMessageResponseType<ProcessInstanceQueryResult>()
+        )
 
-      subscription
-        .initialResult()
-        .concatWith(subscription.updates())
-        .doOnError {
-          logger.error(it) { "Error received listing process instances" }
-        }
-        .subscribe { result ->
-          result.elements.forEach {
-            logger.info { "Process instance ${it.processInstanceId} (${it.businessKey}) is ${it.state}." }
+        subscription
+          .initialResult()
+          .concatWith(subscription.updates())
+          .doOnError {
+            logger.error(it) { "Error received listing process instances" }
           }
-        }
+          .subscribe { result ->
+            result.elements.forEach {
+              logger.info { "Process instance ${it.processInstanceId} (${it.businessKey}) is ${it.state}." }
+            }
+          }
+      } catch (e: Exception) {
+        logger.error(e) { "Error querying process instances" }
+      }
     }
 
   }

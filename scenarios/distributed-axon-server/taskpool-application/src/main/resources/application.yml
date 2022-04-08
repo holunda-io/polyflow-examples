@@ -4,6 +4,8 @@ server:
 spring:
   application:
     name: taskpool
+  profiles:
+    active: simple # control the view implementation
 
 #axon.serializer:
 #  general: jackson
