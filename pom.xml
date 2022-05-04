@@ -43,15 +43,11 @@
     <camunda-ee.version>7.16.1-ee</camunda-ee.version>
     <camunda-springboot.version>${camunda-ce.version}</camunda-springboot.version>
 
-    <camunda-bpm-assert.version>14.0.0</camunda-bpm-assert.version>
-    <!-- pin assert-core it because BPM Assert can't work with larger version -->
-    <assert-core.version>3.18.1</assert-core.version>
-
+    <camunda-bpm-assert.version>15.0.0</camunda-bpm-assert.version>
     <camunda-bpm-mockito.version>5.16.0</camunda-bpm-mockito.version>
     <camunda-bpm-data.version>1.2.6</camunda-bpm-data.version>
     <version.camunda.spin>1.14.2</version.camunda.spin>
 
-    <springboot-swagger-starter.version>0.3.0</springboot-swagger-starter.version>
     <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
 
   </properties>
@@ -143,14 +139,6 @@
         <version>4.0.0</version>
         <scope>test</scope>
       </dependency>
-
-      <dependency>
-        <groupId>org.assertj</groupId>
-        <artifactId>assertj-core</artifactId>
-        <version>${assert-core.version}</version>
-        <scope>test</scope>
-      </dependency>
-
     </dependencies>
   </dependencyManagement>
 
