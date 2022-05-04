@@ -1,10 +1,10 @@
 package io.holunda.polyflow.example.tasklist.rest.impl
 
 import io.holunda.polyflow.example.tasklist.auth.CurrentUserService
-import io.holunda.polyflow.example.tasklist.rest.api.ProcessesApi
-import io.holunda.polyflow.example.tasklist.rest.model.ProcessDefinitionDto
 import io.holunda.polyflow.example.tasklist.rest.Rest
+import io.holunda.polyflow.example.tasklist.rest.api.ProcessApi
 import io.holunda.polyflow.example.tasklist.rest.mapper.ProcessDefinitionMapper
+import io.holunda.polyflow.example.tasklist.rest.model.ProcessDefinitionDto
 import io.holunda.polyflow.view.ProcessDefinition
 import io.holunda.polyflow.view.auth.UserService
 import io.holunda.polyflow.view.query.process.ProcessDefinitionsStartableByUserQuery
@@ -27,7 +27,7 @@ class StartableProcessDefinitionResource(
   private val userService: UserService,
   private val queryGateway: QueryGateway,
   private val mapper: ProcessDefinitionMapper
-) : ProcessesApi {
+) : ProcessApi {
 
   override fun getStartableProcesses(
     @RequestHeader(

@@ -60,16 +60,9 @@
       <artifactId>jackson-databind-nullable</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.springfox</groupId>
-      <artifactId>springfox-swagger2</artifactId>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-ui</artifactId>
     </dependency>
-
-    <!--
-    <dependency>
-      <groupId>io.toolisticon.springboot</groupId>
-      <artifactId>springboot-swagger-starter</artifactId>
-    </dependency>
-    -->
 
     <!-- Axon -->
     <dependency>
@@ -118,51 +111,6 @@
   <build>
     <plugins>
       <plugin>
-        <artifactId>maven-resources-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>copy-swagger-ignore</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>copy-resources</goal>
-            </goals>
-            <configuration>
-              <outputDirectory>${project.build.directory}/generated-sources/openapi</outputDirectory>
-              <resources>
-                <resource>
-                  <directory>src/main/api</directory>
-                  <includes>
-                    <include>.openapi-generator-ignore</include>
-                    <include>openapi.yml</include>
-                  </includes>
-                </resource>
-              </resources>
-            </configuration>
-          </execution>
-
-          <!--
-          Enforce resource copy. This is a fix of Kotlin incremental Compiler bug. See
-          https://discuss.kotlinlang.org/t/kotlin-compiler-incremental-not-copying-resources/5640/5
-          -->
-          <execution>
-            <id>extra-copy-resources</id>
-            <phase>process-classes</phase>
-            <goals>
-              <goal>resources</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>extra-copy-test-resources</id>
-            <phase>process-test-classes</phase>
-            <goals>
-              <goal>testResources</goal>
-            </goals>
-          </execution>
-
-        </executions>
-      </plugin>
-
-      <plugin>
         <groupId>org.openapitools</groupId>
         <artifactId>openapi-generator-maven-plugin</artifactId>
         <executions>
@@ -173,23 +121,24 @@
               <goal>generate</goal>
             </goals>
             <configuration>
-              <inputSpec>${project.build.directory}/generated-sources/openapi/openapi.yml</inputSpec>
+              <inputSpec>${project.basedir}/src/main/api/openapi.yml</inputSpec>
               <generatorName>spring</generatorName>
               <apiPackage>${api.base-package}.api</apiPackage>
               <modelPackage>${api.base-package}.model</modelPackage>
               <modelNamePrefix/>
               <modelNameSuffix>Dto</modelNameSuffix>
+              <ignoreFileOverride>${project.basedir}/src/main/api/.openapi-generator-ignore</ignoreFileOverride>
               <configOptions>
                 <sourceFolder>src/main/java</sourceFolder>
                 <basePackage>${api.base-package}</basePackage>
                 <configPackage>${api.base-package}</configPackage>
                 <interfaceOnly>true</interfaceOnly>
                 <dateLibrary>java8</dateLibrary>
-                <swaggerDocketConfig>false</swaggerDocketConfig>
                 <reactive>false</reactive>
                 <bigDecimalAsString>true</bigDecimalAsString>
                 <useOptional>true</useOptional>
-                <useBeanValidation>true</useBeanValidation>
+                <performBeanValidation>true</performBeanValidation>
+                <useTags>true</useTags>
               </configOptions>
             </configuration>
           </execution>

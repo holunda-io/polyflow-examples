@@ -3,7 +3,9 @@ package io.holunda.polyflow.example.tasklist.rest.impl
 import io.holunda.polyflow.example.tasklist.auth.CurrentUserService
 import io.holunda.polyflow.example.tasklist.rest.Rest
 import io.holunda.polyflow.example.tasklist.rest.api.ProfileApi
+import io.holunda.polyflow.example.tasklist.rest.model.UserInfoDto
 import io.holunda.polyflow.example.tasklist.rest.model.UserProfileDto
+import io.holunda.polyflow.example.users.UserStoreService
 import io.holunda.polyflow.view.auth.User
 import io.holunda.polyflow.view.auth.UserService
 import org.springframework.http.ResponseEntity
@@ -18,10 +20,15 @@ import java.util.*
 @RequestMapping(Rest.REQUEST_PATH)
 class UserProfileResource(
   private val currentUserService: CurrentUserService,
-  private val userService: UserService
+  private val userService: UserService,
+  private val userStoreService: UserStoreService
 ) : ProfileApi {
 
-  override fun getProfile(@RequestHeader(value = "X-Current-User-ID", required = false) xCurrentUserID: Optional<String>): ResponseEntity<UserProfileDto> {
+  companion object {
+    const val HEADER_CURRENT_USER = "X-Current-User-ID"
+  }
+
+  override fun getProfile(@RequestHeader(value = HEADER_CURRENT_USER, required = false) xCurrentUserID: Optional<String>): ResponseEntity<UserProfileDto> {
 
     val userIdentifier = xCurrentUserID.orElseGet { currentUserService.getCurrentUser() }
     // retrieve the user
@@ -29,5 +36,12 @@ class UserProfileResource(
 
     return ResponseEntity.ok(UserProfileDto().username(user.username))
   }
+
+  override fun getUsers(): ResponseEntity<List<UserInfoDto>> {
+    return ResponseEntity.ok(
+      userStoreService.getUserIdentifiers().map { UserInfoDto().id(it.key).username(it.value) }
+    )
+  }
+
 
 }

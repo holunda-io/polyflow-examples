@@ -124,7 +124,7 @@ paths:
       operationId: loadTaskApproveRequestFormData
       responses:
         200:
-          description: Sucessful operation.
+          description: Successful operation.
           content:
             application/json:
               schema:
@@ -142,7 +142,7 @@ paths:
       operationId: submitTaskApproveRequestSubmitData
       responses:
         201:
-          description: Sucessful operation.
+          description: Successful operation.
 
   '/amend-request/id/{id}':
     parameters:
@@ -165,7 +165,7 @@ paths:
       operationId: loadTaskAmendRequestFormData
       responses:
         200:
-          description: Sucessful operation.
+          description: Successful operation.
           content:
             application/json:
               schema:
@@ -183,7 +183,7 @@ paths:
       operationId: submitTaskAmendRequestSubmitData
       responses:
         201:
-          description: Sucessful operation.
+          description: Successful operation.
 
 components:
   schemas:

@@ -13,8 +13,6 @@ import io.holunda.polyflow.view.auth.User
 import io.holunda.polyflow.view.auth.UserService
 import io.holunda.polyflow.view.query.data.DataEntriesForUserQuery
 import io.holunda.polyflow.view.query.data.DataEntriesQueryResult
-import io.swagger.annotations.Api
-import io.swagger.annotations.ApiParam
 import org.axonframework.messaging.GenericMessage
 import org.axonframework.queryhandling.QueryGateway
 import org.springframework.http.ResponseEntity
@@ -23,7 +21,6 @@ import org.springframework.http.ResponseEntity.ok
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
-@Api(tags = ["Request"])
 @RestController
 @RequestMapping(path = [Rest.REST_PREFIX])
 class RequestController(
@@ -50,8 +47,8 @@ class RequestController(
 
 
   override fun getApprovalRequest(
-    @ApiParam(value = "Specifies the id of current user.", required = true) @RequestHeader(value = "X-Current-User-ID", required = true) xCurrentUserID: String,
-    @ApiParam(value = "Request id.", required = true) @PathVariable("id") id: String
+    @RequestHeader(value = "X-Current-User-ID", required = true) xCurrentUserID: String,
+    @PathVariable("id") id: String
   ): ResponseEntity<ApprovalRequestDto> {
 
     // val username = userService.getUser(xCurrentUserID).username
