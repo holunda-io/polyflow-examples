@@ -47,7 +47,7 @@
     <camunda-bpm-mockito.version>5.16.0</camunda-bpm-mockito.version>
     <camunda-bpm-data.version>1.2.6</camunda-bpm-data.version>
     <version.camunda.spin>1.14.2</version.camunda.spin>
-
+    <springdoc.version>1.6.7</springdoc.version>
     <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
 
   </properties>
@@ -115,10 +115,11 @@
         <version>0.2.2</version>
       </dependency>
       <dependency>
-        <groupId>io.springfox</groupId>
-        <artifactId>springfox-swagger2</artifactId>
-        <version>3.0.0</version>
+        <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-ui</artifactId>
+        <version>${springdoc.version}</version>
       </dependency>
+
       <!-- Camunda BPM Data -->
       <dependency>
         <groupId>io.holunda.data</groupId>
@@ -205,7 +206,7 @@
           <!-- Open API generator -->
           <groupId>org.openapitools</groupId>
           <artifactId>openapi-generator-maven-plugin</artifactId>
-          <version>5.3.1</version>
+          <version>5.4.0</version>
         </plugin>
 
         <plugin>

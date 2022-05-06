@@ -5,7 +5,11 @@ spring:
   application:
     name: taskpool
   profiles:
-    active: simple # control the view implementation
+    active: jpa # control the view implementation
+
+springdoc:
+  packagesToScan: io.holunda.polyflow.example.tasklist.rest.impl
+  auto-tag-classes: false
 
 #axon.serializer:
 #  general: jackson

@@ -62,8 +62,8 @@
       <artifactId>jackson-databind-nullable</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.springfox</groupId>
-      <artifactId>springfox-swagger2</artifactId>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-ui</artifactId>
     </dependency>
     <!-- Axon -->
     <dependency>
@@ -93,7 +93,6 @@
       <plugin>
         <artifactId>maven-resources-plugin</artifactId>
         <executions>
-
           <execution>
             <id>copy-rest-api</id>
             <phase>generate-sources</phase>
@@ -112,26 +111,6 @@
               </resources>
             </configuration>
           </execution>
-
-          <!--
-          Enforce resource copy. This is a fix of Kotlin incremental Compiler bug. See
-          https://discuss.kotlinlang.org/t/kotlin-compiler-incremental-not-copying-resources/5640/5
-          -->
-          <execution>
-            <id>extra-copy-resources</id>
-            <phase>process-classes</phase>
-            <goals>
-              <goal>resources</goal>
-            </goals>
-          </execution>
-          <execution>
-            <id>extra-copy-test-resources</id>
-            <phase>process-test-classes</phase>
-            <goals>
-              <goal>testResources</goal>
-            </goals>
-          </execution>
-
         </executions>
       </plugin>
 
@@ -146,12 +125,13 @@
               <goal>generate</goal>
             </goals>
             <configuration>
-              <inputSpec>${project.build.directory}/openapi-model/openapi.yml</inputSpec>
+              <inputSpec>${project.basedir}/${application.api-location}/openapi.yml</inputSpec>
               <generatorName>spring</generatorName>
               <apiPackage>${application.base-package}.api</apiPackage>
               <modelPackage>${application.base-package}.model</modelPackage>
               <modelNamePrefix/>
               <modelNameSuffix>Dto</modelNameSuffix>
+              <ignoreFileOverride>${project.basedir}/${application.api-location}/.openapi-generator-ignore</ignoreFileOverride>
               <configOptions>
                 <sourceFolder>src/main/java</sourceFolder>
                 <basePackage>${application.base-package}</basePackage>

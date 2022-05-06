@@ -17,7 +17,7 @@ tags:
     description: User's profile.
   - name: Process
     description: Operations on process definitions, instances.
-  - name: Business Data
+  - name: BusinessData
     description: Operation on business data entries.
 
 paths:
@@ -335,7 +335,7 @@ paths:
           type: string
     get:
       tags:
-        - Business Data
+        - BusinessData
       summary: Lists business objects.
       operationId: getBusinessDataEntries
       responses:

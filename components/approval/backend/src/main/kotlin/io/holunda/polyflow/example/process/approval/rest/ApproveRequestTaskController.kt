@@ -5,8 +5,6 @@ import io.holunda.polyflow.example.process.approval.rest.api.ApproveRequestApi
 import io.holunda.polyflow.example.process.approval.rest.model.TaskApproveRequestFormDataDto
 import io.holunda.polyflow.example.process.approval.rest.model.TaskApproveRequestSubmitDataDto
 import io.holunda.polyflow.view.auth.UserService
-import io.swagger.annotations.Api
-import io.swagger.annotations.ApiParam
 import mu.KLogging
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestHeader
 import org.springframework.web.bind.annotation.RequestMapping
 import javax.validation.Valid
 
-@Api(tags = ["User Task Approve Request"])
 @Controller
 @RequestMapping(path = [Rest.REST_PREFIX])
 class ApproveRequestTaskController(
@@ -28,8 +25,8 @@ class ApproveRequestTaskController(
   companion object : KLogging()
 
   override fun loadTaskApproveRequestFormData(
-    @ApiParam(value = "Task id.", required = true) @PathVariable("id") id: String,
-    @ApiParam(value = "Specifies the id of current user.", required = true) @RequestHeader(value = "X-Current-User-ID", required = true) xCurrentUserID: String
+    @PathVariable("id") id: String,
+    @RequestHeader(value = "X-Current-User-ID", required = true) xCurrentUserID: String
   ): ResponseEntity<TaskApproveRequestFormDataDto> {
 
     val username = userService.getUser(xCurrentUserID).username
@@ -41,9 +38,9 @@ class ApproveRequestTaskController(
 
   @Transactional
   override fun submitTaskApproveRequestSubmitData(
-    @ApiParam(value = "Task id.", required = true) @PathVariable("id") id: String,
-    @ApiParam(value = "Specifies the id of current user.", required = true) @RequestHeader(value = "X-Current-User-ID", required = true) xCurrentUserID: String,
-    @ApiParam(value = "Payload to be added to the process instance on task completion.") @Valid @RequestBody payload: TaskApproveRequestSubmitDataDto
+    @PathVariable("id") id: String,
+    @RequestHeader(value = "X-Current-User-ID", required = true) xCurrentUserID: String,
+    @Valid @RequestBody payload: TaskApproveRequestSubmitDataDto
   ): ResponseEntity<Void> {
 
     val username = userService.getUser(xCurrentUserID).username

@@ -1,12 +1,12 @@
-package io.holunda.polyflow.example.tasklist.io.holunda.polyflow.example.tasklist.rest.impl
+package io.holunda.polyflow.example.tasklist.rest.impl
 
 import io.holixon.axon.gateway.query.QueryResponseMessageResponseType
 import io.holunda.polyflow.example.tasklist.auth.CurrentUserService
-import io.holunda.polyflow.example.tasklist.rest.api.BusinessDataEntriesApi
-import io.holunda.polyflow.example.tasklist.rest.model.DataEntryDto
 import io.holunda.polyflow.example.tasklist.rest.Rest
-import io.holunda.polyflow.example.tasklist.rest.impl.TasksResource
+import io.holunda.polyflow.example.tasklist.rest.api.BusinessDataApi
+import io.holunda.polyflow.example.tasklist.rest.impl.UserProfileResource.Companion.HEADER_CURRENT_USER
 import io.holunda.polyflow.example.tasklist.rest.mapper.TaskWithDataEntriesMapper
+import io.holunda.polyflow.example.tasklist.rest.model.DataEntryDto
 import io.holunda.polyflow.view.auth.UserService
 import io.holunda.polyflow.view.query.data.DataEntriesForUserQuery
 import io.holunda.polyflow.view.query.data.DataEntriesQueryResult
@@ -27,19 +27,18 @@ class BusinessDataEntriesResource(
   private val currentUserService: CurrentUserService,
   private val userService: UserService,
   private val mapper: TaskWithDataEntriesMapper
-) : BusinessDataEntriesApi {
+) : BusinessDataApi {
 
   override fun getBusinessDataEntries(
     @RequestParam(value = "page") page: Optional<Int>,
     @RequestParam(value = "size") size: Optional<Int>,
     @RequestParam(value = "sort") sort: Optional<String>,
     @RequestParam(value = "filter") filters: Optional<List<String>>,
-    @RequestHeader(value = "X-Current-User-ID", required = false) xCurrentUserID: Optional<String>
+    @RequestHeader(value = HEADER_CURRENT_USER, required = false) xCurrentUserID: Optional<String>
   ): ResponseEntity<List<DataEntryDto>> {
 
     val userIdentifier = xCurrentUserID.orElseGet { currentUserService.getCurrentUser() }
     val user = userService.getUser(userIdentifier)
-
 
     @Suppress("UNCHECKED_CAST")
     val result: DataEntriesQueryResult = queryGateway
@@ -56,7 +55,7 @@ class BusinessDataEntriesResource(
       .join()
 
     val responseHeaders = HttpHeaders().apply {
-      this[TasksResource.HEADER_ELEMENT_COUNT] = result.totalElementCount.toString()
+      this[TaskResource.HEADER_ELEMENT_COUNT] = result.totalElementCount.toString()
     }
 
     return ResponseEntity.ok()

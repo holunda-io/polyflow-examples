@@ -26,6 +26,15 @@ spring:
 
 camunda:
   bpm:
+    login:
+      enabled: true
+      user-id: admin
+    admin-user:
+      email: admin@local
+      id: admin
+      first-name: Adminus
+      last-name: Administratius
+      password: admin
     default-serialization-format: application/json
     authorization:
       enabled: false
