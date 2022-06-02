@@ -37,7 +37,7 @@
     -->
 
     <springboot.version>2.6.7</springboot.version>
-    <polyflow.version>3.2.0</polyflow.version>
+    <polyflow.version>3.2.1</polyflow.version>
 
     <camunda-ce.version>7.16.0</camunda-ce.version>
     <camunda-ee.version>7.16.1-ee</camunda-ee.version>
@@ -144,6 +144,7 @@
   </dependencyManagement>
 
   <build>
+    <defaultGoal>clean package</defaultGoal>
     <pluginManagement>
       <plugins>
 

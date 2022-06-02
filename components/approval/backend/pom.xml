@@ -38,6 +38,11 @@
       <artifactId>axon-gateway-spring-boot-starter</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>org.camunda.bpm.springboot</groupId>
+      <artifactId>camunda-bpm-spring-boot-starter</artifactId>
+    </dependency>
+
     <!-- SpringBoot -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
