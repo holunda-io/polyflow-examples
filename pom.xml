@@ -19,7 +19,7 @@
     <version.java>${java.version}</version.java>
     <version.java>${java.version}</version.java>
 
-    <kotlin.version>1.6.21</kotlin.version>
+    <kotlin.version>1.7.0</kotlin.version>
     <kotlin.compiler.jvmTarget>${java.version}</kotlin.compiler.jvmTarget>
     <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
     <kotlin-logging.version>2.1.14</kotlin-logging.version>
@@ -36,8 +36,8 @@
       Use the system property: -Dcamunda-ee to enable EE
     -->
 
-    <springboot.version>2.6.7</springboot.version>
-    <polyflow.version>3.2.0</polyflow.version>
+    <springboot.version>2.7.1</springboot.version>
+    <polyflow.version>3.2.2</polyflow.version>
 
     <camunda-ce.version>7.16.0</camunda-ce.version>
     <camunda-ee.version>7.16.1-ee</camunda-ee.version>
@@ -45,10 +45,10 @@
 
     <camunda-bpm-assert.version>15.0.0</camunda-bpm-assert.version>
     <camunda-bpm-mockito.version>5.16.0</camunda-bpm-mockito.version>
-    <camunda-bpm-data.version>1.2.6</camunda-bpm-data.version>
     <version.camunda.spin>1.16.0</version.camunda.spin>
+    <camunda-bpm-data.version>1.2.7</camunda-bpm-data.version>
     <springdoc.version>1.6.9</springdoc.version>
-    <org.mapstruct.version>1.4.2.Final</org.mapstruct.version>
+    <org.mapstruct.version>1.5.2.Final</org.mapstruct.version>
 
   </properties>
 
@@ -144,6 +144,7 @@
   </dependencyManagement>
 
   <build>
+    <defaultGoal>clean package</defaultGoal>
     <pluginManagement>
       <plugins>
 
@@ -206,7 +207,7 @@
           <!-- Open API generator -->
           <groupId>org.openapitools</groupId>
           <artifactId>openapi-generator-maven-plugin</artifactId>
-          <version>5.4.0</version>
+          <version>6.0.0</version>
         </plugin>
 
         <plugin>
@@ -368,7 +369,7 @@
         <!-- Enforce -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.0.0</version>
+        <version>3.1.0</version>
         <executions>
           <execution>
             <id>enforce-maven</id>
