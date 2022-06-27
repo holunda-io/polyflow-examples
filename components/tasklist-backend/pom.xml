@@ -23,7 +23,8 @@
   <dependencies>
     <dependency>
       <groupId>io.holunda.polyflow</groupId>
-      <artifactId>polyflow-view-api</artifactId>
+      <artifactId>polyflow-view-api-client</artifactId>
+      <version>${polyflow.version}</version>
     </dependency>
     <dependency>
       <groupId>io.holunda.polyflow</groupId>

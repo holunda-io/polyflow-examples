@@ -1,7 +1,7 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/process
-    username: process_user
+    url: jdbc:postgresql://localhost:5432/polyflow
+    username: polyflow_user
     password: S3Cr3T!
   jpa:
     generate-ddl: false

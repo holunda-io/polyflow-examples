@@ -6,6 +6,7 @@ import io.holunda.polyflow.example.tasklist.rest.api.ProcessApi
 import io.holunda.polyflow.example.tasklist.rest.mapper.ProcessDefinitionMapper
 import io.holunda.polyflow.example.tasklist.rest.model.ProcessDefinitionDto
 import io.holunda.polyflow.view.ProcessDefinition
+import io.holunda.polyflow.view.ProcessDefinitionQueryClient
 import io.holunda.polyflow.view.auth.UserService
 import io.holunda.polyflow.view.query.process.ProcessDefinitionsStartableByUserQuery
 import org.axonframework.messaging.responsetypes.ResponseTypes
@@ -25,9 +26,11 @@ import java.util.*
 class StartableProcessDefinitionResource(
   private val currentUserService: CurrentUserService,
   private val userService: UserService,
-  private val queryGateway: QueryGateway,
+  queryGateway: QueryGateway,
   private val mapper: ProcessDefinitionMapper
 ) : ProcessApi {
+
+  val processDefinitionQueryClient: ProcessDefinitionQueryClient = ProcessDefinitionQueryClient(queryGateway)
 
   override fun getStartableProcesses(
     @RequestHeader(
@@ -39,11 +42,7 @@ class StartableProcessDefinitionResource(
     val userIdentifier = xCurrentUserID.orElseGet { currentUserService.getCurrentUser() }
     val user = userService.getUser(userIdentifier)
 
-    val result: List<ProcessDefinition> = queryGateway
-      .query(
-        ProcessDefinitionsStartableByUserQuery(user = user),
-        ResponseTypes.multipleInstancesOf(ProcessDefinition::class.java)
-      ).join()
+    val result: List<ProcessDefinition> = processDefinitionQueryClient.query(ProcessDefinitionsStartableByUserQuery(user = user)).join()
 
     return ok()
       .body(result.map { mapper.dto(it) })

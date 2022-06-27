@@ -5,7 +5,7 @@ spring:
     name: example-process-approval
   datasource:
     url: jdbc:postgresql://localhost:5432/process
-    username: process_user
+    username: polyflow_user
     password: S3Cr3T!
   jpa:
     generate-ddl: false

@@ -7,6 +7,7 @@ import io.holunda.polyflow.example.tasklist.rest.api.BusinessDataApi
 import io.holunda.polyflow.example.tasklist.rest.impl.UserProfileResource.Companion.HEADER_CURRENT_USER
 import io.holunda.polyflow.example.tasklist.rest.mapper.TaskWithDataEntriesMapper
 import io.holunda.polyflow.example.tasklist.rest.model.DataEntryDto
+import io.holunda.polyflow.view.DataEntryQueryClient
 import io.holunda.polyflow.view.auth.UserService
 import io.holunda.polyflow.view.query.data.DataEntriesForUserQuery
 import io.holunda.polyflow.view.query.data.DataEntriesQueryResult
@@ -23,11 +24,13 @@ import java.util.*
 @CrossOrigin
 @RequestMapping(Rest.REQUEST_PATH)
 class BusinessDataEntriesResource(
-  private val queryGateway: QueryGateway,
+  queryGateway: QueryGateway,
   private val currentUserService: CurrentUserService,
   private val userService: UserService,
   private val mapper: TaskWithDataEntriesMapper
 ) : BusinessDataApi {
+
+  val businessDataEntriesQueryClient = DataEntryQueryClient(queryGateway)
 
   override fun getBusinessDataEntries(
     @RequestParam(value = "page") page: Optional<Int>,
@@ -41,7 +44,7 @@ class BusinessDataEntriesResource(
     val user = userService.getUser(userIdentifier)
 
     @Suppress("UNCHECKED_CAST")
-    val result: DataEntriesQueryResult = queryGateway
+    val result: DataEntriesQueryResult = businessDataEntriesQueryClient
       .query(
         DataEntriesForUserQuery(
           user = user,
@@ -49,8 +52,7 @@ class BusinessDataEntriesResource(
           size = size.orElse(Int.MAX_VALUE),
           sort = sort.orElseGet { "" },
           filters = filters.orElseGet { listOf() }
-        ),
-        QueryResponseMessageResponseType.queryResponseMessageResponseType<DataEntriesQueryResult>()
+        )
       )
       .join()
 
