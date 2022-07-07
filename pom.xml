@@ -46,7 +46,7 @@
 
     <camunda-bpm-assert.version>15.0.0</camunda-bpm-assert.version>
     <camunda-bpm-mockito.version>5.16.0</camunda-bpm-mockito.version>
-    <version.camunda.spin>1.16.0</version.camunda.spin>
+    <version.camunda.spin>1.17.0</version.camunda.spin>
     <camunda-bpm-data.version>1.2.7</camunda-bpm-data.version>
     <springdoc.version>1.6.9</springdoc.version>
     <org.mapstruct.version>1.5.2.Final</org.mapstruct.version>
