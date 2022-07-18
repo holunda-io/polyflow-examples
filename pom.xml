@@ -38,7 +38,7 @@
 
 
     <springboot.version>2.7.1</springboot.version>
-    <polyflow.version>3.2.3-SNAPSHOT</polyflow.version>
+    <polyflow.version>3.3.0</polyflow.version>
 
     <camunda-ce.version>7.16.0</camunda-ce.version>
     <camunda-ee.version>7.16.1-ee</camunda-ee.version>
