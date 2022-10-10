@@ -49,7 +49,7 @@
     <version.camunda.spin>1.18.0</version.camunda.spin>
     <camunda-bpm-data.version>1.2.7</camunda-bpm-data.version>
     <springdoc.version>1.6.11</springdoc.version>
-    <org.mapstruct.version>1.5.2.Final</org.mapstruct.version>
+    <org.mapstruct.version>1.5.3.Final</org.mapstruct.version>
 
   </properties>
 
