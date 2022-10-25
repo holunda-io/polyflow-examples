@@ -6,8 +6,8 @@ import io.holunda.polyflow.view.FormUrlResolver
 import io.holunda.polyflow.view.ProcessDefinition
 import io.holunda.polyflow.view.Task
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.Before
-import org.junit.Test
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.mapstruct.factory.Mappers
 import org.springframework.test.util.ReflectionTestUtils
 
@@ -30,7 +30,7 @@ class TaskWithDataEntriesMapperTest {
 
   private val mapper = Mappers.getMapper(TaskWithDataEntriesMapper::class.java)!!
 
-  @Before
+  @BeforeEach
   fun setUp() {
     ReflectionTestUtils.setField(mapper, "formUrlResolver", formUrlResolver)
   }

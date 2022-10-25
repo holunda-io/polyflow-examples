@@ -32,8 +32,9 @@ polyflow:
             io.holunda.camunda.taskpool.example.ApprovalRequest: "approval-request/${entryId}?userId=%userId%"
 
 logging.level:
-  io.holunda.polyflow.core:
-    taskpool: WARN
+  io.holunda.polyflow:
+    core.taskpool: WARN
     view.simple.service.DataEntryService : DEBUG
     view.simple.service.TaskPoolService : INFO
+    view.jpa.JpaPolyflowViewProcessDefinitionService : DEBUG
     example.tasklist: WARN

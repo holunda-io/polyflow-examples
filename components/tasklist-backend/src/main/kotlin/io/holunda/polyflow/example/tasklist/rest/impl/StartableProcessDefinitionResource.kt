@@ -42,7 +42,8 @@ class StartableProcessDefinitionResource(
     val userIdentifier = xCurrentUserID.orElseGet { currentUserService.getCurrentUser() }
     val user = userService.getUser(userIdentifier)
 
-    val result: List<ProcessDefinition> = processDefinitionQueryClient.query(ProcessDefinitionsStartableByUserQuery(user = user)).join()
+    val queryResult = processDefinitionQueryClient.query(ProcessDefinitionsStartableByUserQuery(user = user))
+    val result: List<ProcessDefinition> = queryResult.join()
 
     return ok()
       .body(result.map { mapper.dto(it) })
