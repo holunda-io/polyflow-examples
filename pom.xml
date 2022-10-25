@@ -278,25 +278,6 @@
           </configuration>
           <executions>
             <execution>
-              <id>kapt</id>
-              <goals>
-                <goal>kapt</goal>
-              </goals>
-              <configuration>
-                <sourceDirs>
-                  <sourceDir>${project.basedir}/target/generated-sources/openapi/src/main/java</sourceDir>
-                  <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
-                </sourceDirs>
-                <annotationProcessorPaths>
-                  <annotationProcessorPath>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-configuration-processor</artifactId>
-                    <version>${springboot.version}</version>
-                  </annotationProcessorPath>
-                </annotationProcessorPaths>
-              </configuration>
-            </execution>
-            <execution>
               <id>compile</id>
               <goals>
                 <goal>compile</goal>
