@@ -2,13 +2,12 @@ package io.holunda.polyflow.example.tasklist.rest.impl
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.holunda.camunda.taskpool.api.task.*
-import io.holunda.polyflow.example.tasklist.rest.Rest.REQUEST_PATH
 import io.holunda.polyflow.example.tasklist.itest.ITestApplication
 import io.holunda.polyflow.example.tasklist.itest.ITestApplication.Companion.ITEST
+import io.holunda.polyflow.example.tasklist.rest.Rest.REQUEST_PATH
 import io.holunda.polyflow.view.Task
-import org.junit.Before
-import org.junit.Test
-import org.junit.runner.RunWith
+import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.Test
 import org.mockito.kotlin.any
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
@@ -17,7 +16,6 @@ import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
 import org.springframework.test.context.ActiveProfiles
-import org.springframework.test.context.junit4.SpringRunner
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
@@ -29,10 +27,9 @@ import java.time.ZoneOffset.UTC
 import java.util.*
 
 
-@RunWith(SpringRunner::class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = [ITestApplication::class])
 @ActiveProfiles(ITEST)
-internal class TaskResourceITest {
+internal class TaskResourceIT {
 
   private lateinit var mockMvc: MockMvc
 
@@ -48,7 +45,7 @@ internal class TaskResourceITest {
   @Autowired
   private lateinit var objectMapper: ObjectMapper
 
-  @Before
+  @BeforeEach
   fun setup() {
     this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build()
   }

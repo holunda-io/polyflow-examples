@@ -28,7 +28,7 @@ services:
       - taskpool-net
 
   axonserver:
-    image: axoniq/axonserver
+    image: axoniq/axonserver:latest
     container_name: axonserver
     ports:
       - "8024:8024"
@@ -46,7 +46,7 @@ services:
       AXONIQ_AXONSERVER_AUTOCLUSTER_FIRST: "localhost"
 
   mongodb:
-    image: mongo
+    image: mongo:4.4
     container_name: mongodb
     ports:
       - "27017:27017"
@@ -59,6 +59,8 @@ services:
       - "/etc/mongo/mongod.conf"
       - "--wiredTigerCacheSizeGB"
       - "0.5"
+      - "--replSet"
+      - "replocal"
     networks:
       - taskpool-net
 
