@@ -8,20 +8,12 @@ servers:
   - url: http://localhost:8080/example-process-approval/rest
     description: Local example process REST API
 
-tags:
-- name: Request
-  description: Operations to manipulate requests.
-- name: User Task Amend Request
-  description: Operations on task amend request.
-- name: User Task Approve Request
-  description: Operations on task approve request.
-
 paths:
   '/environment':
     get:
       tags:
         - Environment
-      summary: Retrieives information about the environment.
+      summary: Retrieves information about the environment.
       operationId: getEnvironment
       responses:
         200:
@@ -46,10 +38,10 @@ paths:
           type: string
         required: false
     post:
-      tags:
-        - Request
       summary: Create a new approval request draft and starts approval process.
       operationId: startNewApproval
+      tags:
+        - Request
       requestBody:
         description: Request to be approved.
         content:
@@ -59,12 +51,12 @@ paths:
 
       responses:
         201:
-          description: Sucessful operation.
+          description: Successful operation.
     get:
-      tags:
-        - Request
       summary: Retrieves all events known by the projections.
       operationId: getApprovalForUser
+      tags:
+        - Request
       responses:
         200:
           description: Successful operation.
@@ -91,17 +83,33 @@ paths:
         description: Request id.
         required: true
     get:
-      tags:
-        - Request
       summary: Loads request for specified id.
       operationId: getApprovalRequest
+      tags:
+        - Request
       responses:
         200:
-          description: Sucessful operation.
+          description: Successful operation.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApprovalRequest'
+    post:
+      summary: Modifies existing request.
+      operationId: updateApprovalRequest
+      tags:
+        - Request
+      requestBody:
+        description: Request to be with modification.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApprovalRequest'
+
+      responses:
+        204:
+          description: Successful operation.
+                
 
   '/approve-request/id/{id}':
     parameters:
@@ -118,10 +126,10 @@ paths:
           type: string
         required: true
     get:
-      tags:
-        - User Task Approve Request
       summary: Retrieves information about the task approve request with specified id.
       operationId: loadTaskApproveRequestFormData
+      tags:
+        - User Task Approve Request
       responses:
         200:
           description: Successful operation.
@@ -130,9 +138,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/TaskApproveRequestFormData'
     post:
+      summary: Receives form data for the completion of the task approve request with specified id.
       tags:
         - User Task Approve Request
-      summary: Receives form data for the completion of the task approve request with specified id.
       requestBody:
         description: Payload to be added to the process instance on task completion.
         content:
@@ -159,10 +167,10 @@ paths:
           type: string
         required: true
     get:
-      tags:
-        - User Task Amend Request
       summary: Retrieves information about the task amend request with specified id.
       operationId: loadTaskAmendRequestFormData
+      tags:
+        - User Task Amend Request
       responses:
         200:
           description: Successful operation.
@@ -171,9 +179,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/TaskAmendRequestFormData'
     post:
+      summary: Receives form data for the completion of the task amend request with specified id.
       tags:
         - User Task Amend Request
-      summary: Receives form data for the completion of the task amend request with specified id.
       requestBody:
         description: Payload to be added to the process instance on task completion.
         content:
@@ -321,6 +329,10 @@ components:
 
     Environment:
       type: object
+      required:
+        - applicationName
+        - tasklistUrl
+        - users
       properties:
         applicationName:
           type: string
@@ -328,3 +340,7 @@ components:
         tasklistUrl:
           type: string
           description: URL of the tasklist.
+        users:
+          type: array
+          items:
+            type: string

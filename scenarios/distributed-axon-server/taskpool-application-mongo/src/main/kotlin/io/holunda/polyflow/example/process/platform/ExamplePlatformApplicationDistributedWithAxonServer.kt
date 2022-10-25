@@ -96,20 +96,6 @@ class ExamplePlatformApplicationDistributedWithAxonServer {
 //  @Bean
 //  fun messageSerializer(objectMapper: ObjectMapper): Serializer = JacksonSerializer.builder().objectMapper(objectMapper).build()
 
-
-  /**
-   * Factory function creating correlation data provider for revision information.
-   * We don't want to explicitly pump revision meta data from command to event.
-   */
-  @Bean
-  fun revisionAwareCorrelationDataProvider(): CorrelationDataProvider {
-    return MultiCorrelationDataProvider<CommandMessage<Any>>(
-      listOf(
-        MessageOriginProvider(),
-        SimpleCorrelationDataProvider(RevisionValue.REVISION_KEY)
-      )
-    )
-  }
 }
 
 

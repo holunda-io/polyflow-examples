@@ -21,10 +21,8 @@ import io.holunda.polyflow.example.process.approval.process.RequestApprovalProce
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.ORIGINATOR
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.PROJECTION_REVISION
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.REQUEST_ID
-import io.holunda.polyflow.example.process.approval.service.BusinessDataEntry
-import io.holunda.polyflow.example.process.approval.service.Request
-import io.holunda.polyflow.example.process.approval.service.RequestService
 import io.holunda.polyflow.datapool.sender.DataEntryCommandSender
+import io.holunda.polyflow.example.process.approval.service.*
 import io.holunda.polyflow.taskpool.collector.task.TaskEventCollectorService
 import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.camunda.bpm.engine.delegate.DelegateTask
@@ -150,9 +148,9 @@ class RequestStatusListener(
       entryId = request.id,
       payload = request,
       state = state,
-      name = "AR ${request.id}",
-      description = request.subject,
-      type = "Approval Request",
+      name = request.name(),
+      description = request.description(),
+      type = request.type(),
       modification = Modification(
         time = OffsetDateTime.now(),
         username = username,
@@ -166,7 +164,7 @@ class RequestStatusListener(
 
   /**
    * Increments the revision in process variables and returns it.
-   * @param task executed task
+   * @param variableScope task or execution
    * @return new revision number
    */
   private fun updateAndStoreNewRevision(variableScope: VariableScope): Long {

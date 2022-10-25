@@ -27,7 +27,8 @@ export class EnvironmentHelperService {
   none(): Environment {
     return {
       applicationName: 'loading...',
-      tasklistUrl: '#'
+      tasklistUrl: '#',
+      users: []
     };
   }
 }
