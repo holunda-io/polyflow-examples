@@ -38,14 +38,14 @@
 
 
     <springboot.version>2.7.5</springboot.version>
-    <polyflow.version>3.3.2</polyflow.version>
+    <polyflow.version>3.3.4-SNAPSHOT</polyflow.version>
 
     <camunda-ce.version>7.18.0</camunda-ce.version>
     <camunda-ee.version>7.18.0-ee</camunda-ee.version>
     <camunda-springboot.version>${camunda-ce.version}</camunda-springboot.version>
 
     <camunda-bpm-assert.version>15.0.0</camunda-bpm-assert.version>
-    <camunda-bpm-mockito.version>5.16.0</camunda-bpm-mockito.version>
+    <camunda-bpm-mockito.version>6.17.0</camunda-bpm-mockito.version>
     <version.camunda.spin>1.18.0</version.camunda.spin>
     <camunda-bpm-data.version>1.2.7</camunda-bpm-data.version>
     <springdoc.version>1.6.11</springdoc.version>
