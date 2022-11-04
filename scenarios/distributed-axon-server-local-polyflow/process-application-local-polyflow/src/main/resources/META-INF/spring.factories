@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  io.holunda.polyflow.example.process.approval.DispatchAwareAxonServerCommandBusConfiguration
