@@ -17,7 +17,6 @@ class TestAggregate {
   companion object: KLogging() {
     @JvmStatic
     @CommandHandler
-    @CommandDispatch(localOnly = true)
     fun create(cmd: TestAggregateCreateCommand) = TestAggregate().apply {
       AggregateLifecycle.apply(TestAggregateCreatedEvent(cmd.id))
     }

@@ -22,6 +22,15 @@ spring:
     template:
       check-template-location: false
 
+axon-gateway:
+  command:
+    dispatch-aware:
+      enabled: true
+      strategy:
+        exclude-command-packages:
+          - io.holunda.camunda.taskpool.api
+          - io.holunda.camunda.datapool.api
+
 
 
 #axon.serializer:

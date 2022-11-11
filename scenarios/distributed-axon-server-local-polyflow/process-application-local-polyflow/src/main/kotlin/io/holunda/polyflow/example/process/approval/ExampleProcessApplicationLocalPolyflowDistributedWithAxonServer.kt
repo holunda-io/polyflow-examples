@@ -10,6 +10,9 @@ import io.holunda.polyflow.bus.jackson.config.FallbackPayloadObjectMapperAutoCon
 import io.holunda.polyflow.bus.jackson.configurePolyflowJacksonObjectMapper
 import io.holunda.polyflow.datapool.core.EnablePolyflowDataPool
 import io.holunda.polyflow.taskpool.core.EnablePolyflowTaskPool
+import org.axonframework.commandhandling.CommandBus
+import org.axonframework.commandhandling.gateway.CommandGateway
+import org.axonframework.commandhandling.gateway.DefaultCommandGateway
 import org.axonframework.serialization.xml.CompactDriver
 import org.axonframework.springboot.util.XStreamSecurityTypeUtility
 import org.springframework.beans.factory.annotation.Qualifier
@@ -32,6 +35,8 @@ fun main(args: Array<String>) {
  * Process application approval only.
  * Includes:
  *  - process-backend
+ *  - taskpool-core
+ *  - datapool-core
  */
 @SpringBootApplication
 @EnablePolyflowDataPool
@@ -59,4 +64,8 @@ class ExampleProcessApplicationLocalPolyflowDistributedWithAxonServer {
     xStream.addPermission(AnyTypePermission.ANY)
     return xStream
   }
+
+  @Bean
+  @Primary
+  fun defaultCommandGateway(bus: CommandBus): CommandGateway = DefaultCommandGateway.builder().commandBus(bus).build()
 }
