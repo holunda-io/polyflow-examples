@@ -14,6 +14,7 @@ import org.axonframework.commandhandling.CommandBus
 import org.axonframework.commandhandling.gateway.CommandGateway
 import org.axonframework.commandhandling.gateway.DefaultCommandGateway
 import org.axonframework.serialization.xml.CompactDriver
+import org.axonframework.springboot.util.ConditionalOnMissingQualifiedBean
 import org.axonframework.springboot.util.XStreamSecurityTypeUtility
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.SpringApplication
@@ -67,5 +68,8 @@ class ExampleProcessApplicationLocalPolyflowDistributedWithAxonServer {
 
   @Bean
   @Primary
+  @ConditionalOnMissingQualifiedBean(beanClass = CommandGateway::class, qualifier = "unqualified")
   fun defaultCommandGateway(bus: CommandBus): CommandGateway = DefaultCommandGateway.builder().commandBus(bus).build()
+
+
 }

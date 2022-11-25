@@ -4,7 +4,7 @@ spring:
   application:
     name: example-process-approval
   autoconfigure:
-    exclude: org.axonframework.springboot.autoconfig.AxonServerActuatorAutoConfiguration
+    exclude: org.axonframework.springboot.autoconfig.AxonServerBusAutoConfiguration
   datasource:
     url: jdbc:postgresql://localhost:5432/process
     username: polyflow_user
