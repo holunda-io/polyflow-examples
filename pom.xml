@@ -44,10 +44,9 @@
     <camunda-ee.version>7.18.0-ee</camunda-ee.version>
     <camunda-springboot.version>${camunda-ce.version}</camunda-springboot.version>
 
-    <camunda-bpm-assert.version>15.0.0</camunda-bpm-assert.version>
-    <camunda-bpm-mockito.version>6.17.0</camunda-bpm-mockito.version>
+    <camunda-bpm-mockito.version>6.17.1</camunda-bpm-mockito.version>
     <version.camunda.spin>1.18.0</version.camunda.spin>
-    <camunda-bpm-data.version>1.2.7</camunda-bpm-data.version>
+    <camunda-bpm-data.version>1.2.8</camunda-bpm-data.version>
     <springdoc.version>1.6.11</springdoc.version>
     <org.mapstruct.version>1.5.2.Final</org.mapstruct.version>
     <mockito-kotlin.version>4.0.0</mockito-kotlin.version>
