@@ -16,19 +16,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Cache .m2
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven
-
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
           java-version: ${{ matrix.jdk }}
+          cache: maven
 
       - name: Prepare Maven Wrapper
         run: chmod +x ./mvnw
@@ -43,6 +36,6 @@ jobs:
         run: ./mvnw integration-test failsafe:verify -Pitest -DskipFrontend -B
 
       - name: Upload coverage information
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v3
         with:
-          token: ${{ secrets.CODECOV_TOKEN }} #required
+          token: ${{ secrets.CODECOV_TOKEN }}

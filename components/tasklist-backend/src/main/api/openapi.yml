@@ -488,6 +488,7 @@ components:
             - COMPLETED
             - CANCELLED
             - UNDEFINED
+            - DELETED
         protocol:
           type: array
           items:
@@ -521,6 +522,7 @@ components:
             - COMPLETED
             - CANCELLED
             - UNDEFINED
+            - DELETED
         user:
           type: string
           description: Username of the user.

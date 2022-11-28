@@ -5,11 +5,11 @@
 
   <parent>
     <groupId>io.holunda.polyflow</groupId>
-    <artifactId>polyflow-examples-parent</artifactId>
+    <artifactId>polyflow-example-scenario-root</artifactId>
     <version>3.2.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>polyflow-example-scenario-root</artifactId>
+  <artifactId>polyflow-example-scenario-distributed-axon-server-local-polyflow</artifactId>
   <name>POM: examples/${project.artifactId}</name>
   <packaging>pom</packaging>
 
@@ -18,9 +18,8 @@
   </properties>
 
   <modules>
-    <module>single-node</module>
-    <module>distributed-axon-server</module>
-    <module>distributed-axon-server-local-polyflow</module>
+    <module>process-application-local-polyflow</module>
+    <module>process-platform-view-only</module>
   </modules>
 
 </project>

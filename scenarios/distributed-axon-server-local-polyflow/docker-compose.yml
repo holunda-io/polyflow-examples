@@ -1,0 +1,48 @@
+version: "3.5"
+
+networks:
+  taskpool-net:
+    name: taskpool
+
+volumes:
+  postgres-data:
+    external: true
+  axonserver-data:
+    external: true
+  mongo-data:
+    external: true
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres_local
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=s3cr3T!
+    volumes:
+      - ./.docker/postgresql-init/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - taskpool-net
+
+  axonserver:
+    image: axoniq/axonserver:latest
+    container_name: axonserver_local
+    ports:
+      - "8024:8024"
+      - "8124:8124"
+    volumes:
+      - axonserver-data:/opt/axonserver/data
+    networks:
+      - taskpool-net
+    environment:
+      AXONIQ_AXONSERVER_DEVMODE_ENABLED: "true"
+      AXONIQ_AXONSERVER_SSL_ENABLED: "false"
+      AXONIQ_AXONSERVER_ACCESSCONTROL_ENABLED: "false"
+      AXONIQ_AXONSERVER_NAME: "localhost"
+      AXONIQ_AXONSERVER_HOSTNAME: "localhost"
+      AXONIQ_AXONSERVER_AUTOCLUSTER_FIRST: "localhost"
+
+
