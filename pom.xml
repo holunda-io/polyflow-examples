@@ -38,7 +38,7 @@
 
 
     <springboot.version>2.7.5</springboot.version>
-    <polyflow.version>3.4.2</polyflow.version>
+    <polyflow.version>3.4.3-SNAPSHOT</polyflow.version>
 
     <camunda-ce.version>7.18.0</camunda-ce.version>
     <camunda-ee.version>7.18.0-ee</camunda-ee.version>
@@ -150,12 +150,22 @@
         <version>${org.mapstruct.version}</version>
       </dependency>
 
+      <!-- Gateway -->
+      <dependency>
+        <groupId>io.holixon.axon.gateway</groupId>
+        <artifactId>axon-gateway-spring-boot-starter</artifactId>
+        <version>1.1.1</version>
+      </dependency>
+
+
+
       <dependency>
         <groupId>org.mockito.kotlin</groupId>
         <artifactId>mockito-kotlin</artifactId>
         <version>${mockito-kotlin.version}</version>
         <scope>test</scope>
       </dependency>
+
     </dependencies>
   </dependencyManagement>
 

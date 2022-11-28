@@ -23,6 +23,6 @@ class JpaViewConfiguration {
   companion object: KLogging()
   @PostConstruct
   fun info() {
-    logger.error { "JPA CONFIG STARTED"}
+    logger.info { "JPA CONFIG STARTED"}
   }
 }

@@ -57,6 +57,8 @@ camunda:
       type: postgres
     webapp:
       index-redirect-enabled: false
+    eventing:
+      task: false
 
 polyflow:
   integration:

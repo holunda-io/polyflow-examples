@@ -1,2 +1,2 @@
 ALTER TABLE plf_data_entry
-  ADD COLUMN date_deleted timestamp;
+  ADD date_deleted timestamp;
