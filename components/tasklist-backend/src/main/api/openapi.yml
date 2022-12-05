@@ -487,6 +487,7 @@ components:
             - IN_PROGRESS
             - COMPLETED
             - CANCELLED
+            - DELETED
             - UNDEFINED
         protocol:
           type: array
@@ -520,6 +521,7 @@ components:
             - IN_PROGRESS
             - COMPLETED
             - CANCELLED
+            - DELETED
             - UNDEFINED
         user:
           type: string

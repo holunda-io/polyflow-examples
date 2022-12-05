@@ -26,7 +26,7 @@ class TaskServiceGateway(
     commandGateway.send<Any, Any?>(command) { m, r -> TaskResource.logger.debug("Successfully submitted command $m, $r") }
   }
 
-  fun getTask(id: String): Task = taskQueryClient.query(TaskForIdQuery(id)).join() ?: throw ElementNotFoundException()
+  fun getTask(id: String): Task = taskQueryClient.query(TaskForIdQuery(id)).join().orElseGet(null) ?: throw ElementNotFoundException()
 
   fun getTasks(
     user: User,
