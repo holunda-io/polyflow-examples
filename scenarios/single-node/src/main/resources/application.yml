@@ -32,24 +32,25 @@ axon-gateway:
       default-query-timeout: 10
 camunda:
   bpm:
-    default-serialization-format: application/json
     admin-user:
       id: admin
       first-name: Admin
       last-name: Administrarius
       email: admin@localhost
       password: admin
-    filter:
-      create: All tasks
     authorization:
       enabled: false
-    history-level: full
-    id-generator: strong
     database:
       schema-update: true
+    default-serialization-format: application/json
+    eventing:
+      task: false
+    filter:
+      create: All tasks
+    history-level: full
+    id-generator: strong
     webapp:
       index-redirect-enabled: false
-
 polyflow:
   integration:
     client:
