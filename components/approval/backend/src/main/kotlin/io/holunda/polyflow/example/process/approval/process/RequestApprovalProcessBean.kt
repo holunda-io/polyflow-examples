@@ -14,6 +14,7 @@ import org.camunda.bpm.engine.RuntimeService
 import org.camunda.bpm.engine.TaskService
 import org.camunda.bpm.engine.task.Task
 import org.springframework.stereotype.Component
+import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
 import kotlin.NoSuchElementException
@@ -54,7 +55,7 @@ class RequestApprovalProcessBean(
   }
 
   /**
-   * Completes the approve request task with given id, decision and optional comment.
+   * Completes the approval request task with given id, decision and optional comment.
    */
   fun approveTask(taskId: String, decision: String, username: String, comment: String?) {
     if (!RequestApprovalProcess.Values.APPROVE_DECISION_VALUES.contains(decision.uppercase())) {
@@ -136,31 +137,25 @@ class RequestApprovalProcessBean(
    * Loads approve task form data.
    */
   fun loadApproveTaskFormData(id: String): TaskAndRequest {
-    val task = taskService.createTaskQuery()
-      .taskId(id)
-      .taskDefinitionKey(RequestApprovalProcess.Elements.APPROVE_REQUEST)
-      .initializeFormKeys()
-      .singleResult() ?: throw NoSuchElementException("Task with id $id not found.")
-
-    val requestId = REQUEST_ID.from(runtimeService, task.executionId).optional.orElseThrow { NoSuchElementException("Request id could not be found for task $id") }
-    val revision = PROJECTION_REVISION.from(runtimeService, task.executionId).optional.orElseThrow { NoSuchElementException("Project revision could not be found for task $id") }
-
-    val request = this.requestService.getRequest(requestId, revision)
-    return TaskAndRequest(task = task, approvalRequest = request)
+    return loadTaskAndRequest(id, RequestApprovalProcess.Elements.APPROVE_REQUEST)
   }
 
   /**
    * Loads amend task form data.
    */
   fun loadAmendTaskFormData(id: String): TaskAndRequest {
-    val task = taskService.createTaskQuery()
-      .taskId(id)
-      .taskDefinitionKey(RequestApprovalProcess.Elements.AMEND_REQUEST)
-      .initializeFormKeys()
-      .singleResult() ?: throw NoSuchElementException("Task with id $id not found.")
+    return loadTaskAndRequest(id, RequestApprovalProcess.Elements.AMEND_REQUEST)
+  }
 
-    val requestId = REQUEST_ID.from(runtimeService, task.executionId).optional.orElseThrow { NoSuchElementException("Request id could not be found for task $id") }
-    val revision = PROJECTION_REVISION.from(runtimeService, task.executionId).optional.orElseThrow { NoSuchElementException("Project revision could not be found for task $id") }
+  private fun loadTaskAndRequest(taskId: String, definitionKey: String): TaskAndRequest {
+    val task = taskService.createTaskQuery()
+      .taskId(taskId)
+      .taskDefinitionKey(definitionKey)
+      .initializeFormKeys()
+      .singleResult() ?: throw NoSuchElementException("Task with id $taskId not found.")
+
+    val requestId = REQUEST_ID.from(runtimeService, task.executionId).optional.orElseThrow { NoSuchElementException("Request id could not be found for task $taskId") }
+    val revision = PROJECTION_REVISION.from(runtimeService, task.executionId).optional.orElseThrow { NoSuchElementException("Project revision could not be found for task $taskId") }
 
     val request = this.requestService.getRequest(requestId, revision)
     return TaskAndRequest(task = task, approvalRequest = request)
@@ -173,6 +168,19 @@ class RequestApprovalProcessBean(
     runtimeService
       .createProcessInstanceQuery()
       .processDefinitionKey(RequestApprovalProcess.KEY)
+
+  @Transactional(propagation = Propagation.REQUIRES_NEW)
+  fun changeAssignment(taskId: String,
+                       newCandidateUsers: List<String>,
+                       newCandidateGroups: List<String>,
+                       deleteCandidateUsers: List<String>,
+                       deleteCandidateGroups: List<String>,
+  ) {
+    newCandidateUsers.forEach { user -> taskService.addCandidateUser(taskId, user) }
+    newCandidateGroups.forEach { group -> taskService.addCandidateGroup(taskId, group) }
+    deleteCandidateUsers.forEach { user -> taskService.deleteCandidateUser(taskId, user) }
+    deleteCandidateGroups.forEach { group -> taskService.deleteCandidateGroup(taskId, group) }
+  }
 
 }
 

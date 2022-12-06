@@ -1,6 +1,5 @@
 package io.holunda.polyflow.example.process.approval
 
-import io.holixon.axon.gateway.configuration.query.EnableRevisionAwareQueryGateway
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.AMOUNT
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.APPLICANT
@@ -25,7 +24,6 @@ import org.springframework.context.annotation.Primary
 @EnableProcessApplication
 @EnableTaskpoolEngineSupport
 @EnableExampleUsers
-@EnableRevisionAwareQueryGateway
 @Import(RequestApprovalProcessRestConfiguration::class, ProcessApproveRequestSPAConfiguration::class)
 class RequestApprovalProcessConfiguration {
 

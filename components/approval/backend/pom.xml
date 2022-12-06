@@ -173,22 +173,25 @@
             </goals>
             <configuration>
               <inputSpec>${project.build.directory}/generated-sources/openapi/openapi.yml</inputSpec>
-              <generatorName>spring</generatorName>
+              <generatorName>kotlin-spring</generatorName>
+              <library>spring-boot</library>
               <apiPackage>${rest.api.base-package}.api</apiPackage>
               <modelPackage>${rest.api.base-package}.model</modelPackage>
               <modelNamePrefix/>
               <modelNameSuffix>Dto</modelNameSuffix>
+              <ignoreFileOverride>${basedir}/src/main/api/.openapi-generator-ignore</ignoreFileOverride>
+              <generateApiTests>false</generateApiTests>
+              <generateModelTests>false</generateModelTests>
+              <skipIfSpecIsUnchanged>true</skipIfSpecIsUnchanged>
               <configOptions>
-                <sourceFolder>src/main/java</sourceFolder>
-                <basePackage>${rest.api.base-package}</basePackage>
-                <configPackage>${rest.api.base-package}</configPackage>
-                <interfaceOnly>true</interfaceOnly>
-                <dateLibrary>java8</dateLibrary>
-                <swaggerDocketConfig>false</swaggerDocketConfig>
-                <reactive>false</reactive>
-                <bigDecimalAsString>true</bigDecimalAsString>
-                <useOptional>true</useOptional>
-                <useBeanValidation>true</useBeanValidation>
+                <delegatePattern>true</delegatePattern>
+                <swaggerAnnotations>true</swaggerAnnotations>
+                <exceptionHandler>false</exceptionHandler>
+                <gradleBuildFile>false</gradleBuildFile>
+                <serializationLibrary>jackson</serializationLibrary>
+                <annotationLibrary>swagger2</annotationLibrary>
+                <useTags>true</useTags>
+                <enumPropertyNaming>UPPERCASE</enumPropertyNaming>
               </configOptions>
             </configuration>
           </execution>
@@ -208,7 +211,7 @@
             </goals>
             <configuration>
               <sourceDirs>
-                <sourceDir>${project.basedir}/target/generated-sources/openapi/src/main/java</sourceDir>
+                <sourceDir>${project.basedir}/target/generated-sources/openapi/src/main/kotlin</sourceDir>
                 <sourceDir>src/main/kotlin</sourceDir>
               </sourceDirs>
               <annotationProcessorPaths>

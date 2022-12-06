@@ -2,6 +2,7 @@ package io.holunda.polyflow.example.process.approval.rest
 
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcessBean
 import io.holunda.polyflow.example.process.approval.rest.api.AmendRequestApi
+import io.holunda.polyflow.example.process.approval.rest.api.UserTaskAmendRequestApiDelegate
 import io.holunda.polyflow.example.process.approval.rest.model.TaskAmendRequestFormDataDto
 import io.holunda.polyflow.example.process.approval.rest.model.TaskAmendRequestSubmitDataDto
 import io.holunda.polyflow.view.auth.UserService
@@ -20,7 +21,7 @@ import javax.validation.Valid
 class AmendRequestTaskController(
   private val requestApprovalProcessBean: RequestApprovalProcessBean,
   private val userService: UserService
-) : AmendRequestApi {
+) : UserTaskAmendRequestApiDelegate {
 
   companion object : KLogging()
 

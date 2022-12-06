@@ -7,7 +7,7 @@ spring:
   application:
     name: example-process-approval
   datasource:
-    url: jdbc:h2:mem:testdb
+    url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE
     username: sa
     password: password
     driverClassName: org.h2.Driver
@@ -21,9 +21,6 @@ spring:
     console:
       enabled: true
       path: /h2-console
-  groovy:
-    template:
-      check-template-location: false
 
 axon-gateway:
   query:
@@ -38,8 +35,6 @@ camunda:
       last-name: Administrarius
       email: admin@localhost
       password: admin
-    authorization:
-      enabled: false
     database:
       schema-update: true
     default-serialization-format: application/json
@@ -97,6 +92,7 @@ polyflow:
         enabled: true
         type: tx
         send-within-transaction: true # Must be set to true in single node scenario.
+        batch-commands: true # Must be set to true in single node scenario
     tasklist:
       tasklist-url: http://localhost:${server.port}/taskpool/tasks
   view:
