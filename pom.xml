@@ -19,7 +19,7 @@
     <version.java>${java.version}</version.java>
     <version.java>${java.version}</version.java>
 
-    <kotlin.version>1.7.20</kotlin.version>
+    <kotlin.version>1.7.22</kotlin.version>
     <kotlin.compiler.jvmTarget>${java.version}</kotlin.compiler.jvmTarget>
     <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
     <kotlin-logging.version>3.0.4</kotlin-logging.version>
@@ -38,7 +38,7 @@
 
 
     <springboot.version>2.7.6</springboot.version>
-    <polyflow.version>3.5.1-SNAPSHOT</polyflow.version>
+    <polyflow.version>3.6.0</polyflow.version>
 
     <camunda-ce.version>7.18.0</camunda-ce.version>
     <camunda-ee.version>7.18.0-ee</camunda-ee.version>
@@ -134,6 +134,11 @@
       <dependency>
         <groupId>org.springdoc</groupId>
         <artifactId>springdoc-openapi-ui</artifactId>
+        <version>${springdoc.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-kotlin</artifactId>
         <version>${springdoc.version}</version>
       </dependency>
 

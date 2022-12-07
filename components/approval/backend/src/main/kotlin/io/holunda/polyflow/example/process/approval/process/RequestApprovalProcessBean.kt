@@ -42,7 +42,6 @@ class RequestApprovalProcessBean(
    * Starts the process for a given request id.
    */
   fun startProcess(requestId: String, originator: String, revision: Long = 1L): String {
-
     runtimeService.startProcessInstanceByKey(RequestApprovalProcess.KEY,
       requestId,
       builder()

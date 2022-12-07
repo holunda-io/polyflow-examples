@@ -2,7 +2,7 @@ package io.holunda.polyflow.example.process.approval.schedule
 
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcessBean
 import io.holunda.polyflow.example.process.approval.service.RequestService
-import io.holunda.polyflow.example.process.approval.service.createSalaryRequest
+import io.holunda.polyflow.example.process.approval.service.impl.revisionaware.BusinessDataEntry
 import mu.KLogging
 import org.camunda.bpm.spring.boot.starter.event.PostDeployEvent
 import org.springframework.context.event.EventListener
@@ -35,7 +35,7 @@ class PrefillingConfiguration(
         val request = if (requests.isNotEmpty()) {
           requests[0]
         } else {
-          createSalaryRequest().apply {
+          BusinessDataEntry.createSalaryRequest().apply {
             requestService.addRequest(this, username, 0)
           }
         }

@@ -44,6 +44,7 @@ paths:
         - Request
       requestBody:
         description: Request to be approved.
+        required: true
         content:
           application/json:
             schema:
@@ -101,6 +102,7 @@ paths:
         - Request
       requestBody:
         description: Request to be with modification.
+        required: true
         content:
           application/json:
             schema:
@@ -109,7 +111,7 @@ paths:
       responses:
         204:
           description: Successful operation.
-                
+
 
   '/approve-request/id/{id}':
     parameters:
@@ -143,6 +145,7 @@ paths:
         - User Task Approve Request
       requestBody:
         description: Payload to be added to the process instance on task completion.
+        required: true
         content:
           application/json:
             schema:
@@ -184,6 +187,7 @@ paths:
         - User Task Amend Request
       requestBody:
         description: Payload to be added to the process instance on task completion.
+        required: true
         content:
           application/json:
             schema:
@@ -213,6 +217,7 @@ paths:
         - User Task Assignment
       requestBody:
         description: Payload to be added to the process instance on task completion.
+        required: true
         content:
           application/json:
             schema:
@@ -264,8 +269,8 @@ components:
       - name
       - description
       - createTime
-      - dueDate
       - businessKey
+      - priority
 
     ApprovalRequestDraft:
       type: object

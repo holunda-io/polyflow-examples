@@ -6,7 +6,7 @@ import io.holunda.polyflow.example.process.approval.process.RequestApprovalProce
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.COMMENT
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.ORIGINATOR
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.REQUEST_ID
-import io.holunda.polyflow.example.process.approval.service.BusinessDataEntry
+import io.holunda.polyflow.example.process.approval.service.impl.revisionaware.BusinessDataEntry
 import io.holunda.polyflow.example.users.EnableExampleUsers
 import io.holunda.polyflow.taskpool.EnableTaskpoolEngineSupport
 import io.holunda.polyflow.taskpool.collector.task.enricher.*
@@ -15,15 +15,19 @@ import io.holunda.polyflow.taskpool.sender.gateway.LoggingTaskCommandErrorHandle
 import mu.KLogging
 import org.axonframework.commandhandling.CommandResultMessage
 import org.camunda.bpm.spring.boot.starter.annotation.EnableProcessApplication
+import org.springframework.boot.autoconfigure.domain.EntityScan
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
 import org.springframework.context.annotation.Primary
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 
 @Configuration
 @EnableProcessApplication
 @EnableTaskpoolEngineSupport
 @EnableExampleUsers
+@EnableJpaRepositories
+@EntityScan
 @Import(RequestApprovalProcessRestConfiguration::class, ProcessApproveRequestSPAConfiguration::class)
 class RequestApprovalProcessConfiguration {
 

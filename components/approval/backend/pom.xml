@@ -25,6 +25,11 @@
       <artifactId>polyflow-camunda-bpm-springboot-starter</artifactId>
     </dependency>
     <dependency>
+      <groupId>io.holunda</groupId>
+      <artifactId>camunda-platform-7-autologin</artifactId>
+      <version>0.0.1</version>
+    </dependency>
+    <dependency>
       <groupId>io.holunda.polyflow</groupId>
       <artifactId>polyflow-example-users</artifactId>
     </dependency>
@@ -56,6 +61,16 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-jpa</artifactId>
     </dependency>
+    <dependency>
+      <groupId>jakarta.validation</groupId>
+      <artifactId>jakarta.validation-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>jakarta.annotation</groupId>
+      <artifactId>jakarta.annotation-api</artifactId>
+      <version>2.1.1</version>
+    </dependency>
+
 
     <!-- Axon -->
     <dependency>
@@ -109,6 +124,10 @@
     <dependency>
       <groupId>org.springdoc</groupId>
       <artifactId>springdoc-openapi-ui</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-kotlin</artifactId>
     </dependency>
     <dependency>
       <groupId>org.openapitools</groupId>
@@ -230,7 +249,7 @@
             </goals>
             <configuration>
               <sourceDirs>
-                <sourceDir>${project.basedir}/target/generated-sources/openapi/src/main/java</sourceDir>
+                <sourceDir>${project.basedir}/target/generated-sources/openapi/src/main/kotlin</sourceDir>
                 <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
               </sourceDirs>
             </configuration>

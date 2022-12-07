@@ -1,28 +1,27 @@
 package io.holunda.polyflow.example.process.approval.rest
 
-import io.holunda.polyflow.example.process.approval.rest.api.EnvironmentApi
+import io.holunda.polyflow.example.process.approval.rest.api.EnvironmentApiDelegate
 import io.holunda.polyflow.example.process.approval.rest.model.EnvironmentDto
 import io.holunda.polyflow.example.users.SimpleUserService
 import io.holunda.polyflow.taskpool.collector.CamundaTaskpoolCollectorProperties
 import io.holunda.polyflow.urlresolver.TasklistUrlResolver
 import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.ok
-import org.springframework.stereotype.Controller
-import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.stereotype.Component
 
-@Controller
-@RequestMapping(path = [Rest.REST_PREFIX])
-class EnvironmentController(
+@Component
+class EnvironmentApiDelegateImpl(
   private val properties: CamundaTaskpoolCollectorProperties,
   private val tasklistUrlResolver: TasklistUrlResolver,
   private val userService: SimpleUserService
-) : EnvironmentApi {
+) : EnvironmentApiDelegate {
 
   override fun getEnvironment(): ResponseEntity<EnvironmentDto> =
     ok(
-      EnvironmentDto()
-        .applicationName(properties.applicationName)
-        .tasklistUrl(tasklistUrlResolver.getTasklistUrl())
-        .users(userService.getUserIdentifiers().map { it.key })
+      EnvironmentDto(
+        applicationName = properties.applicationName,
+        tasklistUrl = tasklistUrlResolver.getTasklistUrl(),
+        users = userService.getUserIdentifiers().map { it.key }
+      )
     )
 }

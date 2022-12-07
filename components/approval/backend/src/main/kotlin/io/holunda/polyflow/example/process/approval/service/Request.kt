@@ -13,8 +13,8 @@ data class Request(
   override fun toString(): String {
     return "Request(id='$id', applicant='$applicant', subject='$subject', amount=$amount, currency='$currency')"
   }
-}
 
-fun Request.name(): String = "$subject for $applicant"
-fun Request.description(): String = "Approval request for $subject on behalf of $applicant costing $amount $currency."
-fun Request.type(): String = "Approval Request"
+  fun type(): String = "Approval Request"
+  fun description(): String = "Approval request for $subject on behalf of $applicant costing $amount $currency."
+  fun name(): String = "$subject for $applicant"
+}
