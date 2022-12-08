@@ -10,6 +10,7 @@ import io.holunda.polyflow.example.process.approval.process.RequestApprovalProce
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.REQUEST_ID
 import io.holunda.polyflow.example.process.approval.service.Request
 import io.holunda.polyflow.example.process.approval.service.RequestService
+import org.axonframework.commandhandling.CommandHandler
 import org.camunda.bpm.engine.RuntimeService
 import org.camunda.bpm.engine.TaskService
 import org.camunda.bpm.engine.task.Task
@@ -17,7 +18,6 @@ import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
-import kotlin.NoSuchElementException
 
 @Component
 @Transactional
@@ -42,7 +42,8 @@ class RequestApprovalProcessBean(
    * Starts the process for a given request id.
    */
   fun startProcess(requestId: String, originator: String, revision: Long = 1L): String {
-    runtimeService.startProcessInstanceByKey(RequestApprovalProcess.KEY,
+    runtimeService.startProcessInstanceByKey(
+      RequestApprovalProcess.KEY,
       requestId,
       builder()
         .set(REQUEST_ID, requestId)
@@ -69,7 +70,8 @@ class RequestApprovalProcessBean(
 
     taskService.claim(task.id, username)
 
-    taskService.complete(task.id,
+    taskService.complete(
+      task.id,
       builder()
         .set(APPROVE_DECISION, decision.uppercase(Locale.getDefault()))
         .set(COMMENT, comment)
@@ -154,7 +156,8 @@ class RequestApprovalProcessBean(
       .singleResult() ?: throw NoSuchElementException("Task with id $taskId not found.")
 
     val requestId = REQUEST_ID.from(runtimeService, task.executionId).optional.orElseThrow { NoSuchElementException("Request id could not be found for task $taskId") }
-    val revision = PROJECTION_REVISION.from(runtimeService, task.executionId).optional.orElseThrow { NoSuchElementException("Project revision could not be found for task $taskId") }
+    val revision =
+      PROJECTION_REVISION.from(runtimeService, task.executionId).optional.orElseThrow { NoSuchElementException("Project revision could not be found for task $taskId") }
 
     val request = this.requestService.getRequest(requestId, revision)
     return TaskAndRequest(task = task, approvalRequest = request)
@@ -169,11 +172,12 @@ class RequestApprovalProcessBean(
       .processDefinitionKey(RequestApprovalProcess.KEY)
 
   @Transactional(propagation = Propagation.REQUIRES_NEW)
-  fun changeAssignment(taskId: String,
-                       newCandidateUsers: List<String>,
-                       newCandidateGroups: List<String>,
-                       deleteCandidateUsers: List<String>,
-                       deleteCandidateGroups: List<String>,
+  fun changeAssignment(
+    taskId: String,
+    newCandidateUsers: List<String>,
+    newCandidateGroups: List<String>,
+    deleteCandidateUsers: List<String>,
+    deleteCandidateGroups: List<String>,
   ) {
     newCandidateUsers.forEach { user -> taskService.addCandidateUser(taskId, user) }
     newCandidateGroups.forEach { group -> taskService.addCandidateGroup(taskId, group) }
@@ -181,6 +185,22 @@ class RequestApprovalProcessBean(
     deleteCandidateGroups.forEach { group -> taskService.deleteCandidateGroup(taskId, group) }
   }
 
+  @CommandHandler
+  fun changeAssignment(command: AssignmentCommand) {
+    command.newCandidateUsers.forEach { user -> taskService.addCandidateUser(command.taskId, user) }
+    command.newCandidateGroups.forEach { group -> taskService.addCandidateGroup(command.taskId, group) }
+    command.deleteCandidateUsers.forEach { user -> taskService.deleteCandidateUser(command.taskId, user) }
+    command.deleteCandidateGroups.forEach { group -> taskService.deleteCandidateGroup(command.taskId, group) }
+    command.deleteCandidateGroups.forEach { group -> taskService.deleteCandidateGroup(command.taskId, group) }
+  }
 }
+
+data class AssignmentCommand(
+  val taskId: String,
+  val newCandidateUsers: List<String>,
+  val newCandidateGroups: List<String>,
+  val deleteCandidateUsers: List<String>,
+  val deleteCandidateGroups: List<String>
+)
 
 data class TaskAndRequest(val task: Task, val approvalRequest: Request)

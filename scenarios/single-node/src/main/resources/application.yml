@@ -113,5 +113,6 @@ polyflow:
 # org.springframework.web: DEBUG
 logging:
   level:
-    root: info
+    root: INFO
+    io.holunda.polyflow.view.jpa: DEBUG
 
