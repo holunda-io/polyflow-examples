@@ -107,7 +107,7 @@ paths:
         type: string
         # pattern: '^[-+]([\w]*)$'
     - in: query
-      name: filter
+      name: filters
       description: One or multiple filter directives in the format prop1=value
       schema:
         type: array
@@ -220,6 +220,7 @@ paths:
       summary: Defers a task.
       operationId: defer
       requestBody:
+        required: true
         description: A date until the task is deferred.
         content:
           application/json:
@@ -284,6 +285,7 @@ paths:
       summary: Completes a task.
       operationId: complete
       requestBody:
+        required: true
         description: Payload to be added to the process instance on task completion.
         content:
           application/json:
@@ -320,7 +322,7 @@ paths:
           type: string
           # pattern: '^[-+]([\w]*)$'
       - in: query
-        name: filter
+        name: filters
         description: One or multiple filter directives in the format prop1=value
         schema:
           type: array
@@ -357,8 +359,6 @@ paths:
           description: Not authenticated.
         '403':
           description: Not authorized.
-
-
 
 components:
   schemas:
@@ -435,15 +435,11 @@ components:
 
       required:
         - id
-        - name
-        - description
         - url
         - candidateGroups
         - candidateUsers
         - processName
         - createTime
-        - dueDate
-        - businessKey
 
     DataEntry:
       type: object
@@ -577,7 +573,15 @@ components:
           description: Set of candidate users represented by their user ids.
           items:
             type: string
-
+      required:
+        - definitionId
+        - definitionKey
+        - definitionVersion
+        - processName
+        - description
+        - versionTag
+        - candidateUsers
+        - candidateGroups
     Payload:
       type: object
       additionalProperties:

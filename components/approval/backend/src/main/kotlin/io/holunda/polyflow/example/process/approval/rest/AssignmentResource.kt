@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity.noContent
 import org.springframework.stereotype.Component
 
 @Component
-class AssignmentApiDelegateImpl(
+class AssignmentResource(
   private val requestApprovalProcessBean: RequestApprovalProcessBean,
 ) : UserTaskAssignmentApiDelegate {
 

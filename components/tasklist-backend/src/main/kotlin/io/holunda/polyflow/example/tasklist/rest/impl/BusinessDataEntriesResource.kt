@@ -1,10 +1,7 @@
 package io.holunda.polyflow.example.tasklist.rest.impl
 
-import io.holixon.axon.gateway.query.QueryResponseMessageResponseType
 import io.holunda.polyflow.example.tasklist.auth.CurrentUserService
-import io.holunda.polyflow.example.tasklist.rest.Rest
-import io.holunda.polyflow.example.tasklist.rest.api.BusinessDataApi
-import io.holunda.polyflow.example.tasklist.rest.impl.UserProfileResource.Companion.HEADER_CURRENT_USER
+import io.holunda.polyflow.example.tasklist.rest.api.BusinessDataApiDelegate
 import io.holunda.polyflow.example.tasklist.rest.mapper.TaskWithDataEntriesMapper
 import io.holunda.polyflow.example.tasklist.rest.model.DataEntryDto
 import io.holunda.polyflow.view.DataEntryQueryClient
@@ -14,33 +11,32 @@ import io.holunda.polyflow.view.query.data.DataEntriesQueryResult
 import org.axonframework.queryhandling.QueryGateway
 import org.springframework.http.HttpHeaders
 import org.springframework.http.ResponseEntity
+import org.springframework.stereotype.Component
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
 /**
  * Controller service data entry items.
  */
-@RestController
-@CrossOrigin
-@RequestMapping(Rest.REQUEST_PATH)
+@Component
 class BusinessDataEntriesResource(
   queryGateway: QueryGateway,
   private val currentUserService: CurrentUserService,
   private val userService: UserService,
   private val mapper: TaskWithDataEntriesMapper
-) : BusinessDataApi {
+) : BusinessDataApiDelegate {
 
   val businessDataEntriesQueryClient = DataEntryQueryClient(queryGateway)
 
   override fun getBusinessDataEntries(
-    @RequestParam(value = "page") page: Optional<Int>,
-    @RequestParam(value = "size") size: Optional<Int>,
-    @RequestParam(value = "sort") sort: Optional<String>,
-    @RequestParam(value = "filter") filters: Optional<List<String>>,
-    @RequestHeader(value = HEADER_CURRENT_USER, required = false) xCurrentUserID: Optional<String>
+    page: Int,
+    size: Int,
+    sort: String?,
+    filters: List<String>,
+    xCurrentUserID: String?
   ): ResponseEntity<List<DataEntryDto>> {
 
-    val userIdentifier = xCurrentUserID.orElseGet { currentUserService.getCurrentUser() }
+    val userIdentifier = xCurrentUserID ?: currentUserService.getCurrentUser()
     val user = userService.getUser(userIdentifier)
 
     @Suppress("UNCHECKED_CAST")
@@ -48,10 +44,10 @@ class BusinessDataEntriesResource(
       .query(
         DataEntriesForUserQuery(
           user = user,
-          page = page.orElse(1),
-          size = size.orElse(Int.MAX_VALUE),
-          sort = sort.orElseGet { "" },
-          filters = filters.orElseGet { listOf() }
+          page = page,
+          size = size,
+          sort = sort ?: "",
+          filters
         )
       )
       .join()

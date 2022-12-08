@@ -10,6 +10,7 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mapstruct.factory.Mappers
 import org.springframework.test.util.ReflectionTestUtils
+import java.time.Instant
 
 class TaskWithDataEntriesMapperTest {
 
@@ -41,7 +42,8 @@ class TaskWithDataEntriesMapperTest {
       id = "1",
       sourceReference = sourceReference,
       taskDefinitionKey = "the-task",
-      formKey = "the-task"
+      formKey = "the-task",
+      createTime = Instant.now()
     )
 
     val dto = mapper.dto(task)

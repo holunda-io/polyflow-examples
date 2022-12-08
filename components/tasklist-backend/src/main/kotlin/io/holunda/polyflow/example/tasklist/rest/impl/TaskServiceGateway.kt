@@ -9,7 +9,6 @@ import io.holunda.polyflow.view.query.task.TaskForIdQuery
 import io.holunda.polyflow.view.query.task.TasksWithDataEntriesForUserQuery
 import io.holunda.polyflow.view.query.task.TasksWithDataEntriesQueryResult
 import org.axonframework.commandhandling.gateway.CommandGateway
-import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.axonframework.queryhandling.QueryGateway
 import org.springframework.stereotype.Component
 import java.util.*
@@ -30,20 +29,20 @@ class TaskServiceGateway(
 
   fun getTasks(
     user: User,
-    page: Optional<Int>,
-    sort: Optional<String>,
-    size: Optional<Int>,
-    filters: Optional<List<String>>
+    page: Int,
+    sort: String?,
+    size: Int,
+    filters: List<String>
   ): TasksWithDataEntriesQueryResult {
     @Suppress("UNCHECKED_CAST")
     return taskQueryClient
       .query(
         TasksWithDataEntriesForUserQuery(
           user = user,
-          page = page.orElse(1),
-          size = size.orElse(Int.MAX_VALUE),
-          sort = sort.orElseGet { "" },
-          filters = filters.orElseGet { listOf() }
+          page = page,
+          size = size,
+          sort = sort ?: "",
+          filters = filters
         )
       )
       .join() ?: throw ElementNotFoundException()

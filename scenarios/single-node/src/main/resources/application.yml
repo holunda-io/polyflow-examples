@@ -61,11 +61,11 @@ polyflow:
       camunda:
         application-name: ${spring.application.name}  # default
         process-instance:
-          enabled: true
+          enabled: false
         process-definition:
           enabled: true
         process-variable:
-          enabled: true
+          enabled: false
         task:
           enabled: true
           enricher:
@@ -91,9 +91,9 @@ polyflow:
       process-definition:
         enabled: true
       process-instance:
-        enabled: true
+        enabled: false
       process-variable:
-        enabled: true
+        enabled: false
       task:
         enabled: true
         type: tx
@@ -107,24 +107,11 @@ polyflow:
       stored-items: task, process-instance, process-definition, data-entry
 
 
-logging.level:
-  io.holunda.camunda:
-    taskpool.core: DEBUG
-  io.holunda.polyflow:
-    taskpool:
-      collector:
-        process:
-          variable: DEBUG
-      sender: INFO
-      core: WARN
-      view.simple: INFO
-    datapool:
-      sender: INFO
-    view.jpa: DEBUG
-
 # To log REST controllers
 #  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: TRACE
 # To log web access
 # org.springframework.web: DEBUG
-
+logging:
+  level:
+    root: info
 

@@ -1,5 +1,6 @@
 package io.holunda.polyflow.example.process.approval
 
+import io.holunda.polyflow.client.camunda.EnableCamundaEngineClient
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.AMOUNT
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.APPLICANT
@@ -28,6 +29,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 @EnableExampleUsers
 @EnableJpaRepositories
 @EntityScan
+@EnableCamundaEngineClient
 @Import(RequestApprovalProcessRestConfiguration::class, ProcessApproveRequestSPAConfiguration::class)
 class RequestApprovalProcessConfiguration {
 

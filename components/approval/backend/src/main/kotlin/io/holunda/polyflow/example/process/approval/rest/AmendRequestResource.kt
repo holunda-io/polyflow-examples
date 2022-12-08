@@ -9,13 +9,9 @@ import mu.KLogging
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestHeader
-import javax.validation.Valid
 
 @Component
-class AmendRequestApiDelegateImpl(
+class AmendRequestResource(
   private val requestApprovalProcessBean: RequestApprovalProcessBean,
   private val userService: UserService
 ) : UserTaskAmendRequestApiDelegate {

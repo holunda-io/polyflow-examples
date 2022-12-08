@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity.ok
 import org.springframework.stereotype.Component
 
 @Component
-class EnvironmentApiDelegateImpl(
+class EnvironmentResource(
   private val properties: CamundaTaskpoolCollectorProperties,
   private val tasklistUrlResolver: TasklistUrlResolver,
   private val userService: SimpleUserService

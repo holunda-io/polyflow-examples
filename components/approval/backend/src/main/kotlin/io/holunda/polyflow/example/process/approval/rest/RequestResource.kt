@@ -22,7 +22,7 @@ import org.springframework.http.ResponseEntity.ok
 import org.springframework.stereotype.Component
 
 @Component
-class RequestApiDelegateImpl(
+class RequestResource(
   private val requestApprovalProcessBean: RequestApprovalProcessBean,
   private val requestService: RequestService,
   private val userService: UserService,

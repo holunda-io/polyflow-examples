@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
 
 @Component
-class ApproveRequestApiDelegateImpl(
+class ApproveRequestResource(
   private val requestApprovalProcessBean: RequestApprovalProcessBean,
   private val userService: UserService
 ) : UserTaskApproveRequestApiDelegate {
