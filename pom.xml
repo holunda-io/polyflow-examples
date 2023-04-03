@@ -19,7 +19,7 @@
     <version.java>${java.version}</version.java>
     <version.java>${java.version}</version.java>
 
-    <kotlin.version>1.7.20</kotlin.version>
+    <kotlin.version>1.8.20</kotlin.version>
     <kotlin.compiler.jvmTarget>${java.version}</kotlin.compiler.jvmTarget>
     <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
     <kotlin-logging.version>2.1.14</kotlin-logging.version>
@@ -37,7 +37,7 @@
     -->
 
 
-    <springboot.version>2.7.5</springboot.version>
+    <springboot.version>2.7.10</springboot.version>
     <polyflow.version>3.4.3-SNAPSHOT</polyflow.version>
 
     <camunda-ce.version>7.18.0</camunda-ce.version>
@@ -51,6 +51,7 @@
     <org.mapstruct.version>1.5.2.Final</org.mapstruct.version>
     <mockito-kotlin.version>4.1.0</mockito-kotlin.version>
     <jackson-databind-nullable.version>0.2.6</jackson-databind-nullable.version>
+    <junit-jupiter.version>5.9.2</junit-jupiter.version>
 
   </properties>
 
@@ -72,6 +73,13 @@
         <groupId>org.jetbrains.kotlin</groupId>
         <artifactId>kotlin-bom</artifactId>
         <version>${kotlin.version}</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
+      <dependency>
+        <groupId>org.junit</groupId>
+        <artifactId>junit-bom</artifactId>
+        <version>${junit-jupiter.version}</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
@@ -157,15 +165,12 @@
         <version>1.1.1</version>
       </dependency>
 
-
-
       <dependency>
         <groupId>org.mockito.kotlin</groupId>
         <artifactId>mockito-kotlin</artifactId>
         <version>${mockito-kotlin.version}</version>
         <scope>test</scope>
       </dependency>
-
     </dependencies>
   </dependencyManagement>
 
@@ -174,6 +179,7 @@
       <groupId>org.jetbrains.kotlin</groupId>
       <artifactId>kotlin-stdlib</artifactId>
     </dependency>
+    <!-- Testing -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
@@ -199,6 +205,7 @@
 
   <build>
     <defaultGoal>clean package</defaultGoal>
+    <testSourceDirectory>src/test/kotlin</testSourceDirectory>
     <pluginManagement>
       <plugins>
 
@@ -207,44 +214,6 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-clean-plugin</artifactId>
           <version>3.2.0</version>
-        </plugin>
-
-        <plugin>
-          <!-- java compiler -->
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.11.0</version>
-          <configuration>
-            <encoding>UTF-8</encoding>
-            <source>${java.version}</source>
-            <target>${java.version}</target>
-          </configuration>
-          <executions>
-            <!-- Replacing default-compile as it is treated specially by maven -->
-            <execution>
-              <id>default-compile</id>
-              <phase>none</phase>
-            </execution>
-            <!-- Replacing default-testCompile as it is treated specially by maven -->
-            <execution>
-              <id>default-testCompile</id>
-              <phase>none</phase>
-            </execution>
-            <execution>
-              <id>java-compile</id>
-              <phase>compile</phase>
-              <goals>
-                <goal>compile</goal>
-              </goals>
-            </execution>
-            <execution>
-              <id>java-test-compile</id>
-              <phase>test-compile</phase>
-              <goals>
-                <goal>testCompile</goal>
-              </goals>
-            </execution>
-          </executions>
         </plugin>
 
         <plugin>
@@ -325,6 +294,44 @@
         </plugin>
 
         <plugin>
+          <!-- java compiler -->
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.11.0</version>
+          <configuration>
+            <encoding>UTF-8</encoding>
+            <source>${java.version}</source>
+            <target>${java.version}</target>
+          </configuration>
+          <executions>
+            <!-- Replacing default-compile as it is treated specially by maven -->
+            <execution>
+              <id>default-compile</id>
+              <phase>none</phase>
+            </execution>
+            <!-- Replacing default-testCompile as it is treated specially by maven -->
+            <execution>
+              <id>default-testCompile</id>
+              <phase>none</phase>
+            </execution>
+            <execution>
+              <id>java-compile</id>
+              <phase>compile</phase>
+              <goals>
+                <goal>compile</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>java-test-compile</id>
+              <phase>test-compile</phase>
+              <goals>
+                <goal>testCompile</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+
+        <plugin>
           <!-- for packaging springboot application -->
           <groupId>org.springframework.boot</groupId>
           <artifactId>spring-boot-maven-plugin</artifactId>
@@ -396,6 +403,76 @@
             <generateBackupPoms>false</generateBackupPoms>
           </configuration>
         </plugin>
+
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>3.0.0</version>
+          <configuration>
+            <useSystemClassLoader>false</useSystemClassLoader>
+            <includes>
+              <include>**/*Test</include>
+            </includes>
+            <excludes>
+              <exclude>**/*ITest</exclude>
+              <exclude>**/*IT</exclude>
+            </excludes>
+            <runOrder>random</runOrder>
+            <systemPropertyVariables>
+              <jgiven.report.dir>${project.build.directory}/jgiven-reports</jgiven.report.dir>
+            </systemPropertyVariables>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <version>3.0.0</version>
+          <executions>
+            <execution>
+              <phase>integration-test</phase>
+              <goals>
+                <goal>integration-test</goal>
+                <goal>verify</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <includes>
+              <include>**/*ITest</include>
+              <include>**/*IT</include>
+            </includes>
+            <useSystemClassLoader>false</useSystemClassLoader>
+            <runOrder>random</runOrder>
+            <classesDirectory>${project.build.outputDirectory}</classesDirectory>
+            <trimStackTrace>false</trimStackTrace>
+          </configuration>
+        </plugin>
+
+        <plugin>
+          <!-- Enforce -->
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <version>3.2.1</version>
+          <executions>
+            <execution>
+              <id>enforce-maven</id>
+              <goals>
+                <goal>enforce</goal>
+              </goals>
+              <configuration>
+                <rules>
+                  <requireMavenVersion>
+                    <version>3.8.6</version>
+                  </requireMavenVersion>
+                  <requireJavaVersion>
+                    <version>11</version>
+                  </requireJavaVersion>
+                </rules>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+
       </plugins>
     </pluginManagement>
 
@@ -404,25 +481,6 @@
         <!-- Enforce -->
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.2.1</version>
-        <executions>
-          <execution>
-            <id>enforce-maven</id>
-            <goals>
-              <goal>enforce</goal>
-            </goals>
-            <configuration>
-              <rules>
-                <requireMavenVersion>
-                  <version>3.8.6</version>
-                </requireMavenVersion>
-                <requireJavaVersion>
-                  <version>11</version>
-                </requireJavaVersion>
-              </rules>
-            </configuration>
-          </execution>
-        </executions>
       </plugin>
 
       <plugin>
@@ -431,15 +489,12 @@
         <artifactId>kotlin-maven-plugin</artifactId>
       </plugin>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.22.2</version>
-        <configuration>
-          <useSystemClassLoader>false</useSystemClassLoader>
-          <runOrder>random</runOrder>
-          <systemPropertyVariables>
-            <jgiven.report.dir>${project.build.directory}/jgiven-reports</jgiven.report.dir>
-          </systemPropertyVariables>
-        </configuration>
       </plugin>
     </plugins>
   </build>
@@ -478,23 +533,11 @@
         <skipFrontend>true</skipFrontend>
       </properties>
       <build>
+        <defaultGoal>integration-test failsafe:verify</defaultGoal>
         <plugins>
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-failsafe-plugin</artifactId>
-            <version>3.0.0</version>
-            <executions>
-              <execution>
-                <phase>integration-test</phase>
-                <goals>
-                  <goal>integration-test</goal>
-                  <goal>verify</goal>
-                </goals>
-              </execution>
-            </executions>
-            <configuration>
-              <useSystemClassLoader>false</useSystemClassLoader>
-            </configuration>
           </plugin>
         </plugins>
       </build>

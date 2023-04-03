@@ -25,7 +25,6 @@ import org.springframework.context.annotation.Primary
 @EnableProcessApplication
 @EnableTaskpoolEngineSupport
 @EnableExampleUsers
-@EnableRevisionAwareQueryGateway
 @Import(RequestApprovalProcessRestConfiguration::class, ProcessApproveRequestSPAConfiguration::class)
 class RequestApprovalProcessConfiguration {
 

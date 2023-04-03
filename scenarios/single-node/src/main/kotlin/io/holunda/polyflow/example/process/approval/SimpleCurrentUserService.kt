@@ -10,10 +10,7 @@ import org.springframework.stereotype.Component
  * Prototype bean, will be created for every request.
  */
 @Component
-class SimpleCurrentUserService() : CurrentUserService {
-
-  @Autowired
-  lateinit var currentUserStore: CurrentUserStore
+class SimpleCurrentUserService(var currentUserStore: CurrentUserStore) : CurrentUserService {
 
   override fun getCurrentUser(): String = currentUserStore.username ?: throw IllegalArgumentException("No current user set")
 }
