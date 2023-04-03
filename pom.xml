@@ -220,7 +220,7 @@
           <!-- resources -->
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-resources-plugin</artifactId>
-          <version>3.3.0</version>
+          <version>3.3.1</version>
           <configuration>
             <encoding>UTF-8</encoding>
           </configuration>
@@ -495,6 +495,14 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.0.0</version>
+        <configuration>
+          <useSystemClassLoader>false</useSystemClassLoader>
+          <runOrder>random</runOrder>
+          <systemPropertyVariables>
+            <jgiven.report.dir>${project.build.directory}/jgiven-reports</jgiven.report.dir>
+          </systemPropertyVariables>
+        </configuration>
       </plugin>
     </plugins>
   </build>
