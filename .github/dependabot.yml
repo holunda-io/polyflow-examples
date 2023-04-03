@@ -1,4 +1,4 @@
-version: 2
+version: 3
 updates:
 - package-ecosystem: maven
   directory: "/"
@@ -7,3 +7,11 @@ updates:
   open-pull-requests-limit: 10
   labels:
   - "Type: dependencies"
+    # Enable version updates for npm
+- package-ecosystem: "npm"
+  # Look for `package.json` and `lock` files in the `root` directory
+  directory: "/components"
+  schedule:
+    interval: weekly
+  labels:
+    - "Type: dependencies"
