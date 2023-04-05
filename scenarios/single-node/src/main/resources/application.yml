@@ -97,8 +97,7 @@ polyflow:
       task:
         enabled: true
         type: tx
-        send-within-transaction: true # Must be set to true in single node scenario.
-        batch-commands: true # Must be set to true in single node scenario
+        send-within-transaction: true # Must be set to true in single node scenario, because the TX of Camunda must be the same as TX of Axon.
     tasklist:
       tasklist-url: http://localhost:${server.port}/taskpool/tasks
   view:

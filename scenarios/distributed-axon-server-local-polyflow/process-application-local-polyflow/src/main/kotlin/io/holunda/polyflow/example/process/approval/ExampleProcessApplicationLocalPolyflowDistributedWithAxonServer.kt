@@ -13,6 +13,9 @@ import io.holunda.polyflow.taskpool.core.EnablePolyflowTaskPool
 import org.axonframework.commandhandling.CommandBus
 import org.axonframework.commandhandling.gateway.CommandGateway
 import org.axonframework.commandhandling.gateway.DefaultCommandGateway
+import org.axonframework.eventhandling.deadletter.jpa.DeadLetterEventEntry
+import org.axonframework.eventhandling.tokenstore.jpa.TokenEntry
+import org.axonframework.modelling.saga.repository.jpa.SagaEntry
 import org.axonframework.serialization.xml.CompactDriver
 import org.axonframework.springboot.util.ConditionalOnMissingQualifiedBean
 import org.axonframework.springboot.util.XStreamSecurityTypeUtility
@@ -20,6 +23,7 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
+import org.springframework.boot.autoconfigure.domain.EntityScan
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Import
@@ -43,11 +47,16 @@ fun main(args: Array<String>) {
 @EnablePolyflowDataPool
 @EnablePolyflowTaskPool
 @Import(RequestApprovalProcessConfiguration::class)
+@EntityScan(
+  basePackageClasses = [
+    TokenEntry::class,
+    SagaEntry::class,
+    DeadLetterEventEntry::class
+  ]
+)
 class ExampleProcessApplicationLocalPolyflowDistributedWithAxonServer {
 
   @Bean
-  @Primary
-  @Qualifier(PAYLOAD_OBJECT_MAPPER)
   fun objectMapper(): ObjectMapper {
     return jacksonObjectMapper()
       .registerModule(JavaTimeModule())

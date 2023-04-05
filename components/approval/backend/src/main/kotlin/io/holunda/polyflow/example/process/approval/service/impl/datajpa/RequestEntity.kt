@@ -7,7 +7,7 @@ import javax.persistence.Id
 import javax.persistence.Table
 
 @Entity
-@Table
+@Table(name = "APP_APPROVAL_REQUEST")
 class RequestEntity(
   @Id
   var id: String,

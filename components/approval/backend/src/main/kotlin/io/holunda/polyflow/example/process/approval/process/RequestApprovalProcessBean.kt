@@ -1,6 +1,8 @@
 package io.holunda.polyflow.example.process.approval.process
 
 import io.holunda.camunda.bpm.data.CamundaBpmData.builder
+import io.holunda.camunda.taskpool.api.task.ProcessReference
+import io.holunda.camunda.taskpool.api.task.TaskToBeCompletedEvent
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Values.RESUBMIT
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.AMEND_ACTION
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.APPROVE_DECISION
@@ -11,9 +13,12 @@ import io.holunda.polyflow.example.process.approval.process.RequestApprovalProce
 import io.holunda.polyflow.example.process.approval.service.Request
 import io.holunda.polyflow.example.process.approval.service.RequestService
 import org.axonframework.commandhandling.CommandHandler
+import org.axonframework.eventhandling.gateway.EventGateway
 import org.camunda.bpm.engine.RuntimeService
 import org.camunda.bpm.engine.TaskService
 import org.camunda.bpm.engine.task.Task
+import org.camunda.bpm.engine.variable.Variables.createVariables
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
@@ -187,11 +192,11 @@ class RequestApprovalProcessBean(
 
   @CommandHandler
   fun changeAssignment(command: AssignmentCommand) {
-    command.newCandidateUsers.forEach { user -> taskService.addCandidateUser(command.taskId, user) }
-    command.newCandidateGroups.forEach { group -> taskService.addCandidateGroup(command.taskId, group) }
-    command.deleteCandidateUsers.forEach { user -> taskService.deleteCandidateUser(command.taskId, user) }
-    command.deleteCandidateGroups.forEach { group -> taskService.deleteCandidateGroup(command.taskId, group) }
-    command.deleteCandidateGroups.forEach { group -> taskService.deleteCandidateGroup(command.taskId, group) }
+      command.newCandidateUsers.forEach { user -> taskService.addCandidateUser(command.taskId, user) }
+      command.newCandidateGroups.forEach { group -> taskService.addCandidateGroup(command.taskId, group) }
+      command.deleteCandidateUsers.forEach { user -> taskService.deleteCandidateUser(command.taskId, user) }
+      command.deleteCandidateGroups.forEach { group -> taskService.deleteCandidateGroup(command.taskId, group) }
+      command.deleteCandidateGroups.forEach { group -> taskService.deleteCandidateGroup(command.taskId, group) }
   }
 }
 
