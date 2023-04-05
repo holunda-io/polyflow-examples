@@ -7,20 +7,29 @@ spring:
   application:
     name: example-process-approval
   datasource:
-    url: jdbc:h2:mem:testdb;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:mem:testdb;MODE=PostgreSQL;INIT=create schema if not exists PUBLIC;DB_CLOSE_DELAY=-1;NON_KEYWORDS=VALUE;DB_CLOSE_ON_EXIT=FALSE
     username: sa
     password: sa
-    driverClassName: org.h2.Driver
+    hikari:
+      connection-test-query: select 1 from dual;
+      schema: PUBLIC
+    driver-class-name: org.h2.Driver
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
-    generate-ddl: true
-    hibernate.ddl-auto: create-drop
+    database-platform: io.holunda.polyflow.example.intrastructure.FixedH2Dialect
+    generate-ddl: false
+    hibernate.ddl-auto: none
     show-sql: false
     open-in-view: false
   h2:
     console:
       enabled: true
       path: /h2-console
+  groovy:
+    template:
+      check-template-location: false
+  flyway:
+    enabled: true
+    locations: "classpath:db/migrations/postgresql"
 
 axon-gateway:
   query:
@@ -35,6 +44,8 @@ camunda:
       last-name: Administrarius
       email: admin@localhost
       password: admin
+    authorization:
+      enabled: false
     login:
       enabled: true
       user-id: admin
@@ -106,12 +117,25 @@ polyflow:
       stored-items: task, process-instance, process-definition, data-entry
 
 
+logging.level:
+  root: INFO
+  io.holunda.camunda:
+    taskpool.core: DEBUG
+  io.holunda.polyflow:
+    taskpool:
+      collector:
+        process:
+          variable: DEBUG
+      sender: INFO
+      core: WARN
+      view.simple: INFO
+    datapool:
+      sender: INFO
+    view.jpa: DEBUG
+
 # To log REST controllers
 #  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: TRACE
 # To log web access
 # org.springframework.web: DEBUG
-logging:
-  level:
-    root: INFO
-    io.holunda.polyflow.view.jpa: DEBUG
+
 

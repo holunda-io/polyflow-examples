@@ -59,6 +59,10 @@
     </dependency>
     <dependency>
       <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-kotlin</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springdoc</groupId>
       <artifactId>springdoc-openapi-ui</artifactId>
     </dependency>
 
@@ -73,11 +77,6 @@
       <groupId>org.mapstruct</groupId>
       <artifactId>mapstruct</artifactId>
     </dependency>
-    <dependency>
-      <groupId>org.mapstruct</groupId>
-      <artifactId>mapstruct</artifactId>
-    </dependency>
-
 
     <dependency>
       <groupId>org.apache.commons</groupId>
@@ -110,16 +109,17 @@
             </goals>
             <configuration>
               <inputSpec>${project.basedir}/src/main/api/openapi.yml</inputSpec>
+              <ignoreFileOverride>${basedir}/src/main/api/.openapi-generator-ignore</ignoreFileOverride>
               <generatorName>kotlin-spring</generatorName>
               <library>spring-boot</library>
-              <apiPackage>io.holunda.polyflow.example.tasklist.rest.api</apiPackage>
-              <modelPackage>io.holunda.polyflow.example.tasklist.rest.model</modelPackage>
               <modelNamePrefix/>
               <modelNameSuffix>Dto</modelNameSuffix>
-              <ignoreFileOverride>${basedir}/src/main/api/.openapi-generator-ignore</ignoreFileOverride>
               <generateApiTests>false</generateApiTests>
               <generateModelTests>false</generateModelTests>
               <skipIfSpecIsUnchanged>true</skipIfSpecIsUnchanged>
+
+              <apiPackage>io.holunda.polyflow.example.tasklist.rest.api</apiPackage>
+              <modelPackage>io.holunda.polyflow.example.tasklist.rest.model</modelPackage>
               <configOptions>
                 <delegatePattern>true</delegatePattern>
                 <swaggerAnnotations>true</swaggerAnnotations>
@@ -139,20 +139,18 @@
         <!-- kotlin compiler -->
         <artifactId>kotlin-maven-plugin</artifactId>
         <groupId>org.jetbrains.kotlin</groupId>
-        <version>${kotlin.version}</version>
         <executions>
           <execution>
             <id>kapt</id>
+            <phase>process-sources</phase>
             <goals>
               <goal>kapt</goal>
             </goals>
             <configuration>
               <sourceDirs>
                 <sourceDir>${project.basedir}/target/generated-sources/openapi/src/main/kotlin</sourceDir>
-                <sourceDir>src/main/kotlin</sourceDir>
+                <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
               </sourceDirs>
-              <!-- Otherwise -->
-              <jvmTarget>11</jvmTarget>
               <annotationProcessorPaths>
                 <annotationProcessorPath>
                   <groupId>org.mapstruct</groupId>
@@ -162,47 +160,7 @@
               </annotationProcessorPaths>
             </configuration>
           </execution>
-          <execution>
-            <id>compile</id>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-            <configuration>
-              <sourceDirs>
-                <sourceDir>${project.basedir}/target/generated-sources/openapi/src/main/kotlin</sourceDir>
-                <sourceDir>${project.basedir}/src/main/kotlin</sourceDir>
-              </sourceDirs>
-            </configuration>
-          </execution>
-          <execution>
-            <id>test-compile</id>
-            <goals>
-              <goal>test-compile</goal>
-            </goals>
-            <configuration>
-              <sourceDirs>
-                <sourceDir>${project.basedir}/src/test/kotlin</sourceDir>
-              </sourceDirs>
-            </configuration>
-          </execution>
         </executions>
-        <dependencies>
-          <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-maven-allopen</artifactId>
-            <version>${kotlin.version}</version>
-          </dependency>
-          <dependency>
-            <groupId>org.jetbrains.kotlin</groupId>
-            <artifactId>kotlin-maven-noarg</artifactId>
-            <version>${kotlin.version}</version>
-          </dependency>
-        </dependencies>
-      </plugin>
-      <!-- java compiler -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
       </plugin>
     </plugins>
   </build>

@@ -2,7 +2,7 @@ package io.holunda.polyflow.example.process.approval.schedule
 
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcessBean
 import io.holunda.polyflow.example.process.approval.service.RequestService
-import io.holunda.polyflow.example.process.approval.service.impl.revisionaware.BusinessDataEntry
+import io.holunda.polyflow.example.process.approval.service.BusinessDataEntry
 import mu.KLogging
 import org.camunda.bpm.spring.boot.starter.event.PostDeployEvent
 import org.springframework.context.event.EventListener

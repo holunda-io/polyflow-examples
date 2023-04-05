@@ -1,4 +1,4 @@
-package io.holunda.polyflow.example.process.approval.service.impl.revisionaware
+package io.holunda.polyflow.example.process.approval.service
 
 import io.holunda.polyflow.example.process.approval.service.Request
 import java.math.BigDecimal

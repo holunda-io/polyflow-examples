@@ -23,7 +23,7 @@ import io.holunda.polyflow.example.process.approval.process.RequestApprovalProce
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.PROJECTION_REVISION
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.REQUEST_ID
 import io.holunda.polyflow.example.process.approval.service.*
-import io.holunda.polyflow.example.process.approval.service.impl.revisionaware.BusinessDataEntry
+import io.holunda.polyflow.example.process.approval.service.BusinessDataEntry
 import io.holunda.polyflow.taskpool.collector.task.TaskEventCollectorService
 import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.camunda.bpm.engine.delegate.DelegateTask

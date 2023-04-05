@@ -7,7 +7,7 @@ import io.holunda.polyflow.example.process.approval.process.RequestApprovalProce
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.COMMENT
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.ORIGINATOR
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.REQUEST_ID
-import io.holunda.polyflow.example.process.approval.service.impl.revisionaware.BusinessDataEntry
+import io.holunda.polyflow.example.process.approval.service.BusinessDataEntry
 import io.holunda.polyflow.example.users.EnableExampleUsers
 import io.holunda.polyflow.taskpool.EnableTaskpoolEngineSupport
 import io.holunda.polyflow.taskpool.collector.task.enricher.*

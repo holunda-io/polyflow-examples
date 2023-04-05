@@ -59,10 +59,13 @@
       </exclusions>
     </dependency>
     <dependency>
+      <groupId>org.flywaydb</groupId>
+      <artifactId>flyway-core</artifactId>
+    </dependency>
+    <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
-      <version>1.4.200</version>
-      <!-- PIN down to support create-drop -->
+      <scope>runtime</scope>
     </dependency>
   </dependencies>
 

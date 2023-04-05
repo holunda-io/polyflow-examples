@@ -6,10 +6,9 @@ import io.holixon.axon.gateway.query.RevisionValue
 import io.holunda.camunda.taskpool.api.business.AuthorizationChange.Companion.addUser
 import io.holunda.camunda.taskpool.api.business.Modification
 import io.holunda.camunda.taskpool.api.business.ProcessingType
+import io.holunda.polyflow.example.process.approval.service.BusinessDataEntry
 import io.holunda.polyflow.example.process.approval.service.Request
 import io.holunda.polyflow.example.process.approval.service.RequestService
-import org.springframework.stereotype.Component
-import java.math.BigDecimal
 import java.time.OffsetDateTime
 import java.util.*
 
