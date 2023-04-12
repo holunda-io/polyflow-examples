@@ -180,11 +180,13 @@
               <modelPackage>io.holunda.polyflow.example.process.approval.rest.model</modelPackage>
               <configOptions>
                 <delegatePattern>true</delegatePattern>
+                <!--
                 <swaggerAnnotations>true</swaggerAnnotations>
                 <exceptionHandler>false</exceptionHandler>
+                <annotationLibrary>swagger2</annotationLibrary>
+                -->
                 <gradleBuildFile>false</gradleBuildFile>
                 <serializationLibrary>jackson</serializationLibrary>
-                <annotationLibrary>swagger2</annotationLibrary>
                 <useTags>true</useTags>
                 <enumPropertyNaming>UPPERCASE</enumPropertyNaming>
               </configOptions>
