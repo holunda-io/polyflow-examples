@@ -18,6 +18,10 @@ import org.springframework.beans.factory.annotation.Autowired
 )
 abstract class ProcessDefinitionMapper {
 
+  @Suppress("unused")
+  @Autowired
+  lateinit var formUrlResolver: FormUrlResolver
+
   /**
    * Maps to DTO.
    */
@@ -36,8 +40,5 @@ abstract class ProcessDefinitionMapper {
   )
   abstract fun dto(processDefinition: ProcessDefinition): ProcessDefinitionDto
 
-  @Suppress("unused")
-  @Autowired
-  lateinit var formUrlResolver: FormUrlResolver
 }
 

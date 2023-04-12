@@ -46,6 +46,9 @@ camunda:
       password: admin
     authorization:
       enabled: false
+    login:
+      enabled: true
+      user-id: admin
     database:
       schema-update: true
     default-serialization-format: application/json
@@ -55,6 +58,9 @@ camunda:
       create: All tasks
     history-level: full
     id-generator: strong
+    metrics:
+      db-reporter-activate: false
+      enabled: false
     webapp:
       index-redirect-enabled: false
 polyflow:
@@ -66,11 +72,11 @@ polyflow:
       camunda:
         application-name: ${spring.application.name}  # default
         process-instance:
-          enabled: true
+          enabled: false
         process-definition:
           enabled: true
         process-variable:
-          enabled: true
+          enabled: false
         task:
           enabled: true
           enricher:
@@ -96,13 +102,13 @@ polyflow:
       process-definition:
         enabled: true
       process-instance:
-        enabled: true
+        enabled: false
       process-variable:
-        enabled: true
+        enabled: false
       task:
         enabled: true
         type: tx
-        send-within-transaction: true # Must be set to true in single node scenario.
+        send-within-transaction: true # Must be set to true in single node scenario, because the TX of Camunda must be the same as TX of Axon.
     tasklist:
       tasklist-url: http://localhost:${server.port}/taskpool/tasks
   view:
@@ -112,6 +118,7 @@ polyflow:
 
 
 logging.level:
+  root: INFO
   io.holunda.camunda:
     taskpool.core: DEBUG
   io.holunda.polyflow:

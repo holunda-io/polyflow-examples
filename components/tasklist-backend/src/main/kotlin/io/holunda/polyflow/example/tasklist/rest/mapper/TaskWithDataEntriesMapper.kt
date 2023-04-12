@@ -38,21 +38,21 @@ abstract class TaskWithDataEntriesMapper {
   abstract fun dto(task: Task): TaskDto
 
   @Mappings(
-    Mapping(target = "payload", source = "dataEntry.payload"),
+    Mapping(target = "payload", source = "payload"),
     Mapping(target = "url", expression = "java(formUrlResolver.resolveUrl(dataEntry))"),
-    Mapping(target = "currentState", source = "dataEntry.state.state"),
-    Mapping(target = "currentStateType", source = "dataEntry.state.processingType"),
-    Mapping(target = "protocol", source = "dataEntry.protocol")
+    Mapping(target = "currentState", source = "state.state"),
+    Mapping(target = "currentStateType", source = "state.processingType"),
+    Mapping(target = "protocol", source = "protocol")
   )
   abstract fun dto(dataEntry: DataEntry): DataEntryDto
 
   @Mappings(
     Mapping(target = "timestamp", expression = "java(toOffsetDateTime(entry.getTime()))"),
-    Mapping(target = "user", source = "entry.username"),
-    Mapping(target = "state", source = "entry.state.state"),
-    Mapping(target = "stateType", source = "entry.state.processingType"),
-    Mapping(target = "log", source = "entry.logMessage"),
-    Mapping(target = "logDetails", source = "entry.logDetails")
+    Mapping(target = "user", source = "username"),
+    Mapping(target = "state", source = "state.state"),
+    Mapping(target = "stateType", source = "state.processingType"),
+    Mapping(target = "log", source = "logMessage"),
+    Mapping(target = "logDetails", source = "logDetails")
   )
   abstract fun dto(entry: ProtocolEntry): ProtocolEntryDto
 

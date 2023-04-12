@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import io.holixon.axon.gateway.query.QueryResponseMessageResponseType
 import io.holixon.axon.gateway.query.RevisionQueryParameters
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcessBean
-import io.holunda.polyflow.example.process.approval.rest.api.RequestApi
+import io.holunda.polyflow.example.process.approval.rest.api.RequestApiDelegate
 import io.holunda.polyflow.example.process.approval.rest.model.ApprovalRequestDraftDto
 import io.holunda.polyflow.example.process.approval.rest.model.ApprovalRequestDto
 import io.holunda.polyflow.example.process.approval.service.Request
@@ -19,43 +19,40 @@ import org.axonframework.queryhandling.QueryGateway
 import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.noContent
 import org.springframework.http.ResponseEntity.ok
-import org.springframework.web.bind.annotation.*
-import java.util.*
-import javax.validation.Valid
+import org.springframework.stereotype.Component
 
-@RestController
-@RequestMapping(path = [Rest.REST_PREFIX])
-class RequestController(
+@Component
+class RequestResource(
   private val requestApprovalProcessBean: RequestApprovalProcessBean,
   private val requestService: RequestService,
   private val userService: UserService,
   private val queryGateway: QueryGateway,
   private val objectMapper: ObjectMapper
-) : RequestApi {
+) : RequestApiDelegate {
 
-  companion object: KLogging()
+  companion object : KLogging()
 
 
   override fun startNewApproval(
-    @RequestHeader(value = "X-Current-User-ID", required = true) xCurrentUserID: String,
-    @RequestParam(value = "revision", required = false) revision: Optional<String>,
-    @RequestBody request: ApprovalRequestDraftDto
-  ): ResponseEntity<Void> {
+    xCurrentUserID: String,
+    approvalRequestDraftDto: ApprovalRequestDraftDto,
+    revision: String?
+  ): ResponseEntity<Unit> {
 
-    val revisionNumber = revision.orElseGet { "1" }.toLong()
+    val revisionNumber: Long = (revision ?: "1").toLong()
     val username = userService.getUser(xCurrentUserID).username
 
-    logger.info { "Starting new process by submitting a draft of ${request.subject}." }
+    logger.info { "Starting new process by submitting a draft of ${approvalRequestDraftDto.subject}." }
 
-    requestApprovalProcessBean.submitDraft(draft(request), username, revisionNumber)
+    requestApprovalProcessBean.submitDraft(draft(approvalRequestDraftDto), username, revisionNumber)
 
     return noContent().build()
   }
 
 
   override fun getApprovalRequest(
-    @RequestHeader(value = "X-Current-User-ID", required = true) xCurrentUserID: String,
-    @PathVariable("id") id: String
+    xCurrentUserID: String,
+    id: String
   ): ResponseEntity<ApprovalRequestDto> {
 
     logger.info { "Retrieving a request with id $id." }
@@ -66,10 +63,10 @@ class RequestController(
   }
 
   override fun updateApprovalRequest(
-    @RequestHeader(value = "X-Current-User-ID", required = true) xCurrentUserID: String,
-    @PathVariable("id") id: String,
-    @Valid @RequestBody(required = false) approvalRequestDto: ApprovalRequestDto
-  ): ResponseEntity<Void> {
+    xCurrentUserID: String,
+    id: String,
+    approvalRequestDto: ApprovalRequestDto
+  ): ResponseEntity<Unit> {
 
     logger.info { "Modifying a request with id $id." }
 
@@ -85,12 +82,12 @@ class RequestController(
   }
 
   override fun getApprovalForUser(
-    @RequestHeader(value = "X-Current-User-ID", required = true) xCurrentUserID: String,
-    @RequestParam(value = "revision", required = false) revision: Optional<String>
+    xCurrentUserID: String,
+    revision: String?
   ): ResponseEntity<List<ApprovalRequestDto>> {
 
 
-    val revisionNumber = revision.orElse("1").toLong()
+    val revisionNumber = (revision ?: "1").toLong()
     val username = userService.getUser(xCurrentUserID).username
 
     logger.info { "Retrieving requests visible for $username." }

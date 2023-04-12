@@ -2,7 +2,7 @@ package io.holunda.polyflow.example.process.approval.schedule
 
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcessBean
 import io.holunda.polyflow.example.process.approval.service.RequestService
-import io.holunda.polyflow.example.process.approval.service.createSalaryRequest
+import io.holunda.polyflow.example.process.approval.service.BusinessDataEntry
 import io.holunda.polyflow.example.users.UserStoreService
 import mu.KLogging
 import org.springframework.beans.factory.annotation.Value
@@ -36,7 +36,7 @@ class ScheduledStarter(
   fun saveDummyRequest() {
     userStoreService.getUsers().map {
       val revision = 1L
-      val request = createSalaryRequest()
+      val request = BusinessDataEntry.createSalaryRequest()
       requestService.addRequest(request, it.username, revision)
       this.requestInfo = request.id to AtomicLong(revision)
       logger.debug { "Saved a new request $request for user $it." }

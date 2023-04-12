@@ -1,4 +1,4 @@
-package io.holunda.polyflow.example.process.approval.service
+package io.holunda.polyflow.example.process.approval.service.impl.revisionaware
 
 import io.holixon.axon.gateway.query.QueryResponseMessageResponseType
 import io.holixon.axon.gateway.query.RevisionQueryParameters

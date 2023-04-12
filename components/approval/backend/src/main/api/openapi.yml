@@ -44,6 +44,7 @@ paths:
         - Request
       requestBody:
         description: Request to be approved.
+        required: true
         content:
           application/json:
             schema:
@@ -101,6 +102,7 @@ paths:
         - Request
       requestBody:
         description: Request to be with modification.
+        required: true
         content:
           application/json:
             schema:
@@ -109,7 +111,7 @@ paths:
       responses:
         204:
           description: Successful operation.
-                
+
 
   '/approve-request/id/{id}':
     parameters:
@@ -143,6 +145,7 @@ paths:
         - User Task Approve Request
       requestBody:
         description: Payload to be added to the process instance on task completion.
+        required: true
         content:
           application/json:
             schema:
@@ -184,6 +187,7 @@ paths:
         - User Task Amend Request
       requestBody:
         description: Payload to be added to the process instance on task completion.
+        required: true
         content:
           application/json:
             schema:
@@ -192,6 +196,37 @@ paths:
       responses:
         201:
           description: Successful operation.
+
+  '/change-assignment/{taskId}':
+    parameters:
+      - in: path
+        name: taskId
+        schema:
+          type: string
+        description: Task id.
+        required: true
+      - in: header
+        name: X-Current-User-ID
+        description: Specifies the id of current user.
+        schema:
+          type: string
+        required: true
+    post:
+      summary: Change assignment of the task.
+      tags:
+        - User Task Assignment
+      requestBody:
+        description: Payload to be added to the process instance on task completion.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TaskAssignment'
+      operationId: submitTaskAssignmentChange
+      responses:
+        201:
+          description: Successful operation.
+
 
 components:
   schemas:
@@ -234,8 +269,8 @@ components:
       - name
       - description
       - createTime
-      - dueDate
       - businessKey
+      - priority
 
     ApprovalRequestDraft:
       type: object
@@ -326,6 +361,31 @@ components:
           description: Optional comment.
       required:
         - action
+
+    TaskAssignment:
+      type: object
+      properties:
+        deleteCandidateGroups:
+          type: array
+          items:
+            type: string
+        deleteCandidateUsers:
+          type: array
+          items:
+            type: string
+        addCandidateGroups:
+          type: array
+          items:
+            type: string
+        addCandidateUsers:
+          type: array
+          items:
+            type: string
+      required:
+        - deleteCandidateGroups
+        - deleteCandidateUsers
+        - addCandidateGroups
+        - addCandidateUsers
 
     Environment:
       type: object

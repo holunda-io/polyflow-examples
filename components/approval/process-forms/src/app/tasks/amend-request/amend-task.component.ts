@@ -49,7 +49,8 @@ export class AmendTaskComponent {
       createTime: null,
       dueDate: null,
       name: 'undefined',
-      description: 'undefined'
+      description: 'undefined',
+      priority: 0
     };
   }
 

@@ -8,17 +8,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.ResponseStatus
 
 @Configuration
-// @EnableSwagger2
 @ControllerAdvice
 class RequestApprovalProcessRestConfiguration {
 
-//  @Bean
-//  fun requestApprovalRestApi() = Docket(DocumentationType.SWAGGER_2)
-//    .groupName("example-request-approval")
-//    .select()
-//    .apis(RequestHandlerSelectors.any())
-//    .paths(PathSelectors.any())
-//    .build()
 
   @ResponseStatus(value = HttpStatus.FORBIDDEN, reason = "Unknown user.")
   @ExceptionHandler(value = [UnknownUserException::class])

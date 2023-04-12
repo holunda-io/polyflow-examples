@@ -8,6 +8,7 @@ import io.holunda.camunda.taskpool.api.business.DataEntryState
 import io.holunda.camunda.taskpool.api.business.Modification
 import io.holunda.camunda.taskpool.api.business.ProcessingType.COMPLETED
 import io.holunda.camunda.taskpool.api.business.ProcessingType.IN_PROGRESS
+import io.holunda.polyflow.datapool.sender.DataEntryCommandSender
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Elements.AMEND_REQUEST
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Elements.APPROVE_REQUEST
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Elements.AUDIT_SUBMITTED
@@ -21,8 +22,8 @@ import io.holunda.polyflow.example.process.approval.process.RequestApprovalProce
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.ORIGINATOR
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.PROJECTION_REVISION
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.REQUEST_ID
-import io.holunda.polyflow.datapool.sender.DataEntryCommandSender
 import io.holunda.polyflow.example.process.approval.service.*
+import io.holunda.polyflow.example.process.approval.service.BusinessDataEntry
 import io.holunda.polyflow.taskpool.collector.task.TaskEventCollectorService
 import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.camunda.bpm.engine.delegate.DelegateTask
@@ -58,6 +59,7 @@ class RequestStatusListener(
           username = originator
         )
       }
+
       else -> Unit
     }
   }
@@ -86,6 +88,7 @@ class RequestStatusListener(
               username = task.assignee
             )
           }
+
           REJECT -> {
             notifyChange(
               request = request,
@@ -95,6 +98,7 @@ class RequestStatusListener(
               username = task.assignee
             )
           }
+
           RETURN -> {
             notifyChange(
               request = request,
@@ -104,9 +108,11 @@ class RequestStatusListener(
               username = task.assignee
             )
           }
+
           else -> Unit
         }
       }
+
       AMEND_REQUEST -> {
         val amendAction = reader.getOptional(AMEND_ACTION).orElseThrow { IllegalStateException("Amend action must be provided") }
         when (amendAction) {
@@ -119,6 +125,7 @@ class RequestStatusListener(
               username = task.assignee
             )
           }
+
           CANCEL -> {
             notifyChange(
               request = request,
@@ -128,10 +135,12 @@ class RequestStatusListener(
               username = task.assignee
             )
           }
+
           else -> Unit
         }
 
       }
+
       else -> Unit
     }
 

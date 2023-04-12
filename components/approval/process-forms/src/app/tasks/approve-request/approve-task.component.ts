@@ -51,7 +51,8 @@ export class ApproveTaskComponent {
       createTime: null,
       dueDate: null,
       name: 'undefined',
-      description: 'undefined'
+      description: 'undefined',
+      priority: 0
     };
   }
 

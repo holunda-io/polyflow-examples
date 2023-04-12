@@ -1,6 +1,6 @@
 package io.holunda.polyflow.example.process.approval
 
-import io.holixon.axon.gateway.configuration.query.EnableRevisionAwareQueryGateway
+import io.holunda.polyflow.client.camunda.EnableCamundaEngineClient
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.AMOUNT
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.APPLICANT
@@ -16,15 +16,20 @@ import io.holunda.polyflow.taskpool.sender.gateway.LoggingTaskCommandErrorHandle
 import mu.KLogging
 import org.axonframework.commandhandling.CommandResultMessage
 import org.camunda.bpm.spring.boot.starter.annotation.EnableProcessApplication
+import org.springframework.boot.autoconfigure.domain.EntityScan
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
 import org.springframework.context.annotation.Primary
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories
 
 @Configuration
 @EnableProcessApplication
 @EnableTaskpoolEngineSupport
 @EnableExampleUsers
+@EnableJpaRepositories
+@EntityScan
+@EnableCamundaEngineClient
 @Import(RequestApprovalProcessRestConfiguration::class, ProcessApproveRequestSPAConfiguration::class)
 class RequestApprovalProcessConfiguration {
 

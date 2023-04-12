@@ -19,32 +19,28 @@ object Rest {
 /**
  * Converts approval request to DTO.
  */
-fun approvalRequestDto(request: Request): ApprovalRequestDto = ApprovalRequestDto()
-  .id(request.id)
-  .amount(request.amount.toFloat())
-  .applicant(request.applicant)
-  .currency(request.currency)
-  .subject(request.subject)
+fun approvalRequestDto(request: Request): ApprovalRequestDto = ApprovalRequestDto(
+  id = request.id,
+  amount = request.amount.toFloat(),
+  applicant = request.applicant,
+  currency = request.currency,
+  subject = request.subject
+)
 
 /**
  * Converts task to DTO.
  */
-fun taskDto(task: Task): TaskDto = TaskDto()
-  .id(task.id)
-  .assignee(task.assignee)
-  .createTime(OffsetDateTime.ofInstant(task.createTime.toInstant(), ZoneId.systemDefault()))
-  .description(task.description)
-  .formKey(task.formKey)
-  .name(task.name)
-  .priority(task.priority)
-  .apply {
-    if (task.dueDate != null) {
-      dueDate = OffsetDateTime.ofInstant(task.dueDate.toInstant(), ZoneId.systemDefault())
-    }
-    if (task.followUpDate != null) {
-      followUpDate = OffsetDateTime.ofInstant(task.followUpDate.toInstant(), ZoneId.systemDefault())
-    }
-  }
+fun taskDto(task: Task): TaskDto = TaskDto(
+  id = task.id,
+  assignee = task.assignee,
+  createTime = OffsetDateTime.ofInstant(task.createTime.toInstant(), ZoneId.systemDefault()),
+  description = task.description,
+  formKey = task.formKey,
+  name = task.name,
+  priority = task.priority,
+  dueDate = task.dueDate?.let { dieDate -> OffsetDateTime.ofInstant(dieDate.toInstant(), ZoneId.systemDefault()) },
+  followUpDate = task.followUpDate?.let { followUpDate -> OffsetDateTime.ofInstant(followUpDate.toInstant(), ZoneId.systemDefault()) }
+)
 
 /**
  * Converts the DTO to approval request.

@@ -32,7 +32,7 @@ import org.springframework.context.annotation.Primary
  */
 @Suppress("UNUSED_PARAMETER")
 fun main(args: Array<String>) {
-  runApplication<SingleNodeExampleProcessApplication>().let { Unit }
+  runApplication<SingleNodeExampleProcessApplication>().let { }
 }
 
 /**

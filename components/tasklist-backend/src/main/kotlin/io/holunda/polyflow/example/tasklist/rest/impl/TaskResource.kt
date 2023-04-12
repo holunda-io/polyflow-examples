@@ -3,9 +3,7 @@ package io.holunda.polyflow.example.tasklist.rest.impl
 import io.holunda.camunda.taskpool.api.task.*
 import io.holunda.polyflow.example.tasklist.auth.CurrentUserService
 import io.holunda.polyflow.example.tasklist.rest.ElementNotFoundException
-import io.holunda.polyflow.example.tasklist.rest.Rest
-import io.holunda.polyflow.example.tasklist.rest.api.TaskApi
-import io.holunda.polyflow.example.tasklist.rest.impl.UserProfileResource.Companion.HEADER_CURRENT_USER
+import io.holunda.polyflow.example.tasklist.rest.api.TaskApiDelegate
 import io.holunda.polyflow.example.tasklist.rest.mapper.TaskWithDataEntriesMapper
 import io.holunda.polyflow.example.tasklist.rest.model.TaskWithDataEntriesDto
 import io.holunda.polyflow.view.Task
@@ -15,19 +13,17 @@ import mu.KLogging
 import org.camunda.bpm.engine.variable.Variables
 import org.springframework.http.HttpHeaders
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.*
+import org.springframework.stereotype.Component
 import java.time.OffsetDateTime
 import java.util.*
 
-@RestController
-@CrossOrigin
-@RequestMapping(Rest.REQUEST_PATH)
+@Component
 class TaskResource(
   private val taskServiceGateway: TaskServiceGateway,
   private val currentUserService: CurrentUserService,
   private val userService: UserService,
   private val mapper: TaskWithDataEntriesMapper
-) : TaskApi {
+) : TaskApiDelegate {
 
   companion object : KLogging() {
     const val HEADER_ELEMENT_COUNT = "X-ElementCount"
@@ -35,10 +31,10 @@ class TaskResource(
 
   override fun claim(
     id: String,
-    xCurrentUserID: Optional<String>
-  ): ResponseEntity<Void> {
+    xCurrentUserID: String?
+  ): ResponseEntity<Unit> {
 
-    val user = userService.getUser(xCurrentUserID.orElseGet { currentUserService.getCurrentUser() })
+    val user = userService.getUser(xCurrentUserID ?: currentUserService.getCurrentUser())
     val task = getAuthorizedTask(id, user)
 
     taskServiceGateway.send(
@@ -55,10 +51,10 @@ class TaskResource(
 
   override fun unclaim(
     id: String,
-    xCurrentUserID: Optional<String>
-  ): ResponseEntity<Void> {
+    xCurrentUserID: String?
+  ): ResponseEntity<Unit> {
 
-    val user = userService.getUser(xCurrentUserID.orElseGet { currentUserService.getCurrentUser() })
+    val user = userService.getUser(xCurrentUserID ?: currentUserService.getCurrentUser())
     val task = getAuthorizedTask(id, user)
 
     taskServiceGateway.send(
@@ -74,11 +70,11 @@ class TaskResource(
 
   override fun complete(
     id: String,
-    xCurrentUserID: Optional<String>,
-    payload: Map<String, Any>
-  ): ResponseEntity<Void> {
+    requestBody: Map<String, Any>,
+    xCurrentUserID: String?
+  ): ResponseEntity<Unit> {
 
-    val user = userService.getUser(xCurrentUserID.orElseGet { currentUserService.getCurrentUser() })
+    val user = userService.getUser(xCurrentUserID ?: currentUserService.getCurrentUser())
     val task = getAuthorizedTask(id, user)
 
     taskServiceGateway.send(
@@ -86,7 +82,7 @@ class TaskResource(
         id = task.id,
         sourceReference = task.sourceReference,
         taskDefinitionKey = task.taskDefinitionKey,
-        payload = Variables.createVariables().apply { putAll(payload) },
+        payload = Variables.createVariables().apply { putAll(requestBody) },
         assignee = user.username
       )
     )
@@ -97,11 +93,11 @@ class TaskResource(
 
   override fun defer(
     id: String,
-    xCurrentUserID: Optional<String>,
-    followUpDate: OffsetDateTime
-  ): ResponseEntity<Void> {
+    body: OffsetDateTime,
+    xCurrentUserID: String?
+  ): ResponseEntity<Unit> {
 
-    val user = userService.getUser(xCurrentUserID.orElseGet { currentUserService.getCurrentUser() })
+    val user = userService.getUser(xCurrentUserID ?: currentUserService.getCurrentUser())
     val task = getAuthorizedTask(id, user)
 
     taskServiceGateway.send(
@@ -109,7 +105,7 @@ class TaskResource(
         id = task.id,
         sourceReference = task.sourceReference,
         taskDefinitionKey = task.taskDefinitionKey,
-        followUpDate = Date.from(followUpDate.toInstant())
+        followUpDate = Date.from(body.toInstant())
       )
     )
 
@@ -118,10 +114,10 @@ class TaskResource(
 
   override fun undefer(
     id: String,
-    xCurrentUserID: Optional<String>
-  ): ResponseEntity<Void> {
+    xCurrentUserID: String?
+  ): ResponseEntity<Unit> {
 
-    val user = userService.getUser(xCurrentUserID.orElseGet { currentUserService.getCurrentUser() })
+    val user = userService.getUser(xCurrentUserID ?: currentUserService.getCurrentUser())
     val task = getAuthorizedTask(id, user)
 
     taskServiceGateway.send(
@@ -136,14 +132,14 @@ class TaskResource(
   }
 
   override fun getTasks(
-    @RequestParam(value = "page") page: Optional<Int>,
-    @RequestParam(value = "size") size: Optional<Int>,
-    @RequestParam(value = "sort") sort: Optional<String>,
-    @RequestParam(value = "filter") filters: Optional<List<String>>,
-    @RequestHeader(value = HEADER_CURRENT_USER, required = false) xCurrentUserID: Optional<String>
+    page: Int,
+    size: Int,
+    sort: String?,
+    filters: List<String>,
+    xCurrentUserID: String?
   ): ResponseEntity<List<TaskWithDataEntriesDto>> {
 
-    val userIdentifier = xCurrentUserID.orElseGet { currentUserService.getCurrentUser() }
+    val userIdentifier = xCurrentUserID ?: currentUserService.getCurrentUser()
     val user = userService.getUser(userIdentifier)
 
     val result = taskServiceGateway.getTasks(user, page, sort, size, filters)

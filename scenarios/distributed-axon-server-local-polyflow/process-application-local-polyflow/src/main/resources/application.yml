@@ -85,8 +85,8 @@ polyflow:
         enabled: true
       task:
         enabled: true
-        type: tx
-        send-within-transaction: true # Must be set to true in single node scenario.
+        type: txjob
+        send-within-transaction: false # will send commands after TX is commited.
     tasklist:
       tasklist-url: http://localhost:8081/polyflow/tasks
 
