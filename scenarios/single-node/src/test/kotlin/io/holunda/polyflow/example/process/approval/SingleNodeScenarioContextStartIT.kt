@@ -1,7 +1,7 @@
 package io.holunda.polyflow.example.process.approval
 
+import io.holunda.polyflow.view.auth.UserService
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -12,15 +12,10 @@ import org.springframework.test.context.ActiveProfiles
 class SingleNodeScenarioContextStartIT {
 
   @Autowired
-  lateinit var userService: SimpleCurrentUserService
-
-  @BeforeEach
-  fun `init user`() {
-    userService.currentUserStore.username = "kermit"
-  }
+  lateinit var userService: UserService
 
   @Test
   fun `should start application`() {
-    assertThat(userService.getCurrentUser()).isEqualTo("kermit")
+    assertThat(userService.getUser("37bff195-06fe-4788-9480-a7d9ac6474e1").username).isEqualTo("kermit")
   }
 }
