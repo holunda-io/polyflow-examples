@@ -34,7 +34,6 @@ class BusinessDataEntriesResource(
 
     val user = userService.getUser(xCurrentUserID)
 
-    @Suppress("UNCHECKED_CAST")
     val result: DataEntriesQueryResult = businessDataEntriesQueryClient
       .query(
         DataEntriesForUserQuery(

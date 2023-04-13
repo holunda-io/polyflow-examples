@@ -8,6 +8,7 @@ import io.holunda.polyflow.view.auth.User
 import io.holunda.polyflow.view.query.task.TaskForIdQuery
 import io.holunda.polyflow.view.query.task.TasksWithDataEntriesForUserQuery
 import io.holunda.polyflow.view.query.task.TasksWithDataEntriesQueryResult
+import mu.KLogging
 import org.axonframework.commandhandling.gateway.CommandGateway
 import org.axonframework.queryhandling.QueryGateway
 import org.springframework.stereotype.Component
@@ -18,13 +19,25 @@ class TaskServiceGateway(
   val commandGateway: CommandGateway
 ) {
 
+  companion object : KLogging()
+
   val taskQueryClient = TaskQueryClient(queryGateway)
 
   fun send(command: InteractionTaskCommand) {
-    commandGateway.send<Any, Any?>(command) { m, r -> TaskResource.logger.debug {"Successfully submitted command $m, $r" } }
+    commandGateway.send<Any, Any?>(command) { m, r ->
+      if (r.isExceptional) {
+        logger.error(r.exceptionResult()) { "Error handling submitted command $m" }
+      } else {
+        logger.debug { "Successfully submitted command $m" }
+      }
+    }
   }
 
-  fun getTask(id: String): Task = taskQueryClient.query(TaskForIdQuery(id)).join().orElseGet(null) ?: throw ElementNotFoundException()
+  fun getTask(id: String): Task = taskQueryClient
+    .query(
+      TaskForIdQuery(id)
+    )
+    .join().orElseGet(null) ?: throw ElementNotFoundException()
 
   fun getTasks(
     user: User,
@@ -32,18 +45,14 @@ class TaskServiceGateway(
     sort: String?,
     size: Int,
     filters: List<String>
-  ): TasksWithDataEntriesQueryResult {
-    @Suppress("UNCHECKED_CAST")
-    return taskQueryClient
-      .query(
-        TasksWithDataEntriesForUserQuery(
-          user = user,
-          page = page,
-          size = size,
-          sort = sort ?: "",
-          filters = filters
-        )
+  ): TasksWithDataEntriesQueryResult = taskQueryClient
+    .query(
+      TasksWithDataEntriesForUserQuery(
+        user = user,
+        page = page,
+        size = size,
+        sort = sort ?: "",
+        filters = filters
       )
-      .join() ?: throw ElementNotFoundException()
-  }
+    ).join() ?: throw ElementNotFoundException()
 }

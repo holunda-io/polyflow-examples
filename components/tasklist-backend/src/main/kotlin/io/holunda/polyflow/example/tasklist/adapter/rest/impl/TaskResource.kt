@@ -27,6 +27,24 @@ class TaskResource(
     const val HEADER_ELEMENT_COUNT = "X-ElementCount"
   }
 
+  override fun getTasks(
+    xCurrentUserID: String,
+    page: Int,
+    size: Int,
+    sort: String?,
+    filters: List<String>,
+  ): ResponseEntity<List<TaskWithDataEntriesDto>> {
+
+    val user = userService.getUser(xCurrentUserID)
+    val result = taskServiceGateway.getTasks(user, page, sort, size, filters)
+
+    return ResponseEntity
+      .ok()
+      .headers(HttpHeaders().apply { this[HEADER_ELEMENT_COUNT] = result.totalElementCount.toString() })
+      .body(result.elements.map { mapper.dto(it) })
+  }
+
+
   override fun claim(
     id: String,
     xCurrentUserID: String
@@ -129,27 +147,6 @@ class TaskResource(
     return ResponseEntity.noContent().build()
   }
 
-  override fun getTasks(
-    xCurrentUserID: String,
-    page: Int,
-    size: Int,
-    sort: String?,
-    filters: List<String>,
-  ): ResponseEntity<List<TaskWithDataEntriesDto>> {
-
-    val user = userService.getUser(xCurrentUserID)
-
-    val result = taskServiceGateway.getTasks(user, page, sort, size, filters)
-
-    val responseHeaders = HttpHeaders().apply {
-      this[HEADER_ELEMENT_COUNT] = result.totalElementCount.toString()
-    }
-
-    return ResponseEntity.ok()
-      .headers(responseHeaders)
-      .body(result.elements.map { mapper.dto(it) })
-  }
-
   private fun getAuthorizedTask(id: String, user: User): Task = taskServiceGateway.getTask(id)
     .apply {
       if (!isAuthorized(this, user)) {
@@ -158,12 +155,9 @@ class TaskResource(
       }
     }
 
-
   private fun isAuthorized(task: Task, user: User) =
-    task.assignee == user.username || task.candidateUsers.contains(user.username) || task.candidateGroups.any { requiredGroup ->
-      user.groups.contains(
-        requiredGroup
-      )
-    }
+    task.assignee == user.username
+      || task.candidateUsers.contains(user.username)
+      || task.candidateGroups.any { requiredGroup -> user.groups.contains(requiredGroup) }
 }
 

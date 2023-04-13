@@ -27,12 +27,9 @@ class StartableProcessDefinitionResource(
   ): ResponseEntity<List<ProcessDefinitionDto>> {
 
     val user = userService.getUser(xCurrentUserID)
-
-    val queryResult = processDefinitionQueryClient.query(ProcessDefinitionsStartableByUserQuery(user = user))
-    val result: List<ProcessDefinition> = queryResult.join()
+    val result = processDefinitionQueryClient.query(ProcessDefinitionsStartableByUserQuery(user = user)).join()
 
     return ok()
       .body(result.map { mapper.dto(it) })
-
   }
 }

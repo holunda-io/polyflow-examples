@@ -3,10 +3,7 @@ package io.holunda.polyflow.example.tasklist.adapter.rest.mapper
 import io.holunda.polyflow.example.tasklist.adapter.rest.model.ProcessDefinitionDto
 import io.holunda.polyflow.view.FormUrlResolver
 import io.holunda.polyflow.view.ProcessDefinition
-import org.mapstruct.Mapper
-import org.mapstruct.Mapping
-import org.mapstruct.Mappings
-import org.mapstruct.ReportingPolicy
+import org.mapstruct.*
 import org.springframework.beans.factory.annotation.Autowired
 
 /**
@@ -14,7 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired
  */
 @Mapper(
   componentModel = "spring",
-  unmappedTargetPolicy = ReportingPolicy.ERROR
+  unmappedTargetPolicy = ReportingPolicy.ERROR,
+  injectionStrategy = InjectionStrategy.CONSTRUCTOR
 )
 abstract class ProcessDefinitionMapper {
 

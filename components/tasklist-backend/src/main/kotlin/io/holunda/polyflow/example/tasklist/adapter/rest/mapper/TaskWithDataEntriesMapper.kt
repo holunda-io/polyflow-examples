@@ -5,10 +5,7 @@ import io.holunda.polyflow.example.tasklist.adapter.rest.model.ProtocolEntryDto
 import io.holunda.polyflow.example.tasklist.adapter.rest.model.TaskDto
 import io.holunda.polyflow.example.tasklist.adapter.rest.model.TaskWithDataEntriesDto
 import io.holunda.polyflow.view.*
-import org.mapstruct.Mapper
-import org.mapstruct.Mapping
-import org.mapstruct.Mappings
-import org.mapstruct.ReportingPolicy
+import org.mapstruct.*
 import org.springframework.beans.factory.annotation.Autowired
 import java.time.Instant
 import java.time.OffsetDateTime
@@ -20,7 +17,8 @@ import javax.validation.Valid
  */
 @Mapper(
   componentModel = "spring",
-  unmappedTargetPolicy = ReportingPolicy.ERROR
+  unmappedTargetPolicy = ReportingPolicy.ERROR,
+  injectionStrategy = InjectionStrategy.CONSTRUCTOR
 )
 abstract class TaskWithDataEntriesMapper {
 
