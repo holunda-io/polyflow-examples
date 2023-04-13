@@ -28,6 +28,7 @@ paths:
         description: Specifies the id of current user.
         schema:
           type: string
+        required: true
     get:
       tags:
         - Profile
@@ -62,6 +63,7 @@ paths:
         description: Specifies the id of current user.
         schema:
           type: string
+        required: true
     get:
       tags:
         - Process
@@ -99,7 +101,7 @@ paths:
       description: The page size requested (defaults to 20)
       schema:
         type: integer
-        default: 0
+        default: 20
     - in: query
       name: sort
       description: A collection of sort directives in the format +prop1.
@@ -118,6 +120,7 @@ paths:
     - in: header
       name: X-Current-User-ID
       description: Specifies the id of current user.
+      required: true
       schema:
         type: string
     get:
@@ -158,6 +161,7 @@ paths:
         description: Specifies the id of current user.
         schema:
           type: string
+        required: true
     post:
       tags:
         - Task
@@ -165,7 +169,7 @@ paths:
       operationId: claim
       responses:
         '204':
-          description: Sucessful operation.
+          description: Successful operation.
         '401':
           description: Not authenticated.
         '403':
@@ -186,6 +190,7 @@ paths:
         description: Specifies the id of current user.
         schema:
           type: string
+        required: true
     post:
       tags:
         - Task
@@ -193,7 +198,7 @@ paths:
       operationId: unclaim
       responses:
         '204':
-          description: Sucessful operation.
+          description: Successful operation.
         '401':
           description: Not authenticated.
         '403':
@@ -214,6 +219,7 @@ paths:
         description: Specifies the id of current user.
         schema:
           type: string
+        required: true
     post:
       tags:
         - Task
@@ -229,7 +235,7 @@ paths:
               format: date-time
       responses:
         '204':
-          description: Sucessful operation.
+          description: Successful operation.
         '401':
           description: Not authenticated.
         '403':
@@ -250,6 +256,7 @@ paths:
         description: Specifies the id of current user.
         schema:
           type: string
+        required: true
     post:
       tags:
         - Task
@@ -257,7 +264,7 @@ paths:
       operationId: undefer
       responses:
         '204':
-          description: Sucessful operation.
+          description: Successful operation.
         '401':
           description: Not authenticated.
         '403':
@@ -279,6 +286,7 @@ paths:
         description: Specifies the id of current user.
         schema:
           type: string
+        required: true
     post:
       tags:
         - Task
@@ -293,7 +301,7 @@ paths:
               $ref: '#/components/schemas/Payload'
       responses:
         '204':
-          description: Sucessful operation.
+          description: Successful operation.
         '401':
           description: Not authenticated.
         '403':
@@ -335,6 +343,7 @@ paths:
         description: Specifies the id of current user.
         schema:
           type: string
+        required: true
     get:
       tags:
         - BusinessData

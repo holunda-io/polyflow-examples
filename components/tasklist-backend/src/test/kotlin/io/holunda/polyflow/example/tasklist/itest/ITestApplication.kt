@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.SerializationFeature
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import io.holunda.polyflow.example.tasklist.auth.CurrentUserService
 import io.holunda.polyflow.example.tasklist.EnableTasklist
 import io.holunda.polyflow.example.users.UserStoreService
 import io.holunda.polyflow.view.DataEntry
@@ -33,11 +32,6 @@ class ITestApplication {
 
   @Bean
   fun mockCommandGateway(): CommandGateway = mock()
-
-  @Bean
-  fun fakingCurrentUserService(): CurrentUserService = object : CurrentUserService {
-    override fun getCurrentUser(): String = "current-user-for-the-test"
-  }
 
   @Bean
   fun mockUserStoreService(): UserStoreService = mock()

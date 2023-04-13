@@ -1,1 +1,1 @@
-io.holunda.polyflow.example.infrastructure.JacksonDataFormatConfigurator
+io.holunda.polyflow.example.infrastructure.workflow.JacksonDataFormatConfigurator

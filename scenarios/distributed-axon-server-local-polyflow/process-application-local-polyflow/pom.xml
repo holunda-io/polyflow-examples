@@ -17,6 +17,7 @@
   </properties>
 
   <dependencies>
+
     <dependency>
       <groupId>io.holunda.polyflow</groupId>
       <artifactId>polyflow-example-approval-backend</artifactId>
@@ -30,15 +31,26 @@
       <artifactId>polyflow-datapool-core</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>org.axonframework</groupId>
+      <artifactId>axon-server-connector</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.holunda.polyflow</groupId>
+      <artifactId>polyflow-camunda-bpm-taskpool-job-sender</artifactId>
+    </dependency>
+
     <!-- DB and Flyway -->
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
+      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.flywaydb</groupId>
       <artifactId>flyway-core</artifactId>
     </dependency>
+
     <dependency>
       <groupId>io.holunda</groupId>
       <artifactId>camunda-platform-7-autologin</artifactId>

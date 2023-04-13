@@ -8,8 +8,10 @@ spring:
     active: jpa # control the view implementation
 
 springdoc:
-  packagesToScan: io.holunda.polyflow.example.tasklist.rest.impl
+  packagesToScan: io.holunda.polyflow.example.tasklist.rest
   auto-tag-classes: false
+  swagger-ui:
+    try-it-out-enabled: true
 
 #axon.serializer:
 #  general: jackson

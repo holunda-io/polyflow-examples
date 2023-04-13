@@ -76,6 +76,12 @@
     <dependency>
       <groupId>org.axonframework</groupId>
       <artifactId>axon-spring-boot-starter</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.axonframework</groupId>
+          <artifactId>axon-server-connector</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <!-- Data -->
     <dependency>
@@ -169,24 +175,19 @@
               <inputSpec>${project.basedir}/src/main/api/openapi.yml</inputSpec>
               <ignoreFileOverride>${basedir}/src/main/api/.openapi-generator-ignore</ignoreFileOverride>
               <generatorName>kotlin-spring</generatorName>
-              <library>spring-boot</library>
               <modelNamePrefix/>
               <modelNameSuffix>Dto</modelNameSuffix>
               <generateApiTests>false</generateApiTests>
               <generateModelTests>false</generateModelTests>
               <skipIfSpecIsUnchanged>true</skipIfSpecIsUnchanged>
-
-              <apiPackage>io.holunda.polyflow.example.process.approval.rest.api</apiPackage>
-              <modelPackage>io.holunda.polyflow.example.process.approval.rest.model</modelPackage>
+              <packageName>io.holunda.polyflow.example.process.approval.adapter.rest</packageName>
+              <apiPackage>io.holunda.polyflow.example.process.approval.adapter.rest.api</apiPackage>
+              <modelPackage>io.holunda.polyflow.example.process.approval.adapter.rest.model</modelPackage>
               <configOptions>
                 <delegatePattern>true</delegatePattern>
-                <!--
-                <swaggerAnnotations>true</swaggerAnnotations>
-                <exceptionHandler>false</exceptionHandler>
-                <annotationLibrary>swagger2</annotationLibrary>
-                -->
                 <gradleBuildFile>false</gradleBuildFile>
                 <serializationLibrary>jackson</serializationLibrary>
+                <exceptionHandler>false</exceptionHandler>
                 <useTags>true</useTags>
                 <enumPropertyNaming>UPPERCASE</enumPropertyNaming>
               </configOptions>

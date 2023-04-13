@@ -116,22 +116,19 @@
               <inputSpec>${project.basedir}/src/main/api/openapi.yml</inputSpec>
               <ignoreFileOverride>${basedir}/src/main/api/.openapi-generator-ignore</ignoreFileOverride>
               <generatorName>kotlin-spring</generatorName>
-              <library>spring-boot</library>
               <modelNamePrefix/>
               <modelNameSuffix>Dto</modelNameSuffix>
               <generateApiTests>false</generateApiTests>
               <generateModelTests>false</generateModelTests>
               <skipIfSpecIsUnchanged>true</skipIfSpecIsUnchanged>
-
-              <apiPackage>io.holunda.polyflow.example.tasklist.rest.api</apiPackage>
-              <modelPackage>io.holunda.polyflow.example.tasklist.rest.model</modelPackage>
+              <packageName>io.holunda.polyflow.example.tasklist.adapter.rest</packageName>
+              <apiPackage>io.holunda.polyflow.example.tasklist.adapter.rest.api</apiPackage>
+              <modelPackage>io.holunda.polyflow.example.tasklist.adapter.rest.model</modelPackage>
               <configOptions>
                 <delegatePattern>true</delegatePattern>
-                <swaggerAnnotations>true</swaggerAnnotations>
-                <exceptionHandler>false</exceptionHandler>
                 <gradleBuildFile>false</gradleBuildFile>
+                <exceptionHandler>false</exceptionHandler>
                 <serializationLibrary>jackson</serializationLibrary>
-                <annotationLibrary>swagger2</annotationLibrary>
                 <useTags>true</useTags>
                 <enumPropertyNaming>UPPERCASE</enumPropertyNaming>
               </configOptions>

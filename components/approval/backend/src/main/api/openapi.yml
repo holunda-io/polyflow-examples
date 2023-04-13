@@ -8,6 +8,15 @@ servers:
   - url: http://localhost:8080/example-process-approval/rest
     description: Local example process REST API
 
+tags:
+  - name: Administration
+  - name: Environment
+    description: Environment operations.
+  - name: Request
+    description: Operations on approval request.
+  - name: User Task Approve Request
+  - name: User Task Amend Request
+
 paths:
   '/environment':
     get:
@@ -22,6 +31,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Environment'
+
+  '/admin/import-tasks':
+    post:
+      tags:
+        - Administration
+      summary: Triggers task import
+      operationId: triggerTaskImport
+      responses:
+        204:
+          description: Successful operation.
 
   '/request':
     parameters:
@@ -54,8 +73,8 @@ paths:
         201:
           description: Successful operation.
     get:
-      summary: Retrieves all events known by the projections.
-      operationId: getApprovalForUser
+      summary: Retrieves all requests.
+      operationId: getApprovalsForUser
       tags:
         - Request
       responses:

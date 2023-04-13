@@ -12,7 +12,7 @@ spring:
     hibernate.ddl-auto: validate
     show-sql: false
     open-in-view: false
-    database-platform: io.holunda.polyflow.example.infrastructure.NoToastPostgresSQLDialect
+    database-platform: io.holunda.polyflow.example.infrastructure.jpa.NoToastPostgresSQLDialect
   flyway:
     enabled: true
     locations: "classpath:db/migrations"
@@ -30,6 +30,10 @@ axon-gateway:
           - io.holunda.camunda.datapool.api
 
 
+springdoc:
+  swagger-ui:
+    try-it-out-enabled: true
+    display-request-duration: true
 
 #axon.serializer:
 #  general: jackson
@@ -73,6 +77,9 @@ polyflow:
           enabled: true
           enricher:
             type: processVariables
+          importer:
+            enabled: true
+            task-filter-type: eventstore
     sender:
       enabled: true
       data-entry:
@@ -86,7 +93,7 @@ polyflow:
       task:
         enabled: true
         type: txjob
-        send-within-transaction: false # will send commands after TX is commited.
+        send-within-transaction: false # will send commands after TX is committed.
     tasklist:
       tasklist-url: http://localhost:8081/polyflow/tasks
 

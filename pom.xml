@@ -38,10 +38,10 @@
 
 
     <springboot.version>2.7.10</springboot.version>
-    <polyflow.version>3.8.2</polyflow.version>
+    <polyflow.version>3.8.3-SNAPSHOT</polyflow.version>
 
     <camunda-ce.version>7.18.0</camunda-ce.version>
-    <camunda-ee.version>7.18.0-ee</camunda-ee.version>
+    <camunda-ee.version>7.18.5-ee</camunda-ee.version>
     <camunda-springboot.version>${camunda-ce.version}</camunda-springboot.version>
 
     <camunda-bpm-assert.version>${camunda-ce.version}</camunda-bpm-assert.version>

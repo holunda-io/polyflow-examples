@@ -15,7 +15,7 @@ spring:
       schema: PUBLIC
     driver-class-name: org.h2.Driver
   jpa:
-    database-platform: io.holunda.polyflow.example.intrastructure.FixedH2Dialect
+    database-platform: io.holunda.polyflow.example.infrastructure.jpa.FixedH2Dialect
     generate-ddl: false
     hibernate.ddl-auto: none
     show-sql: false
@@ -36,6 +36,12 @@ axon-gateway:
     type: revision-aware
     revision-aware:
       default-query-timeout: 10
+
+springdoc:
+  swagger-ui:
+    try-it-out-enabled: true
+    display-request-duration: true
+
 camunda:
   bpm:
     admin-user:
@@ -63,6 +69,7 @@ camunda:
       enabled: false
     webapp:
       index-redirect-enabled: false
+
 polyflow:
   integration:
     client:
@@ -81,6 +88,9 @@ polyflow:
           enabled: true
           enricher:
             type: processVariables
+          importer:
+            enabled: true
+            task-filter-type: eventstore
 
     form-url-resolver:
       default-application-template: "http://localhost:${server.port}/${applicationName}"
@@ -137,5 +147,4 @@ logging.level:
 #  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: TRACE
 # To log web access
 # org.springframework.web: DEBUG
-
 
