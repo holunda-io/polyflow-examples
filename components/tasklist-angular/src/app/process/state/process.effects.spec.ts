@@ -10,7 +10,7 @@ import {ProcessDefinition as ApiProcessDefinition} from 'tasklist/models/process
 import {ProcessDefinition} from 'app/process/state/process.reducer' ;
 
 // This test is broken for some reason without any changes on Jasmine or NPM setup
-xdescribe('ProcessEffects', () => {
+describe('ProcessEffects', () => {
 
   let processService: ProcessService;
   let userStore: UserStoreService;
@@ -26,9 +26,7 @@ xdescribe('ProcessEffects', () => {
     return new ProcessEffects(processService, userStore, new Actions(of(action)));
   }
 
-  /*
-  Skip with x is not working neither.
-  xit('should load available process definitions', (done) => {
+  it('should load available process definitions', (done) => {
     // given:
     const action = new LoadStartableProcessDefinitions();
     const procDtos: ApiProcessDefinition[] = [
@@ -43,12 +41,11 @@ xdescribe('ProcessEffects', () => {
     effectsFor(action).loadStartableProcesses$.subscribe((newAction) => {
       expect(serviceSpy).toHaveBeenCalled();
       expect<ProcessDefinition>(newAction.payload).toEqual([
-        { processName: 'foo', description: '', url: ''},
-        { processName: 'bar', description: '', url: ''}
+        { name: 'foo', description: '', url: ''},
+        { name: 'bar', description: '', url: ''}
       ]);
       done();
     });
   });
-  */
 
 });
