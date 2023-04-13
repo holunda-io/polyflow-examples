@@ -1,4 +1,4 @@
-package io.holunda.polyflow.example.process.approval.process.delegate
+package io.holunda.polyflow.example.process.approval.application.port.`in`.workflow
 
 import io.holunda.camunda.bpm.data.CamundaBpmData.writer
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.AMEND_ACTION

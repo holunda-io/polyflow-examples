@@ -1,4 +1,4 @@
-package io.holunda.polyflow.example.process.approval.config
+package io.holunda.polyflow.example.infrastructure
 
 import com.fasterxml.jackson.datatype.jdk8.Jdk8Module
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule

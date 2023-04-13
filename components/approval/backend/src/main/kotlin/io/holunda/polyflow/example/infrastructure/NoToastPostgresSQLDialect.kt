@@ -1,4 +1,4 @@
-package io.holunda.polyflow.example.process.approval
+package io.holunda.polyflow.example.infrastructure
 
 import org.hibernate.dialect.PostgreSQL94Dialect
 import org.hibernate.type.descriptor.sql.BinaryTypeDescriptor

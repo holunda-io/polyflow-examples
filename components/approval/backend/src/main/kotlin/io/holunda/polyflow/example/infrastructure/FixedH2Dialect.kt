@@ -1,4 +1,4 @@
-package io.holunda.polyflow.example.intrastructure
+package io.holunda.polyflow.example.infrastructure
 
 import org.hibernate.dialect.H2Dialect
 import java.sql.Types
