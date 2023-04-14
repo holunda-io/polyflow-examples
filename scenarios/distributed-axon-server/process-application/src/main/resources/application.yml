@@ -12,7 +12,7 @@ spring:
     hibernate.ddl-auto: validate
     show-sql: false
     open-in-view: false
-    database-platform: io.holunda.polyflow.example.process.approval.NoToastPostgresSQLDialect
+    database-platform: io.holunda.polyflow.example.infrastructure.jpa.NoToastPostgresSQLDialect
   flyway:
     enabled: true
     locations: "classpath:db/migrations"
@@ -37,6 +37,8 @@ camunda:
       last-name: Administratius
       password: admin
     default-serialization-format: application/json
+    eventing:
+      task: false
     authorization:
       enabled: false
     history-level: full
@@ -60,6 +62,9 @@ polyflow:
           enabled: true
           enricher:
             type: processVariables
+          importer:
+            enabled: true
+            task-filter-type: eventstore # FIXME currently this makes no sense here. There is no local event store
     sender:
       enabled: true
       data-entry:

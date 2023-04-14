@@ -4,12 +4,25 @@ server:
 spring:
   application:
     name: taskpool
-  profiles:
-    active: jpa # control the view implementation
+  datasource:
+    url: jdbc:postgresql://localhost:5432/polyflow
+    username: polyflow_user
+    password: S3Cr3T!
+  jpa:
+    generate-ddl: false
+    hibernate.ddl-auto: validate
+    show-sql: false
+    open-in-view: false
+    database-platform: io.holunda.polyflow.example.infrastructure.NoToastPostgresSQLDialect
+  flyway:
+    enabled: true
+    locations: "classpath:db/migrations"
 
 springdoc:
-  packagesToScan: io.holunda.polyflow.example.tasklist.rest.impl
+  packagesToScan: io.holunda.polyflow.example.tasklist.rest
   auto-tag-classes: false
+  swagger-ui:
+    try-it-out-enabled: true
 
 #axon.serializer:
 #  general: jackson
@@ -30,6 +43,9 @@ polyflow:
             process_approve_request: "start?userId=%userId%"
           data-entries:
             io.holunda.camunda.taskpool.example.ApprovalRequest: "approval-request/${entryId}?userId=%userId%"
+  view:
+    jpa:
+      stored-items: TASK, DATA_ENTRY, PROCESS_DEFINITION
 
 logging.level:
   io.holunda.polyflow:
@@ -38,3 +54,5 @@ logging.level:
     view.simple.service.TaskPoolService : INFO
     view.jpa.JpaPolyflowViewProcessDefinitionService : DEBUG
     example.tasklist: WARN
+#  org.springframework.web.bind: DEBUG
+#  org.springframework.web: DEBUG

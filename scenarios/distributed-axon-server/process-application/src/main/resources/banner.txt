@@ -8,7 +8,7 @@ ${AnsiColor.BRIGHT_RED}
 ╚═╝     ╚═╝  ╚═╝ ╚═════╝  ╚═════╝╚══════╝╚══════╝╚══════╝    ╚═╝  ╚═╝╚═╝     ╚═╝
 
 ${AnsiColor.WHITE}
- :: Spring Boot ::       ${spring-boot.formatted-version}
+ :: Spring Boot ::        ${spring-boot.version}
  :: Camunda BPM ::        ${camunda.bpm.formatted-version}
 
  Camunda Cockpit URL:     http://localhost:${server.port}/camunda/app/

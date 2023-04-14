@@ -69,7 +69,7 @@ export class TaskEffects {
     ofType<ClaimTaskAction>(TaskActionTypes.ClaimTask),
     map(action => action.payload),
     withLatestFrom(this.userStore.userId$()),
-    flatMap(([task, userId]) => this.taskService.claim({id: task.id, 'X-Current-User-ID': userId})),
+    flatMap(([task, userId]) => this.taskService.claim({taskId: task.id, 'X-Current-User-ID': userId})),
     map(() => new TaskClaimedAction()),
     catchError(err => {
       console.log('Error while claiming task', err);
@@ -82,7 +82,7 @@ export class TaskEffects {
     ofType<UnclaimTaskAction>(TaskActionTypes.UnclaimTask),
     map(action => action.payload),
     withLatestFrom(this.userStore.userId$()),
-    flatMap(([task, userId]) => this.taskService.unclaim({id: task.id, 'X-Current-User-ID': userId})),
+    flatMap(([task, userId]) => this.taskService.unclaim({taskId: task.id, 'X-Current-User-ID': userId})),
     map(() => new TaskUnclaimedAction()),
     catchError(err => {
       console.log('Error while unclaiming task', err);

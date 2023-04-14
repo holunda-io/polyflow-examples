@@ -11,8 +11,10 @@ import io.holixon.axon.gateway.query.RevisionValue
 import io.holunda.polyflow.bus.jackson.config.FallbackPayloadObjectMapperAutoConfiguration.Companion.PAYLOAD_OBJECT_MAPPER
 import io.holunda.polyflow.bus.jackson.configurePolyflowJacksonObjectMapper
 import io.holunda.polyflow.example.tasklist.EnableTasklist
+import io.holunda.polyflow.example.users.EnableExampleUsers
 import io.holunda.polyflow.example.users.UsersConfiguration
 import io.holunda.polyflow.urlresolver.EnablePropertyBasedFormUrlResolver
+import io.holunda.polyflow.view.jpa.EnablePolyflowJpaView
 import org.axonframework.commandhandling.CommandMessage
 import org.axonframework.messaging.correlation.CorrelationDataProvider
 import org.axonframework.messaging.correlation.MessageOriginProvider
@@ -24,13 +26,8 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
-import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration
-import org.springframework.boot.autoconfigure.data.mongo.MongoReactiveDataAutoConfiguration
-import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration
-import org.springframework.boot.autoconfigure.mongo.MongoReactiveAutoConfiguration
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Bean
-import org.springframework.context.annotation.Import
 import org.springframework.context.annotation.Primary
 
 /**
@@ -46,19 +43,11 @@ fun main(args: Array<String>) {
  * - jpa view
  * - tasklist backend
  */
-@SpringBootApplication(
-  exclude = [
-    MongoAutoConfiguration::class,
-    MongoReactiveAutoConfiguration::class,
-    MongoDataAutoConfiguration::class,
-    MongoReactiveDataAutoConfiguration::class
-  ]
-)
-@Import(
-  UsersConfiguration::class
-)
+@SpringBootApplication
+@EnableExampleUsers
 @EnableTasklist
 @EnablePropertyBasedFormUrlResolver
+@EnablePolyflowJpaView
 class ExamplePlatformApplicationDistributedWithAxonServer {
 
   @Qualifier(PAYLOAD_OBJECT_MAPPER)

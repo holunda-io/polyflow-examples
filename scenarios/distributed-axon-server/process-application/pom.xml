@@ -21,14 +21,6 @@
       <groupId>io.holunda.polyflow</groupId>
       <artifactId>polyflow-example-approval-backend</artifactId>
     </dependency>
-    <dependency>
-      <groupId>io.holunda.polyflow</groupId>
-      <artifactId>polyflow-view-simple</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>io.holunda.polyflow</groupId>
-      <artifactId>polyflow-view-jpa</artifactId>
-    </dependency>
 
     <!-- DB and Flyway -->
     <dependency>
@@ -42,6 +34,12 @@
     <dependency>
       <groupId>io.holunda</groupId>
       <artifactId>camunda-platform-7-autologin</artifactId>
+    </dependency>
+
+
+    <dependency>
+      <groupId>org.axonframework</groupId>
+      <artifactId>axon-server-connector</artifactId>
     </dependency>
   </dependencies>
 

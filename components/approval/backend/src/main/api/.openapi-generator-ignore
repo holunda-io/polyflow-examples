@@ -1,2 +1,7 @@
-# **/TaskDto.java
-# **/TaskWithDataEntriesDto.java
+# **/TaskDto.kt
+# **/TaskWithDataEntriesDto.kt
+**/Application.kt
+**/HomeController.kt
+**/SpringDocConfiguration.kt
+**/README.md
+**/pom.xml

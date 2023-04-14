@@ -18,7 +18,7 @@
   </properties>
 
   <modules>
-    <module>single-node</module>
+    <module>single-node-jpa</module>
     <module>distributed-axon-server</module>
     <module>distributed-axon-server-local-polyflow</module>
   </modules>

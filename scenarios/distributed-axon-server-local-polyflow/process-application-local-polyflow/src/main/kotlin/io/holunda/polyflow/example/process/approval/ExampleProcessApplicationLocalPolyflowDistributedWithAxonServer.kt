@@ -39,7 +39,7 @@ fun main(args: Array<String>) {
 /**
  * Process application approval only.
  * Includes:
- *  - process-backend
+ *  - approval-process-backend
  *  - taskpool-core
  *  - datapool-core
  */
@@ -75,10 +75,11 @@ class ExampleProcessApplicationLocalPolyflowDistributedWithAxonServer {
     return xStream
   }
 
+  /*
   @Bean
   @Primary
   @ConditionalOnMissingQualifiedBean(beanClass = CommandGateway::class, qualifier = "unqualified")
   fun defaultCommandGateway(bus: CommandBus): CommandGateway = DefaultCommandGateway.builder().commandBus(bus).build()
-
+  */
 
 }
