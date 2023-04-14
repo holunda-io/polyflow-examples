@@ -29,7 +29,7 @@ class BusinessDataEntriesResource(
     page: Int,
     size: Int,
     sort: String?,
-    filters: List<String>
+    filters: List<String>?
   ): ResponseEntity<List<DataEntryDto>> {
 
     val user = userService.getUser(xCurrentUserID)
@@ -41,7 +41,7 @@ class BusinessDataEntriesResource(
           page = page,
           size = size,
           sort = sort ?: "",
-          filters
+          filters ?: listOf()
         )
       )
       .join()

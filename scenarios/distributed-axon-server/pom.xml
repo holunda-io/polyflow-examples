@@ -19,8 +19,9 @@
 
   <modules>
     <module>process-application</module>
-    <module>taskpool-application</module>
-    <module>taskpool-application-mongo</module>
+    <module>process-platform-jpa</module>
+    <module>process-platform-mongo</module>
+    <module>process-platform-mem</module>
     <module>cockpit-application</module>
   </modules>
 

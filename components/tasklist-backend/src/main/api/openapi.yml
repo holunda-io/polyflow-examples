@@ -23,12 +23,7 @@ tags:
 paths:
   '/profile':
     parameters:
-      - in: header
-        name: X-Current-User-ID
-        description: Specifies the id of current user.
-        schema:
-          type: string
-        required: true
+      - $ref: '#/components/parameters/CurrentUserIdParam'
     get:
       tags:
         - Profile
@@ -58,12 +53,7 @@ paths:
                   $ref: '#/components/schemas/UserInfo'
   '/processes':
     parameters:
-      - in: header
-        name: X-Current-User-ID
-        description: Specifies the id of current user.
-        schema:
-          type: string
-        required: true
+      - $ref: '#/components/parameters/CurrentUserIdParam'
     get:
       tags:
         - Process
@@ -90,39 +80,11 @@ paths:
 
   '/tasks':
     parameters:
-    - in: query
-      name: page
-      description: The page number to access (0 indexed, defaults to 0)
-      schema:
-        type: integer
-        default: 0
-    - in: query
-      name: size
-      description: The page size requested (defaults to 20)
-      schema:
-        type: integer
-        default: 20
-    - in: query
-      name: sort
-      description: A collection of sort directives in the format +prop1.
-      schema:
-        type: string
-        # pattern: '^[-+]([\w]*)$'
-    - in: query
-      name: filters
-      description: One or multiple filter directives in the format prop1=value
-      schema:
-        type: array
-        items:
-          type: string
-        # pattern: '^([\w]*)=([.]+)?$'
-        default: []
-    - in: header
-      name: X-Current-User-ID
-      description: Specifies the id of current user.
-      required: true
-      schema:
-        type: string
+      - $ref: '#/components/parameters/CurrentUserIdParam'
+      - $ref: '#/components/parameters/PageParam'
+      - $ref: '#/components/parameters/SizeParam'
+      - $ref: '#/components/parameters/SortParam'
+      - $ref: '#/components/parameters/FiltersParam'
     get:
       tags:
         - Task
@@ -150,18 +112,8 @@ paths:
 
   '/task/{id}/claim':
     parameters:
-      - in: path
-        name: id
-        description: Task id.
-        schema:
-          type: string
-        required: true
-      - in: header
-        name: X-Current-User-ID
-        description: Specifies the id of current user.
-        schema:
-          type: string
-        required: true
+      - $ref: '#/components/parameters/TaskIdParam'
+      - $ref: '#/components/parameters/CurrentUserIdParam'
     post:
       tags:
         - Task
@@ -179,18 +131,8 @@ paths:
 
   '/task/{id}/unclaim':
     parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-        description: Task id.
-        required: true
-      - in: header
-        name: X-Current-User-ID
-        description: Specifies the id of current user.
-        schema:
-          type: string
-        required: true
+      - $ref: '#/components/parameters/TaskIdParam'
+      - $ref: '#/components/parameters/CurrentUserIdParam'
     post:
       tags:
         - Task
@@ -208,18 +150,8 @@ paths:
 
   '/task/{id}/defer':
     parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-        description: Task id.
-        required: true
-      - in: header
-        name: X-Current-User-ID
-        description: Specifies the id of current user.
-        schema:
-          type: string
-        required: true
+      - $ref: '#/components/parameters/TaskIdParam'
+      - $ref: '#/components/parameters/CurrentUserIdParam'
     post:
       tags:
         - Task
@@ -245,18 +177,8 @@ paths:
 
   '/task/{id}/undefer':
     parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-        description: Task id.
-        required: true
-      - in: header
-        name: X-Current-User-ID
-        description: Specifies the id of current user.
-        schema:
-          type: string
-        required: true
+      - $ref: '#/components/parameters/TaskIdParam'
+      - $ref: '#/components/parameters/CurrentUserIdParam'
     post:
       tags:
         - Task
@@ -275,18 +197,8 @@ paths:
 
   '/task/{id}/complete':
     parameters:
-      - in: path
-        name: id
-        schema:
-          type: string
-        description: Task id.
-        required: true
-      - in: header
-        name: X-Current-User-ID
-        description: Specifies the id of current user.
-        schema:
-          type: string
-        required: true
+      - $ref: '#/components/parameters/TaskIdParam'
+      - $ref: '#/components/parameters/CurrentUserIdParam'
     post:
       tags:
         - Task
@@ -311,39 +223,11 @@ paths:
 
   '/business-data-entries':
     parameters:
-      - in: query
-        name: page
-        description: The page number to access (0 indexed, defaults to 0)
-        schema:
-          default: 0
-          type: integer
-      - in: query
-        name: size
-        description: The page size requested (defaults to 20)
-        schema:
-          default: 0
-          type: integer
-      - in: query
-        name: sort
-        description: A collection of sort directives in the format +prop1.
-        schema:
-          type: string
-          # pattern: '^[-+]([\w]*)$'
-      - in: query
-        name: filters
-        description: One or multiple filter directives in the format prop1=value
-        schema:
-          type: array
-          items:
-            type: string
-          # pattern: '^([\w]*)=([.]+)?$'
-          default: []
-      - in: header
-        name: X-Current-User-ID
-        description: Specifies the id of current user.
-        schema:
-          type: string
-        required: true
+      - $ref: '#/components/parameters/CurrentUserIdParam'
+      - $ref: '#/components/parameters/PageParam'
+      - $ref: '#/components/parameters/SizeParam'
+      - $ref: '#/components/parameters/SortParam'
+      - $ref: '#/components/parameters/FiltersParam'
     get:
       tags:
         - BusinessData
@@ -370,6 +254,65 @@ paths:
           description: Not authorized.
 
 components:
+  parameters:
+    PageParam:
+      name: page
+      description: The page number to access (0 indexed, defaults to 0)
+      in: query
+      required: false
+      schema:
+        default: 0
+        minimum: 0
+        format: int32
+        type: integer
+
+    SizeParam:
+      name: size
+      in: query
+      description: The page size requested (defaults to 50).
+      required: false
+      schema:
+        type: integer
+        format: int32
+        default: 50
+        minimum: 1
+        maximum: 50
+
+    FiltersParam:
+      name: filters
+      in: query
+      description: One or multiple filter directives in the format prop1=value.
+      required: false
+      schema:
+        type: array
+        items:
+          minimum: 0
+          type: string
+
+    SortParam:
+      name: sort
+      in: query
+      description: A collection of sort directives in the format +prop1.
+      required: false
+      schema:
+        type: string
+
+    TaskIdParam:
+      name: taskId
+      in: path
+      description: Task id.
+      required: true
+      schema:
+        type: string
+
+    CurrentUserIdParam:
+      name: X-Current-User-ID
+      in: header
+      description: Specifies the id of current user.
+      required: true
+      schema:
+        type: string
+
   schemas:
     TaskWithDataEntries:
       type: object
@@ -587,8 +530,6 @@ components:
         - definitionKey
         - definitionVersion
         - processName
-        - description
-        - versionTag
         - candidateUsers
         - candidateGroups
     Payload:

@@ -32,11 +32,11 @@ class TaskResource(
     page: Int,
     size: Int,
     sort: String?,
-    filters: List<String>,
+    filters: List<String>?,
   ): ResponseEntity<List<TaskWithDataEntriesDto>> {
 
     val user = userService.getUser(xCurrentUserID)
-    val result = taskServiceGateway.getTasks(user, page, sort, size, filters)
+    val result = taskServiceGateway.getTasks(user, page, sort, size, filters ?: listOf())
 
     return ResponseEntity
       .ok()
@@ -46,12 +46,12 @@ class TaskResource(
 
 
   override fun claim(
-    id: String,
+    taskId: String,
     xCurrentUserID: String
   ): ResponseEntity<Unit> {
 
     val user = userService.getUser(xCurrentUserID)
-    val task = getAuthorizedTask(id, user)
+    val task = getAuthorizedTask(taskId, user)
 
     taskServiceGateway.send(
       ClaimInteractionTaskCommand(
@@ -66,12 +66,12 @@ class TaskResource(
   }
 
   override fun unclaim(
-    id: String,
+    taskId: String,
     xCurrentUserID: String
   ): ResponseEntity<Unit> {
 
     val user = userService.getUser(xCurrentUserID)
-    val task = getAuthorizedTask(id, user)
+    val task = getAuthorizedTask(taskId, user)
 
     taskServiceGateway.send(
       UnclaimInteractionTaskCommand(
@@ -85,13 +85,13 @@ class TaskResource(
   }
 
   override fun complete(
-    id: String,
+    taskId: String,
     xCurrentUserID: String,
     requestBody: Map<String, Any>
   ): ResponseEntity<Unit> {
 
     val user = userService.getUser(xCurrentUserID)
-    val task = getAuthorizedTask(id, user)
+    val task = getAuthorizedTask(taskId, user)
 
     taskServiceGateway.send(
       CompleteInteractionTaskCommand(
@@ -108,13 +108,13 @@ class TaskResource(
 
 
   override fun defer(
-    id: String,
+    taskId: String,
     xCurrentUserID: String,
     body: OffsetDateTime
   ): ResponseEntity<Unit> {
 
     val user = userService.getUser(xCurrentUserID)
-    val task = getAuthorizedTask(id, user)
+    val task = getAuthorizedTask(taskId, user)
 
     taskServiceGateway.send(
       DeferInteractionTaskCommand(
@@ -129,12 +129,12 @@ class TaskResource(
   }
 
   override fun undefer(
-    id: String,
+    taskId: String,
     xCurrentUserID: String
   ): ResponseEntity<Unit> {
 
     val user = userService.getUser(xCurrentUserID)
-    val task = getAuthorizedTask(id, user)
+    val task = getAuthorizedTask(taskId, user)
 
     taskServiceGateway.send(
       UndeferInteractionTaskCommand(
@@ -147,7 +147,7 @@ class TaskResource(
     return ResponseEntity.noContent().build()
   }
 
-  private fun getAuthorizedTask(id: String, user: User): Task = taskServiceGateway.getTask(id)
+  private fun getAuthorizedTask(taskId: String, user: User): Task = taskServiceGateway.getTask(taskId)
     .apply {
       if (!isAuthorized(this, user)) {
         // if the user is not allowed to access, behave if the task is not found

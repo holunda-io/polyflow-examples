@@ -8,12 +8,17 @@ import com.thoughtworks.xstream.XStream
 import com.thoughtworks.xstream.security.AnyTypePermission
 import io.holunda.polyflow.bus.jackson.config.FallbackPayloadObjectMapperAutoConfiguration.Companion.PAYLOAD_OBJECT_MAPPER
 import io.holunda.polyflow.bus.jackson.configurePolyflowJacksonObjectMapper
+import org.axonframework.eventhandling.deadletter.jpa.DeadLetterEntry
+import org.axonframework.eventhandling.tokenstore.jpa.TokenEntry
+import org.axonframework.eventsourcing.eventstore.jpa.DomainEventEntry
+import org.axonframework.modelling.saga.repository.jpa.SagaEntry
 import org.axonframework.serialization.xml.CompactDriver
 import org.axonframework.springboot.util.XStreamSecurityTypeUtility
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
+import org.springframework.boot.autoconfigure.domain.EntityScan
 import org.springframework.context.ApplicationContext
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Import
@@ -33,6 +38,13 @@ fun main(args: Array<String>) {
  */
 @SpringBootApplication
 @Import(RequestApprovalProcessConfiguration::class)
+@EntityScan(
+  basePackageClasses = [
+    SagaEntry::class,
+    TokenEntry::class,
+    DeadLetterEntry::class
+  ]
+)
 class ExampleProcessApplicationDistributedWithAxonServer {
 
   @Bean
