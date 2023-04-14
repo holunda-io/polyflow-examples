@@ -6,3 +6,5 @@
 
 A collection of examples demonstrating the usage of Polyflow library.
 For more details, check https://github.com/holunda-io/camunda-bpm-taskpool
+
+If you want to run the examples, have a look here: https://www.holunda.io/camunda-bpm-taskpool/latest/examples/scenarios/

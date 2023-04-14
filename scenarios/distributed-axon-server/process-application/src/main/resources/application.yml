@@ -27,6 +27,8 @@ spring:
 
 camunda:
   bpm:
+    eventing:
+      task: false
     login:
       enabled: true
       user-id: admin

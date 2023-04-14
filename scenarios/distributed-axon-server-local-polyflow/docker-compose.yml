@@ -28,7 +28,7 @@ services:
       - taskpool-net
 
   axonserver:
-    image: axoniq/axonserver:latest
+    image: axoniq/axonserver:latest-dev
     container_name: axonserver_local
     ports:
       - "8024:8024"
