@@ -110,7 +110,7 @@ paths:
         '403':
           description: Not authorized.
 
-  '/task/{id}/claim':
+  '/task/{taskId}/claim':
     parameters:
       - $ref: '#/components/parameters/TaskIdParam'
       - $ref: '#/components/parameters/CurrentUserIdParam'
@@ -129,7 +129,7 @@ paths:
         '404':
           description: Task not found.
 
-  '/task/{id}/unclaim':
+  '/task/{taskId}/unclaim':
     parameters:
       - $ref: '#/components/parameters/TaskIdParam'
       - $ref: '#/components/parameters/CurrentUserIdParam'
@@ -148,7 +148,7 @@ paths:
         '404':
           description: Task not found.
 
-  '/task/{id}/defer':
+  '/task/{taskId}/defer':
     parameters:
       - $ref: '#/components/parameters/TaskIdParam'
       - $ref: '#/components/parameters/CurrentUserIdParam'
@@ -175,7 +175,7 @@ paths:
         '404':
           description: Task not found.
 
-  '/task/{id}/undefer':
+  '/task/{taskId}/undefer':
     parameters:
       - $ref: '#/components/parameters/TaskIdParam'
       - $ref: '#/components/parameters/CurrentUserIdParam'
@@ -195,7 +195,7 @@ paths:
           description: Task not found.
 
 
-  '/task/{id}/complete':
+  '/task/{taskId}/complete':
     parameters:
       - $ref: '#/components/parameters/TaskIdParam'
       - $ref: '#/components/parameters/CurrentUserIdParam'

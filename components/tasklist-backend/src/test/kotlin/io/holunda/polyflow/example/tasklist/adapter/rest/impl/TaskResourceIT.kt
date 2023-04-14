@@ -51,17 +51,17 @@ internal class TaskResourceIT {
   }
 
   @Test
-  fun `should fallback to current user service if no user is passed and return forbidden if the user is not found`() {
+  fun `should not allow to claim without the user header`() {
     val taskId = UUID.randomUUID().toString()
 
     whenever(taskServiceGateway.getTask(any())).thenReturn(testTask(taskId))
 
     this.mockMvc
       .perform(
-        post("${REQUEST_PATH}/task/{id}/claim", taskId)
+        post("${REQUEST_PATH}/task/{taskId}/claim", taskId)
           .servletPath(REQUEST_PATH)
       )
-      .andExpect(status().isForbidden)
+      .andExpect(status().isBadRequest)
   }
 
   @Test
@@ -72,7 +72,7 @@ internal class TaskResourceIT {
 
     this.mockMvc
       .perform(
-        post("${REQUEST_PATH}/task/{id}/claim", taskId)
+        post("${REQUEST_PATH}/task/{taskId}/claim", taskId)
           .header("X-Current-User-ID", "id1")
           .servletPath(REQUEST_PATH)
       )
@@ -90,7 +90,7 @@ internal class TaskResourceIT {
 
     this.mockMvc
       .perform(
-        post("${REQUEST_PATH}/task/{id}/claim", taskId)
+        post("${REQUEST_PATH}/task/{taskId}/claim", taskId)
           .header("X-Current-User-ID", "id1")
           .servletPath(REQUEST_PATH)
       )
@@ -109,7 +109,7 @@ internal class TaskResourceIT {
 
     this.mockMvc
       .perform(
-        post("${REQUEST_PATH}/task/{id}/unclaim", taskId)
+        post("${REQUEST_PATH}/task/{taskId}/unclaim", taskId)
           .header("X-Current-User-ID", "id1")
           .servletPath(REQUEST_PATH)
       )
@@ -130,7 +130,7 @@ internal class TaskResourceIT {
 
     this.mockMvc
       .perform(
-        post("${REQUEST_PATH}/task/{id}/defer", taskId)
+        post("${REQUEST_PATH}/task/{taskId}/defer", taskId)
           .header("X-Current-User-ID", "id1")
           .servletPath(REQUEST_PATH)
           .contentType(MediaType.APPLICATION_JSON)
@@ -151,7 +151,7 @@ internal class TaskResourceIT {
 
     this.mockMvc
       .perform(
-        post("${REQUEST_PATH}/task/{id}/undefer", taskId)
+        post("${REQUEST_PATH}/task/{taskId}/undefer", taskId)
           .header("X-Current-User-ID", "id1")
           .servletPath(REQUEST_PATH)
       )
