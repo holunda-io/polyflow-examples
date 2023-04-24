@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {TasklistComponent} from './tasklist.component';
-import {NgbPagination, NgbRadioGroup} from '@ng-bootstrap/ng-bootstrap';
+import {NgbPagination} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule} from '@angular/forms';
 import {SortableColumnComponent} from 'app/task/sorter/sortable-column.component';
 import {provideStoreServiceMock} from '@ngxp/store-service/testing';
@@ -25,7 +25,6 @@ describe('Component: TasklistComponent', () => {
       declarations: [
         TasklistComponent,
         NgbPagination,
-        NgbRadioGroup,
         SortableColumnComponent
       ],
       providers: [
