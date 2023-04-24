@@ -36,7 +36,7 @@
           <tbody>
           <tr *ngFor="let dataEntry of (dataEntries$ | async) index as i">
             <td class="nowrap">{{ dataEntry.type }}</td>
-            <td class="nowrap"><a appExternalUrl [href]="dataEntry.url">{{ dataEntry.name }}</a></td>
+            <td class="nowrap"><a tasksExternalUrl [href]="dataEntry.url">{{ dataEntry.name }}</a></td>
             <td>
               <div *ngIf="currentDataTab === 'description'">
                 {{ dataEntry.description }}

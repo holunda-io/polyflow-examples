@@ -6,7 +6,7 @@ import {UserStoreService} from 'app/user/state/user.store-service';
 import {UserProfile} from 'app/user/state/user.reducer';
 
 @Component({
-  selector: 'data-entry-list',
+  selector: 'tasks-data-entry-list',
   templateUrl: './dataentry-list.component.html',
   styleUrls: ['dataentry-list.component.scss']
 })

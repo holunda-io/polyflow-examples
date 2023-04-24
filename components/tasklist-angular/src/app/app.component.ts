@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserStoreService} from 'app/user/state/user.store-service';
 
 @Component({
-  selector: 'app-root',
+  selector: 'tasks-root',
   templateUrl: './app.component.html',
   styleUrls: ['app.component.scss']
 })
