@@ -23,6 +23,7 @@
     "@ng-bootstrap/ng-bootstrap": "9.1.2",
     "@ngrx/effects": "12.0.0",
     "@ngrx/store": "12.0.0",
+    "@ngrx/store-devtools": "12.0.0",
     "@ngxp/store-service": "^6.1.0",
     "bootstrap": "4.5.3",
     "core-js": "2.6.5",
