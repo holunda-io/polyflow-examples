@@ -21,10 +21,10 @@ describe('Component: TasklistComponent', () => {
       imports: [
         FormsModule,
         SharedModule,
+        NgbPagination
       ],
       declarations: [
         TasklistComponent,
-        NgbPagination,
         SortableColumnComponent
       ],
       providers: [

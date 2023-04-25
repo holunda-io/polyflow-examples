@@ -1,14 +1,14 @@
-import {Injectable} from '@angular/core';
-import {Actions, Effect, ofType} from '@ngrx/effects';
-import {UserStoreService} from 'app/user/state/user.store-service';
-import {BusinessDataService} from 'tasklist/services';
-import {DataEntriesLoaded, DataEntryActionTypes, LoadDataEntries} from 'app/dataentry/state/dataentry.actions';
-import {catchError, filter, flatMap, map, withLatestFrom} from 'rxjs/operators';
-import {DataEntry as DataEntryDto} from 'tasklist/models';
-import {DataEntry} from 'app/dataentry/state/dataentry.reducer';
-import {SelectUserAction, UserActionTypes} from 'app/user/state/user.actions';
-import {StrictHttpResponse} from 'tasklist/strict-http-response';
-import {of} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { UserStoreService } from 'app/user/state/user.store-service';
+import { BusinessDataService } from 'tasklist/services';
+import { DataEntriesLoaded, DataEntryActionTypes, LoadDataEntries } from 'app/dataentry/state/dataentry.actions';
+import { catchError, filter, flatMap, map, withLatestFrom } from 'rxjs/operators';
+import { DataEntry as DataEntryDto } from 'tasklist/models';
+import { DataEntry } from 'app/dataentry/state/dataentry.reducer';
+import { SelectUserAction, UserActionTypes } from 'app/user/state/user.actions';
+import { StrictHttpResponse } from 'tasklist/strict-http-response';
+import { of } from 'rxjs';
 
 @Injectable()
 export class DataentryEffects {
@@ -19,15 +19,13 @@ export class DataentryEffects {
     private actions$: Actions) {
   }
 
-  @Effect()
-  loadDataEntriesOnUserSelect = this.actions$.pipe(
+  loadDataEntriesOnUserSelect = createEffect(() => this.actions$.pipe(
     ofType<SelectUserAction>(UserActionTypes.SelectUser),
     filter((action) => !!action.payload),
     map(() => new LoadDataEntries())
-  );
+  ));
 
-  @Effect()
-  loadDataEntries$ = this.actions$.pipe(
+  loadDataEntries$ = createEffect(() => this.actions$.pipe(
     ofType(DataEntryActionTypes.LoadDataEntries),
     withLatestFrom(this.userStore.userId$()),
     flatMap(([_, userId]) => this.businessDataService.getBusinessDataEntries$Response({
@@ -39,7 +37,7 @@ export class DataentryEffects {
       console.log('Error loading data entries:', err);
       return of();
     })
-  );
+  ));
 }
 
 function mapFromDto(dataEntryDtos: StrictHttpResponse<DataEntryDto[]>): DataEntry[] {
