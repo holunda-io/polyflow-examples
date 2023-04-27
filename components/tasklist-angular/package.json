@@ -24,7 +24,7 @@
     "@ngrx/effects": "^15.0.0",
     "@ngrx/store": "^15.0.0",
     "@ngrx/store-devtools": "^15.0.0",
-    "@ngxp/store-service": "^14.0.1",
+    "@ngxp/store-service": "^15.0.0",
     "@popperjs/core": "^2.11.7",
     "bootstrap": "5.0.2",
     "font-awesome": "4.7.0",
