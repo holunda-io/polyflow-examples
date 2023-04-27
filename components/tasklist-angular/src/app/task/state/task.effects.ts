@@ -1,19 +1,22 @@
-import {Injectable} from '@angular/core';
-import {TaskService} from 'tasklist/services';
+import { Injectable } from '@angular/core';
+import { TaskService } from 'tasklist/services';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import {UserStoreService} from 'app/user/state/user.store-service';
+import { UserStoreService } from 'app/user/state/user.store-service';
 import {
   ClaimTaskAction,
   LoadTasksAction,
   PageSelectedAction,
   SelectPageAction,
-  TaskActionTypes, TaskClaimedAction,
-  TasksLoadedAction, TaskUnclaimedAction, UnclaimTaskAction
+  TaskActionTypes,
+  TaskClaimedAction,
+  TasksLoadedAction,
+  TaskUnclaimedAction,
+  UnclaimTaskAction
 } from 'app/task/state/task.actions';
 import { catchError, filter, map, mergeMap, withLatestFrom } from 'rxjs/operators';
-import {SelectUserAction, UserActionTypes} from 'app/user/state/user.actions';
-import {of} from 'rxjs';
-import {TaskStoreService} from 'app/task/state/task.store-service';
+import { selectUser } from 'app/user/state/user.actions';
+import { of } from 'rxjs';
+import { TaskStoreService } from 'app/task/state/task.store-service';
 
 @Injectable()
 export class TaskEffects {
@@ -25,8 +28,8 @@ export class TaskEffects {
   }
 
   loadTasksOnUserSelect$ = createEffect(() => this.actions$.pipe(
-    ofType<SelectUserAction>(UserActionTypes.SelectUser),
-    filter((action) => !!action.payload),
+    ofType(selectUser),
+    filter((action) => !!action.userId),
     map(() => new LoadTasksAction())
   ));
 

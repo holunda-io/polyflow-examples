@@ -1,5 +1,6 @@
-import {UserActions, UserActionTypes} from './user.actions';
+import { availableUsersLoaded, selectUser, userProfileLoaded } from './user.actions';
 import { UserInfo } from 'tasklist/models/user-info';
+import { createReducer, on } from "@ngrx/store";
 
 export interface UserProfile {
   userIdentifier: string;
@@ -23,28 +24,18 @@ const initialState: UserState = {
   }
 };
 
-export function userReducer(state: UserState = initialState, action: UserActions): UserState {
-  switch (action.type) {
-
-    case UserActionTypes.AvailableUsersLoaded:
-      return {
-        ...state,
-        availableUsers: action.payload
-      };
-
-    case UserActionTypes.SelectUser:
-      return {
-        ...state,
-        currentUserId: action.payload
-      };
-
-    case UserActionTypes.UserProfileLoaded:
-      return {
-        ...state,
-        currentUserProfile: action.payload
-      };
-
-    default:
-      return state;
-  }
-}
+export const userReducer = createReducer(
+  initialState,
+  on(availableUsersLoaded, (state, action) => ({
+    ...state,
+    availableUsers: action.users
+  })),
+  on(selectUser, (state, action) => ({
+    ...state,
+    currentUserId: action.userId
+  })),
+  on(userProfileLoaded, (state, action) => ({
+    ...state,
+    currentUserProfile: action.profile
+  }))
+);

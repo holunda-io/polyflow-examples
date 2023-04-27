@@ -1,13 +1,13 @@
-import {TaskEffects} from './task.effects';
-import {Action} from '@ngrx/store';
-import {of} from 'rxjs';
-import {Actions} from '@ngrx/effects';
-import {TaskService} from 'tasklist/services';
-import {UserStoreService} from 'app/user/state/user.store-service';
-import {createStoreServiceMock} from '@ngxp/store-service/testing';
-import {LoadTasksAction, PageSelectedAction, SelectPageAction, TasksLoadedAction} from 'app/task/state/task.actions';
-import {SelectUserAction} from 'app/user/state/user.actions';
-import {TaskStoreService} from 'app/task/state/task.store-service';
+import { TaskEffects } from './task.effects';
+import { Action } from '@ngrx/store';
+import { of } from 'rxjs';
+import { Actions } from '@ngrx/effects';
+import { TaskService } from 'tasklist/services';
+import { UserStoreService } from 'app/user/state/user.store-service';
+import { createStoreServiceMock } from '@ngxp/store-service/testing';
+import { LoadTasksAction, PageSelectedAction, SelectPageAction, TasksLoadedAction } from 'app/task/state/task.actions';
+import { selectUser } from 'app/user/state/user.actions';
+import { TaskStoreService } from 'app/task/state/task.store-service';
 
 describe('TaskEffects', () => {
 
@@ -29,7 +29,7 @@ describe('TaskEffects', () => {
 
   it('should trigger loading tasks on user select', (done) => {
     // given:
-    const action = new SelectUserAction('kermit');
+    const action = selectUser({userId: 'kermit'});
 
     // when:
     effectsFor(action).loadTasksOnUserSelect$.subscribe((newAction) => {

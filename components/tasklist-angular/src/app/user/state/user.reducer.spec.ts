@@ -1,7 +1,7 @@
-import { AvailableUsersLoadedAction, LoadAvailableUsersAction, SelectUserAction, UserProfileLoadedAction } from './user.actions';
+import { availableUsersLoaded, loadAvailableUsers, selectUser, userProfileLoaded } from './user.actions';
 import { UserProfile, userReducer, UserState } from './user.reducer';
 
-describe('processReducer', () => {
+describe('userReducer', () => {
 
   const initialState: UserState = {
     currentUserId: null,
@@ -15,14 +15,14 @@ describe('processReducer', () => {
 
   it('updates available users', () => {
     // given:
-    const availableIds = [{ id: '1', username: 'foo' }, { id: '2', username: 'bar' }];
-    const action = new AvailableUsersLoadedAction(availableIds);
+    const users = [{ id: '1', username: 'foo' }, { id: '2', username: 'bar' }];
+    const action = availableUsersLoaded({users});
 
     // when:
     const newState = userReducer(initialState, action);
 
     // then:
-    expect(newState.availableUsers).toBe(availableIds);
+    expect(newState.availableUsers).toEqual(users);
   });
 
   it('updates current user', () => {
@@ -32,29 +32,29 @@ describe('processReducer', () => {
       userIdentifier: 'bar',
       fullName: 'foobar'
     };
-    const action = new UserProfileLoadedAction(currentUser);
+    const action = userProfileLoaded({profile: currentUser});
 
     // when:
     const newState = userReducer(initialState, action);
 
     // then:
-    expect(newState.currentUserProfile).toBe(currentUser);
+    expect(newState.currentUserProfile).toEqual(currentUser);
   });
 
   it('ignores other actions', () => {
     // given:
-    const action = new LoadAvailableUsersAction();
+    const action = loadAvailableUsers();
 
     // when:
     const newState = userReducer(initialState, action);
 
     // then:
-    expect(newState).toBe(initialState);
+    expect(newState).toEqual(initialState);
   });
 
   it('updates current userId', () => {
     // given:
-    const action = new SelectUserAction('kermit');
+    const action = selectUser({userId: 'kermit'});
 
     // when:
     const newState = userReducer(initialState, action);

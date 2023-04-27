@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { ProfileService } from 'tasklist/services';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
-  AvailableUsersLoadedAction,
-  LoadUserProfileAction,
-  SelectUserAction,
-  UserActionTypes,
-  UserProfileLoadedAction
+  availableUsersLoaded,
+  loadAvailableUsers,
+  loadUserProfile,
+  selectUser,
+  userProfileLoaded
 } from './user.actions';
 import { filter, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 import { UserInfo, UserProfile as UserDto } from 'tasklist/models';
@@ -24,33 +24,33 @@ export class UserEffects {
   }
 
   loadAvailableUserIds$ = createEffect(() => this.actions$.pipe(
-    ofType(UserActionTypes.LoadAvailableUsers),
+    ofType(loadAvailableUsers),
     mergeMap(() => this.profileService.getUsers()),
-    map((users: UserInfo[]) => new AvailableUsersLoadedAction(users))
+    map((users: UserInfo[]) => availableUsersLoaded({users}))
   ));
 
   loadInitialUser$ = createEffect(() =>this.actions$.pipe(
-    ofType<AvailableUsersLoadedAction>(UserActionTypes.AvailableUsersLoaded),
+    ofType(availableUsersLoaded),
     withLatestFrom(this.userStore.userId$()),
     filter(([_, userId]) => !userId),
-    map(([action, _]) => action.payload),
-    map((users) => new SelectUserAction(Object.keys(users)[0]))
+    map(([action]) => action.users),
+    map((users) => selectUser({userId: users[0].id}))
   ));
 
   selectUser$ = createEffect(() => this.actions$.pipe(
-    ofType(UserActionTypes.SelectUser),
-    map((action: SelectUserAction) => action.payload),
+    ofType(selectUser),
+    map((action) => action.userId),
     filter(userId => !!userId),
-    map(userId => new LoadUserProfileAction(userId))
+    map(userId => loadUserProfile({userId}))
   ));
 
   loadUserProfile$ = createEffect(() => this.actions$.pipe(
-    ofType(UserActionTypes.LoadUserProfile),
-    map((action: LoadUserProfileAction) => action.payload),
+    ofType(loadUserProfile),
+    map((action) => action.userId),
     mergeMap((userId) => this.profileService.getProfile({ 'X-Current-User-ID': userId }).pipe(
       map((profile) => mapFromDto(profile, userId))
     )),
-    map((profile) => new UserProfileLoadedAction(profile))
+    map((profile) => userProfileLoaded({profile}))
   ));
 }
 

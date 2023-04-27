@@ -3,10 +3,10 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { UserStoreService } from 'app/user/state/user.store-service';
 import { BusinessDataService } from 'tasklist/services';
 import { DataEntriesLoaded, DataEntryActionTypes, LoadDataEntries } from 'app/dataentry/state/dataentry.actions';
-import { catchError, filter, flatMap, map, withLatestFrom } from 'rxjs/operators';
+import { catchError, filter, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 import { DataEntry as DataEntryDto } from 'tasklist/models';
 import { DataEntry } from 'app/dataentry/state/dataentry.reducer';
-import { SelectUserAction, UserActionTypes } from 'app/user/state/user.actions';
+import { selectUser } from 'app/user/state/user.actions';
 import { StrictHttpResponse } from 'tasklist/strict-http-response';
 import { of } from 'rxjs';
 
@@ -20,15 +20,15 @@ export class DataentryEffects {
   }
 
   loadDataEntriesOnUserSelect = createEffect(() => this.actions$.pipe(
-    ofType<SelectUserAction>(UserActionTypes.SelectUser),
-    filter((action) => !!action.payload),
+    ofType(selectUser),
+    filter((action) => !!action.userId),
     map(() => new LoadDataEntries())
   ));
 
   loadDataEntries$ = createEffect(() => this.actions$.pipe(
     ofType(DataEntryActionTypes.LoadDataEntries),
     withLatestFrom(this.userStore.userId$()),
-    flatMap(([_, userId]) => this.businessDataService.getBusinessDataEntries$Response({
+    mergeMap(([_, userId]) => this.businessDataService.getBusinessDataEntries$Response({
       'X-Current-User-ID': userId
     })),
     map(dataEntriesDtos => mapFromDto(dataEntriesDtos)),

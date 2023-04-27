@@ -10,7 +10,7 @@ import {
 import { filter, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 import { ProcessDefinition as ProcessDto } from 'tasklist/models';
 import { ProcessDefinition } from 'app/process/state/process.reducer';
-import { SelectUserAction, UserActionTypes } from 'app/user/state/user.actions';
+import { selectUser } from 'app/user/state/user.actions';
 
 @Injectable()
 export class ProcessEffects {
@@ -22,8 +22,8 @@ export class ProcessEffects {
   }
 
   loadProcessesOnUserSelect = createEffect(() => this.actions$.pipe(
-    ofType<SelectUserAction>(UserActionTypes.SelectUser),
-    filter(action => !!action.payload),
+    ofType(selectUser),
+    filter(action => !!action.userId),
     map(() => new LoadStartableProcessDefinitions())
   ));
 

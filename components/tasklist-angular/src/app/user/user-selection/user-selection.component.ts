@@ -25,6 +25,6 @@ export class UserSelectionComponent implements OnInit {
   }
 
   setCurrentUser(userIdentifier: string) {
-    this.userStore.selectUser(userIdentifier);
+    this.userStore.selectUser({userId: userIdentifier});
   }
 }
