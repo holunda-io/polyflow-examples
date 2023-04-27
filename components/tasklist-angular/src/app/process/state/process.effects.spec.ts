@@ -1,15 +1,13 @@
-import {ProcessEffects} from './process.effects';
-import {Action} from '@ngrx/store';
-import {of} from 'rxjs';
-import {Actions} from '@ngrx/effects';
-import {ProcessService} from 'tasklist/services';
-import {UserStoreService} from 'app/user/state/user.store-service';
-import {createStoreServiceMock} from '@ngxp/store-service/testing';
-import {LoadStartableProcessDefinitions} from 'app/process/state/process.actions';
-import {ProcessDefinition as ApiProcessDefinition} from 'tasklist/models/process-definition';
-import {ProcessDefinition} from 'app/process/state/process.reducer' ;
+import { ProcessEffects } from './process.effects';
+import { Action } from '@ngrx/store';
+import { of } from 'rxjs';
+import { Actions } from '@ngrx/effects';
+import { ProcessService } from 'tasklist/services';
+import { UserStoreService } from 'app/user/state/user.store-service';
+import { createStoreServiceMock } from '@ngxp/store-service/testing';
+import { loadStartableProcessDefinitions } from 'app/process/state/process.actions';
+import { ProcessDefinition as ApiProcessDefinition } from 'tasklist/models/process-definition';
 
-// This test is broken for some reason without any changes on Jasmine or NPM setup
 describe('ProcessEffects', () => {
 
   let processService: ProcessService;
@@ -28,7 +26,7 @@ describe('ProcessEffects', () => {
 
   it('should load available process definitions', (done) => {
     // given:
-    const action = new LoadStartableProcessDefinitions();
+    const action = loadStartableProcessDefinitions();
     const procDtos: ApiProcessDefinition[] = [
       {processName: 'foo', description: '', url: '', candidateGroups: [], candidateUsers: [], definitionId: 'foo-id',
           definitionKey: 'foo-key', definitionVersion: '', versionTag: '1'},
@@ -40,7 +38,7 @@ describe('ProcessEffects', () => {
     // when:
     effectsFor(action).loadStartableProcesses$.subscribe((newAction) => {
       expect(serviceSpy).toHaveBeenCalled();
-      expect<ProcessDefinition>(newAction.payload).toEqual([
+      expect(newAction.definitions).toEqual([
         { name: 'foo', description: '', url: ''},
         { name: 'bar', description: '', url: ''}
       ]);

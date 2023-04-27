@@ -1,4 +1,5 @@
-import {ProcessActions, ProcessActionTypes} from './process.actions';
+import { startableProcessDefinitionsLoaded } from './process.actions';
+import { createReducer, on } from "@ngrx/store";
 
 export interface ProcessDefinition {
   name: string;
@@ -14,16 +15,10 @@ const initialState: ProcessState = {
   startableProcesses: []
 };
 
-export function processReducer(state: ProcessState = initialState, action: ProcessActions): ProcessState {
-  switch (action.type) {
-
-    case ProcessActionTypes.StartableProcessesLoaded:
-      return {
-        ...state,
-        startableProcesses: action.payload
-      };
-
-    default:
-      return state;
-  }
-}
+export const processReducer = createReducer(
+  initialState,
+  on(startableProcessDefinitionsLoaded, (state, action) => ({
+    ...state,
+    startableProcesses: action.definitions
+  }))
+);

@@ -2,11 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { UserStoreService } from 'app/user/state/user.store-service';
 import { ProcessService } from 'tasklist/services';
-import {
-  LoadStartableProcessDefinitions,
-  ProcessActionTypes,
-  StartableProcessDefinitionsLoaded
-} from 'app/process/state/process.actions';
+import { loadStartableProcessDefinitions, startableProcessDefinitionsLoaded } from 'app/process/state/process.actions';
 import { filter, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 import { ProcessDefinition as ProcessDto } from 'tasklist/models';
 import { ProcessDefinition } from 'app/process/state/process.reducer';
@@ -24,17 +20,17 @@ export class ProcessEffects {
   loadProcessesOnUserSelect = createEffect(() => this.actions$.pipe(
     ofType(selectUser),
     filter(action => !!action.userId),
-    map(() => new LoadStartableProcessDefinitions())
+    map(() => loadStartableProcessDefinitions())
   ));
 
   loadStartableProcesses$ = createEffect(() => this.actions$.pipe(
-    ofType(ProcessActionTypes.LoadStartableProcesses),
+    ofType(loadStartableProcessDefinitions),
     withLatestFrom(this.userStore.userId$()),
     mergeMap(([_, userId]) => this.processService.getStartableProcesses({
       'X-Current-User-ID': userId
     })),
     map(procDtos => mapFromDto(procDtos)),
-    map(procDefs => new StartableProcessDefinitionsLoaded(procDefs))
+    map(definitions => startableProcessDefinitionsLoaded({definitions}))
   ));
 }
 
