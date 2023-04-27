@@ -43,7 +43,6 @@
             "sourceMap": true,
             "optimization": false,
             "namedChunks": true,
-            "deployUrl": "/example-process-approval/",
             "baseHref": "/example-process-approval/"
           },
           "configurations": {
