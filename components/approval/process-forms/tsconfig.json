@@ -9,7 +9,7 @@
     "module": "es2020",
     "moduleResolution": "node",
     "experimentalDecorators": true,
-    "target": "es2020",
+    "target": "ES2022",
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -18,11 +18,11 @@
       "dom"
     ],
     "paths": {
-      // relative to baseUrl
       "*": [
         "src/*",
         "src-gen/*"
-      ],
-    }
+      ]
+    },
+    "useDefineForClassFields": false
   }
 }
