@@ -176,7 +176,7 @@
       <dependency>
         <groupId>io.holunda</groupId>
         <artifactId>camunda-platform-7-autologin</artifactId>
-        <version>0.0.1</version>
+        <version>0.0.2</version>
       </dependency>
 
 
