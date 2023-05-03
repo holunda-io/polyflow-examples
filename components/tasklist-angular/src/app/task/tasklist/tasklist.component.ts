@@ -34,11 +34,11 @@ export class TasklistComponent implements OnInit {
   }
 
   claim($event, task: Task) {
-    this.taskStore.claim(task);
+    this.taskStore.claim({task});
   }
 
   unclaim($event, task: Task) {
-    this.taskStore.unclaim(task);
+    this.taskStore.unclaim({task});
   }
 
   reload() {
@@ -46,7 +46,7 @@ export class TasklistComponent implements OnInit {
   }
 
   loadPage(page: number) {
-    this.taskStore.selectPage(page);
+    this.taskStore.selectPage({pageNumber: page});
   }
 
   toFieldSet(payload: any) {

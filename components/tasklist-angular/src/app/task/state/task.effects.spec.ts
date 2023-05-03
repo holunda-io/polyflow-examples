@@ -5,7 +5,7 @@ import { Actions } from '@ngrx/effects';
 import { TaskService } from 'tasklist/services';
 import { UserStoreService } from 'app/user/state/user.store-service';
 import { createStoreServiceMock } from '@ngxp/store-service/testing';
-import { LoadTasksAction, PageSelectedAction, SelectPageAction, TasksLoadedAction } from 'app/task/state/task.actions';
+import { loadTasks, pageSelected, selectPage, tasksLoaded } from 'app/task/state/task.actions';
 import { selectUser } from 'app/user/state/user.actions';
 import { TaskStoreService } from 'app/task/state/task.store-service';
 
@@ -33,20 +33,20 @@ describe('TaskEffects', () => {
 
     // when:
     effectsFor(action).loadTasksOnUserSelect$.subscribe((newAction) => {
-      expect(newAction).toEqual(new LoadTasksAction());
+      expect(newAction).toEqual(loadTasks());
       done();
     });
   });
 
   it('should load tasks', (done) => {
     // given:
-    const action = new LoadTasksAction();
+    const action = loadTasks();
     const spy = spyOn(taskService, 'getTasks$Response').and.returnValue(of({body: [],
     headers: { get: (field: string) => '0'}} as any));
 
     // when:
     effectsFor(action).loadTasks$.subscribe(newAction => {
-      expect(newAction).toEqual(new TasksLoadedAction({tasks: [], totalCount: 0}));
+      expect(newAction).toEqual(tasksLoaded({tasks: [], totalCount: 0}));
       expect(spy).toHaveBeenCalled();
       done();
     });
@@ -54,13 +54,13 @@ describe('TaskEffects', () => {
 
   it('should update selected page', (done) => {
     // given:
-    const action = new SelectPageAction(1);
+    const action = selectPage({pageNumber: 1});
     taskStore = createStoreServiceMock(TaskStoreService, {
       selectedPage$: 0
     });
 
     effectsFor(action).selectPage$.subscribe((newAction) => {
-      expect(newAction).toEqual(new PageSelectedAction(1));
+      expect(newAction).toEqual(pageSelected({pageNumber: 1}));
       done();
     });
   });

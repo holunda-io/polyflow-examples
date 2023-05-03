@@ -1,38 +1,27 @@
-import {Injectable} from '@angular/core';
-import {Dispatch, Select, StoreService} from '@ngxp/store-service';
-import {ClaimTaskAction, LoadTasksAction, SelectPageAction, UnclaimTaskAction, UpdateSortingColumnAction} from './task.actions';
-import {Field, TaskState} from 'app/task/state/task.reducer';
-import {Task, TaskWithDataEntries} from 'tasklist/models';
-import {getCount, getSelectedPage, getSortingColumn, getTasks} from 'app/task/state/task.selectors';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { dispatch, select, StoreService } from '@ngxp/store-service';
+import { claimTask, loadTasks, selectPage, unclaimTask, updateSortingColumn } from './task.actions';
+import { TaskState } from 'app/task/state/task.reducer';
+import { getCount, getSelectedPage, getSortingColumn, getTasks } from 'app/task/state/task.selectors';
 
 @Injectable()
 export class TaskStoreService extends StoreService<TaskState> {
 
-  @Dispatch(LoadTasksAction)
-  loadTasks: () => void;
+  loadTasks = dispatch(loadTasks);
 
-  @Dispatch(UpdateSortingColumnAction)
-  updateSortingColumn: (field: Field) => void;
+  updateSortingColumn = dispatch(updateSortingColumn);
 
-  @Dispatch(SelectPageAction)
-  selectPage: (page: number) => void;
+  selectPage = dispatch(selectPage);
 
-  @Dispatch(ClaimTaskAction)
-  claim: (task: Task) => void;
+  claim = dispatch(claimTask);
 
-  @Dispatch(UnclaimTaskAction)
-  unclaim: (task: Task) => void;
+  unclaim = dispatch(unclaimTask);
 
-  @Select(getTasks)
-  tasks: () => Observable<TaskWithDataEntries[]>;
+  tasks = select(getTasks);
 
-  @Select(getSortingColumn)
-  sortingColumn$: () => Observable<Field>;
+  sortingColumn$ = select(getSortingColumn);
 
-  @Select(getCount)
-  taskCount$: () => Observable<number>;
+  taskCount$ = select(getCount);
 
-  @Select(getSelectedPage)
-  selectedPage$: () => Observable<number>;
+  selectedPage$ = select(getSelectedPage);
 }

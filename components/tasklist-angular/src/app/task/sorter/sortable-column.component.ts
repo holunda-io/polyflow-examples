@@ -21,7 +21,7 @@ export class SortableColumnComponent implements OnInit, OnDestroy {
   @HostListener('click')
   toggle() {
     const newDirection = this.direction === SortDirection.ASC ? SortDirection.DESC : SortDirection.ASC;
-    this.taskStore.updateSortingColumn({ fieldName: this.fieldName, direction: newDirection });
+    this.taskStore.updateSortingColumn({field: { fieldName: this.fieldName, direction: newDirection }});
   }
 
   constructor(private taskStore: TaskStoreService) {

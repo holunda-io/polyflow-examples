@@ -3,15 +3,15 @@ import { TaskService } from 'tasklist/services';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { UserStoreService } from 'app/user/state/user.store-service';
 import {
-  ClaimTaskAction,
-  LoadTasksAction,
-  PageSelectedAction,
-  SelectPageAction,
-  TaskActionTypes,
-  TaskClaimedAction,
-  TasksLoadedAction,
-  TaskUnclaimedAction,
-  UnclaimTaskAction
+  claimTask,
+  loadTasks,
+  pageSelected,
+  selectPage,
+  taskClaimed,
+  tasksLoaded,
+  taskUnclaimed,
+  unclaimTask,
+  updateSortingColumn
 } from 'app/task/state/task.actions';
 import { catchError, filter, map, mergeMap, withLatestFrom } from 'rxjs/operators';
 import { selectUser } from 'app/user/state/user.actions';
@@ -30,22 +30,22 @@ export class TaskEffects {
   loadTasksOnUserSelect$ = createEffect(() => this.actions$.pipe(
     ofType(selectUser),
     filter((action) => !!action.userId),
-    map(() => new LoadTasksAction())
+    map(() => loadTasks())
   ));
 
   loadTasksOnSortingChange = createEffect(() => this.actions$.pipe(
-    ofType(TaskActionTypes.UpdateSortingColumn),
-    map(() => new LoadTasksAction())
+    ofType(updateSortingColumn),
+    map(() => loadTasks())
   ));
 
   loadTasks$ = createEffect(() => this.actions$.pipe(
-    ofType(TaskActionTypes.LoadTasks),
+    ofType(loadTasks),
     withLatestFrom(this.userStore.userId$()),
     mergeMap(([_, userId]) =>
       this.taskService.getTasks$Response({
         'X-Current-User-ID': userId
       })),
-    map((response) => new TasksLoadedAction({
+    map((response) => tasksLoaded({
       tasks: response.body,
       totalCount: Number(response.headers.get('X-ElementCount'))
     })),
@@ -56,19 +56,19 @@ export class TaskEffects {
   ));
 
   selectPage$ = createEffect(() => this.actions$.pipe(
-    ofType<SelectPageAction>(TaskActionTypes.SelectPage),
-    map(action => action.payload),
+    ofType(selectPage),
+    map(action => action.pageNumber),
     withLatestFrom(this.taskStore.selectedPage$()),
     filter(([newPage, currentPage]) => newPage !== currentPage),
-    map(([newPage, _]) => new PageSelectedAction(newPage))
+    map(([pageNumber, _]) => pageSelected({pageNumber}))
   ));
 
   claimTask$ = createEffect(() => this.actions$.pipe(
-    ofType<ClaimTaskAction>(TaskActionTypes.ClaimTask),
-    map(action => action.payload),
+    ofType(claimTask),
+    map(action => action.task),
     withLatestFrom(this.userStore.userId$()),
     mergeMap(([task, userId]) => this.taskService.claim({taskId: task.id, 'X-Current-User-ID': userId})),
-    map(() => new TaskClaimedAction()),
+    map(() => taskClaimed()),
     catchError(err => {
       console.log('Error while claiming task', err);
       return of();
@@ -76,11 +76,11 @@ export class TaskEffects {
   ));
 
   unclaimTask$ = createEffect(() => this.actions$.pipe(
-    ofType<UnclaimTaskAction>(TaskActionTypes.UnclaimTask),
-    map(action => action.payload),
+    ofType(unclaimTask),
+    map(action => action.task),
     withLatestFrom(this.userStore.userId$()),
     mergeMap(([task, userId]) => this.taskService.unclaim({taskId: task.id, 'X-Current-User-ID': userId})),
-    map(() => new TaskUnclaimedAction()),
+    map(() => taskUnclaimed()),
     catchError(err => {
       console.log('Error while unclaiming task', err);
       return of();
@@ -88,7 +88,7 @@ export class TaskEffects {
   ));
 
   reloadTasks$ = createEffect(() => this.actions$.pipe(
-    ofType(TaskActionTypes.TaskClaimed, TaskActionTypes.TaskUnclaimed),
-    map(() => new LoadTasksAction())
+    ofType(taskClaimed, taskUnclaimed),
+    map(() => loadTasks())
   ));
 }
