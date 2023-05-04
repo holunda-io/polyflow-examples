@@ -5,9 +5,18 @@ import { Actions } from '@ngrx/effects';
 import { TaskService } from 'tasklist/services';
 import { UserStoreService } from 'app/user/state/user.store-service';
 import { createStoreServiceMock } from '@ngxp/store-service/testing';
-import { loadTasks, pageSelected, selectPage, tasksLoaded } from 'app/task/state/task.actions';
+import {
+  claimTask,
+  loadTasks,
+  pageSelected,
+  selectPage, taskClaimed,
+  tasksLoaded,
+  taskUnclaimed,
+  unclaimTask
+} from 'app/task/state/task.actions';
 import { selectUser } from 'app/user/state/user.actions';
 import { TaskStoreService } from 'app/task/state/task.store-service';
+import { Task } from "tasklist/models/task";
 
 describe('TaskEffects', () => {
 
@@ -63,5 +72,49 @@ describe('TaskEffects', () => {
       expect(newAction).toEqual(pageSelected({pageNumber: 1}));
       done();
     });
+  });
+
+  it('should claim task', (done) => {
+    // given:
+    const task: Task = {
+      url: '',
+      id: '',
+      createTime: '',
+      candidateGroups: [],
+      candidateUsers: [],
+      processName: ''
+    };
+    const action = claimTask({task});
+    spyOn(taskService, 'claim').and.callFake(() => of(undefined as void));
+
+    // when:
+    effectsFor(action).claimTask$.subscribe((newAction) => {
+      // then:
+      expect(taskService.claim).toHaveBeenCalled();
+      expect(newAction).toEqual(taskClaimed())
+      done();
+    })
+  });
+
+  it('should unclaim task', (done) => {
+    // given:
+    const task: Task = {
+      url: '',
+      id: '',
+      createTime: '',
+      candidateGroups: [],
+      candidateUsers: [],
+      processName: ''
+    };
+    const action = unclaimTask({task});
+    spyOn(taskService, 'unclaim').and.callFake(() => of(undefined as void));
+
+    // when:
+    effectsFor(action).unclaimTask$.subscribe((newAction) => {
+      // then:
+      expect(taskService.unclaim).toHaveBeenCalled();
+      expect(newAction).toEqual(taskUnclaimed())
+      done();
+    })
   });
 });
