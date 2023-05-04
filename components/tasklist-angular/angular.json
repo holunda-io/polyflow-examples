@@ -38,6 +38,9 @@
               "src/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
+            "allowedCommonJsDependencies": [
+              "deepmerge"
+            ],
             "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,

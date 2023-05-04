@@ -33,8 +33,8 @@ export class TaskEffects {
     map(() => loadTasks())
   ));
 
-  loadTasksOnSortingChange = createEffect(() => this.actions$.pipe(
-    ofType(updateSortingColumn),
+  reloadTasks$ = createEffect(() => this.actions$.pipe(
+    ofType(taskClaimed, taskUnclaimed, updateSortingColumn),
     map(() => loadTasks())
   ));
 
@@ -85,10 +85,5 @@ export class TaskEffects {
       console.log('Error while unclaiming task', err);
       return of();
     })
-  ));
-
-  reloadTasks$ = createEffect(() => this.actions$.pipe(
-    ofType(taskClaimed, taskUnclaimed),
-    map(() => loadTasks())
   ));
 }
