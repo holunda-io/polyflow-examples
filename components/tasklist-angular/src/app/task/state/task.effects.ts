@@ -1,19 +1,22 @@
-import {Injectable} from '@angular/core';
-import {TaskService} from 'tasklist/services';
-import {Actions, Effect, ofType} from '@ngrx/effects';
-import {UserStoreService} from 'app/user/state/user.store-service';
+import { Injectable } from '@angular/core';
+import { TaskService } from 'tasklist/services';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { UserStoreService } from 'app/user/state/user.store-service';
 import {
-  ClaimTaskAction,
-  LoadTasksAction,
-  PageSelectedAction,
-  SelectPageAction,
-  TaskActionTypes, TaskClaimedAction,
-  TasksLoadedAction, TaskUnclaimedAction, UnclaimTaskAction
+  claimTask,
+  loadTasks,
+  pageSelected,
+  selectPage,
+  taskClaimed,
+  tasksLoaded,
+  taskUnclaimed,
+  unclaimTask,
+  updateSortingColumn
 } from 'app/task/state/task.actions';
-import {catchError, filter, flatMap, map, withLatestFrom} from 'rxjs/operators';
-import {SelectUserAction, UserActionTypes} from 'app/user/state/user.actions';
-import {of} from 'rxjs';
-import {TaskStoreService} from 'app/task/state/task.store-service';
+import { catchError, filter, map, mergeMap, withLatestFrom } from 'rxjs/operators';
+import { selectUser } from 'app/user/state/user.actions';
+import { of } from 'rxjs';
+import { TaskStoreService } from 'app/task/state/task.store-service';
 
 @Injectable()
 export class TaskEffects {
@@ -24,28 +27,25 @@ export class TaskEffects {
     private actions$: Actions) {
   }
 
-  @Effect()
-  loadTasksOnUserSelect$ = this.actions$.pipe(
-    ofType<SelectUserAction>(UserActionTypes.SelectUser),
-    filter((action) => !!action.payload),
-    map(() => new LoadTasksAction())
-  );
+  loadTasksOnUserSelect$ = createEffect(() => this.actions$.pipe(
+    ofType(selectUser),
+    filter((action) => !!action.userId),
+    map(() => loadTasks())
+  ));
 
-  @Effect()
-  loadTasksOnSortingChange = this.actions$.pipe(
-    ofType(TaskActionTypes.UpdateSortingColumn),
-    map(() => new LoadTasksAction())
-  );
+  reloadTasks$ = createEffect(() => this.actions$.pipe(
+    ofType(taskClaimed, taskUnclaimed, updateSortingColumn),
+    map(() => loadTasks())
+  ));
 
-  @Effect()
-  loadTasks$ = this.actions$.pipe(
-    ofType(TaskActionTypes.LoadTasks),
+  loadTasks$ = createEffect(() => this.actions$.pipe(
+    ofType(loadTasks),
     withLatestFrom(this.userStore.userId$()),
-    flatMap(([_, userId]) =>
+    mergeMap(([_, userId]) =>
       this.taskService.getTasks$Response({
         'X-Current-User-ID': userId
       })),
-    map((response) => new TasksLoadedAction({
+    map((response) => tasksLoaded({
       tasks: response.body,
       totalCount: Number(response.headers.get('X-ElementCount'))
     })),
@@ -53,46 +53,37 @@ export class TaskEffects {
       console.log('Error loading tasks:', err);
       return of();
     })
-  );
+  ));
 
-  @Effect()
-  selectPage$ = this.actions$.pipe(
-    ofType<SelectPageAction>(TaskActionTypes.SelectPage),
-    map(action => action.payload),
+  selectPage$ = createEffect(() => this.actions$.pipe(
+    ofType(selectPage),
+    map(action => action.pageNumber),
     withLatestFrom(this.taskStore.selectedPage$()),
     filter(([newPage, currentPage]) => newPage !== currentPage),
-    map(([newPage, _]) => new PageSelectedAction(newPage))
-  );
+    map(([pageNumber, _]) => pageSelected({pageNumber}))
+  ));
 
-  @Effect()
-  claimTask$ = this.actions$.pipe(
-    ofType<ClaimTaskAction>(TaskActionTypes.ClaimTask),
-    map(action => action.payload),
+  claimTask$ = createEffect(() => this.actions$.pipe(
+    ofType(claimTask),
+    map(action => action.task),
     withLatestFrom(this.userStore.userId$()),
-    flatMap(([task, userId]) => this.taskService.claim({taskId: task.id, 'X-Current-User-ID': userId})),
-    map(() => new TaskClaimedAction()),
+    mergeMap(([task, userId]) => this.taskService.claim({taskId: task.id, 'X-Current-User-ID': userId})),
+    map(() => taskClaimed()),
     catchError(err => {
       console.log('Error while claiming task', err);
       return of();
     })
-  );
+  ));
 
-  @Effect()
-  unclaimTask$ = this.actions$.pipe(
-    ofType<UnclaimTaskAction>(TaskActionTypes.UnclaimTask),
-    map(action => action.payload),
+  unclaimTask$ = createEffect(() => this.actions$.pipe(
+    ofType(unclaimTask),
+    map(action => action.task),
     withLatestFrom(this.userStore.userId$()),
-    flatMap(([task, userId]) => this.taskService.unclaim({taskId: task.id, 'X-Current-User-ID': userId})),
-    map(() => new TaskUnclaimedAction()),
+    mergeMap(([task, userId]) => this.taskService.unclaim({taskId: task.id, 'X-Current-User-ID': userId})),
+    map(() => taskUnclaimed()),
     catchError(err => {
       console.log('Error while unclaiming task', err);
       return of();
     })
-  );
-
-  @Effect()
-  reloadTasks$ = this.actions$.pipe(
-    ofType(TaskActionTypes.TaskClaimed, TaskActionTypes.TaskUnclaimed),
-    map(() => new LoadTasksAction())
-  );
+  ));
 }

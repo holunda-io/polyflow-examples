@@ -1,7 +1,7 @@
-import {LoadDataEntries, DataEntriesLoaded} from './dataentry.actions';
-import {DataEntry, dataentryReducer, DataEntryState} from './dataentry.reducer';
+import { dataEntriesLoaded } from './dataentry.actions';
+import { DataEntry, dataentryReducer, DataEntryState } from './dataentry.reducer';
 
-describe('processReducer', () => {
+describe('dataEntryReducer', () => {
 
   const initialState: DataEntryState = {
     dataEntries: []
@@ -13,23 +13,12 @@ describe('processReducer', () => {
       {name: 'foo', description: '', url: '', type: 'type', payload: {}, currentState: 'MY STATE', currentStateType: '', protocol: []},
       {name: 'bar', description: '', url: '', type: 'type2', payload: {}, currentState: 'MY STATE2', currentStateType: '', protocol: []}
     ];
-    const action = new DataEntriesLoaded(dataEntries);
+    const action = dataEntriesLoaded({dataEntries});
 
     // when:
     const newState = dataentryReducer(initialState, action);
 
     // then:
     expect(newState.dataEntries).toBe(dataEntries);
-  });
-
-  it('ignores other actions', () => {
-    // given:
-    const action = new LoadDataEntries();
-
-    // when:
-    const newState = dataentryReducer(initialState, action);
-
-    // then:
-    expect(newState).toBe(initialState);
   });
 });

@@ -1,44 +1,35 @@
-import {Component, OnInit} from '@angular/core';
-import {Task, TaskWithDataEntries} from 'tasklist/models';
-import {UserStoreService} from 'app/user/state/user.store-service';
-import {UserProfile} from 'app/user/state/user.reducer';
-import {TaskStoreService} from 'app/task/state/task.store-service';
-import {Observable} from 'rxjs';
-import {itemsPerPage} from 'app/task/state/task.selectors';
+import { Component } from '@angular/core';
+import { Task } from 'tasklist/models';
+import { UserStoreService } from 'app/user/state/user.store-service';
+import { TaskStoreService } from 'app/task/state/task.store-service';
+import { itemsPerPage } from 'app/task/state/task.selectors';
 
 @Component({
   selector: 'tasks-tasklist',
   templateUrl: './tasklist.component.html',
   styleUrls: ['tasklist.component.scss']
 })
-export class TasklistComponent implements OnInit {
+export class TasklistComponent {
 
-  itemsPerPage: number;
-  totalItems: Observable<number>;
-  page: Observable<number>;
   currentDataTab = 'description';
-  currentProfile$: Observable<UserProfile>;
-  tasks: Observable<TaskWithDataEntries[]>;
+  itemsPerPage = itemsPerPage;
+
+  totalItems = this.taskStore.taskCount$();
+  page = this.taskStore.selectedPage$();
+  currentProfile$ = this.userStore.currentUserProfile$();
+  tasks = this.taskStore.tasks();
 
   constructor(
     private taskStore: TaskStoreService,
     private userStore: UserStoreService
   ) {}
 
-  ngOnInit(): void {
-    this.totalItems = this.taskStore.taskCount$();
-    this.itemsPerPage = itemsPerPage;
-    this.page = this.taskStore.selectedPage$();
-    this.tasks = this.taskStore.tasks();
-    this.currentProfile$ = this.userStore.currentUserProfile$();
-  }
-
   claim($event, task: Task) {
-    this.taskStore.claim(task);
+    this.taskStore.claim({task});
   }
 
   unclaim($event, task: Task) {
-    this.taskStore.unclaim(task);
+    this.taskStore.unclaim({task});
   }
 
   reload() {
@@ -46,7 +37,7 @@ export class TasklistComponent implements OnInit {
   }
 
   loadPage(page: number) {
-    this.taskStore.selectPage(page);
+    this.taskStore.selectPage({pageNumber: page});
   }
 
   toFieldSet(payload: any) {

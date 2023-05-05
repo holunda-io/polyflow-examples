@@ -5,7 +5,7 @@ import { Actions } from '@ngrx/effects';
 import { BusinessDataService } from 'tasklist/services';
 import { UserStoreService } from 'app/user/state/user.store-service';
 import { createStoreServiceMock } from '@ngxp/store-service/testing';
-import { DataEntriesLoaded, LoadDataEntries } from 'app/dataentry/state/dataentry.actions';
+import { dataEntriesLoaded, loadDataEntries } from 'app/dataentry/state/dataentry.actions';
 import { DataEntry } from 'app/dataentry/state/dataentry.reducer';
 
 describe('DataEntryEffects', () => {
@@ -26,7 +26,7 @@ describe('DataEntryEffects', () => {
 
   it('should load available users', (done) => {
     // given:
-    const action = new LoadDataEntries();
+    const action = loadDataEntries();
     const dataEntriesDtos: Array<DataEntry> = [
       { name: 'foo', description: '', url: '', type: 'type', payload: {}, currentState: 'MY STATE', currentStateType: '', protocol: [] },
       { name: 'bar', description: '', url: '', type: 'type2', payload: {}, currentState: 'MY STATE2', currentStateType: '', protocol: [] }
@@ -36,10 +36,10 @@ describe('DataEntryEffects', () => {
 
     // when:
     effectsFor(action).loadDataEntries$.subscribe((newAction) => {
-      expect(newAction).toEqual(new DataEntriesLoaded([
+      expect(newAction).toEqual(dataEntriesLoaded({dataEntries: [
         { name: 'foo', description: '', url: '', type: 'type', payload: {}, currentState: 'MY STATE', currentStateType: '', protocol: [] },
         { name: 'bar', description: '', url: '', type: 'type2', payload: {}, currentState: 'MY STATE2', currentStateType: '', protocol: [] }
-      ]));
+      ]}));
       done();
     });
   });

@@ -1,5 +1,6 @@
-import {TaskActions, TaskActionTypes} from './task.actions';
-import {TaskWithDataEntries} from 'tasklist/models';
+import { pageSelected, tasksLoaded, updateSortingColumn } from './task.actions';
+import { TaskWithDataEntries } from 'tasklist/models';
+import { createReducer, on } from "@ngrx/store";
 
 export enum SortDirection {
   ASC = '+',
@@ -19,35 +20,25 @@ export interface TaskState {
 }
 
 const initialState: TaskState = {
-  sortingColumn: {fieldName: 'task.dueDate', direction: SortDirection.DESC },
+  sortingColumn: {fieldName: 'task.dueDate', direction: SortDirection.DESC},
   page: 0,
   taskCount: 0,
   tasks: []
 };
 
-export function taskReducer(state: TaskState = initialState, action: TaskActions): TaskState {
-  switch (action.type) {
-
-    case TaskActionTypes.TasksLoaded:
-      return {
-        ...state,
-        tasks: action.payload.tasks,
-        taskCount: action.payload.totalCount
-      };
-
-    case TaskActionTypes.PageSelected:
-      return {
-        ...state,
-        page: action.payload
-      };
-
-    case TaskActionTypes.UpdateSortingColumn:
-      return {
-        ...state,
-        sortingColumn: action.payload
-      };
-
-    default:
-      return state;
-  }
-}
+export const taskReducer = createReducer(
+  initialState,
+  on(tasksLoaded, (state, action) => ({
+    ...state,
+    tasks: action.tasks,
+    taskCount: action.totalCount
+  })),
+  on(pageSelected, (state, action) => ({
+    ...state,
+    page: action.pageNumber
+  })),
+  on(updateSortingColumn, (state, action) => ({
+    ...state,
+    sortingColumn: action.field
+  }))
+);

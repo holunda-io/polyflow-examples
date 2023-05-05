@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import * as ApprovalRequestDraftSamples from 'app/data/approval-request-draft';
 import { ApprovalRequestDraft } from 'process/models/approval-request-draft';
 
@@ -19,9 +19,9 @@ export class RequestFormComponent implements OnInit {
   @Output()
   isValid = new EventEmitter<Object>();
 
-  approvalForm: FormGroup;
+  approvalForm: UntypedFormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: UntypedFormBuilder) {
   }
 
   ngOnInit(): void {

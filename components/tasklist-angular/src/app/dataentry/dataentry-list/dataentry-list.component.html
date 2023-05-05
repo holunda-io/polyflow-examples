@@ -6,22 +6,51 @@
         <table class="table">
           <thead class="thead-light">
           <tr>
-            <th class="align-top" sortable-column="dataentry.type">Type</th>
-            <th class="align-top" sortable-column="dataentry.name">Name</th>
+            <th class="align-top" tasks-sortable-column="dataentry.type">Type</th>
+            <th class="align-top" tasks-sortable-column="dataentry.name">Name</th>
             <th class="w-50 align-top">
               Details
-              <div class="btn-group btn-group-toggle btn-group-sm pull-right" ngbRadioGroup name="dataTab"
-                   [(ngModel)]="currentDataTab">
-                <label ngbButtonLabel class="btn-outline-secondary btn-sm">
-                  <input ngbButton type="radio" [value]="'description'">Description</label>
-                <label ngbButtonLabel class="btn-outline-secondary btn-sm">
-                  <input ngbButton type="radio" [value]="'data'">Data</label>
-                <label ngbButtonLabel class="btn-outline-secondary btn-sm">
-                  <input ngbButton type="radio" [value]="'protocol'">Audit</label>
+              <div class="btn-group btn-group-toggle btn-group-sm pull-right">
+                <input
+                  class="btn-check"
+                  type="radio"
+                  name="dataTab"
+                  value="description"
+                  id="data-tab-description"
+                  [(ngModel)]="currentDataTab"
+                />
+                <label
+                  for="data-tab-description"
+                  class="btn-outline-secondary btn btn-sm"
+                >Description</label>
+                <input
+                  class="btn-check"
+                  type="radio"
+                  value="data"
+                  name="dataTab"
+                  id="data-tab-data"
+                  [(ngModel)]="currentDataTab"
+                />
+                <label
+                  for="data-tab-data"
+                  class="btn-outline-secondary btn btn-sm"
+                >Data</label>
+                <input
+                  class="btn-check"
+                  type="radio"
+                  value="protocol"
+                  name="dataTab"
+                  id="data-tab-protocol"
+                  [(ngModel)]="currentDataTab"
+                />
+                <label
+                  for="data-tab-protocol"
+                  class="btn-outline-secondary btn btn-sm"
+                >Audit</label>
 
               </div>
             </th>
-            <th class="align-top" sortable-column="dataentry.currentStatusType">Status</th>
+            <th class="align-top" tasks-sortable-column="dataentry.currentStatusType">Status</th>
             <th colspan="2" class="align-top">
               Actions
               <div class="pull-right">
@@ -36,7 +65,7 @@
           <tbody>
           <tr *ngFor="let dataEntry of (dataEntries$ | async) index as i">
             <td class="nowrap">{{ dataEntry.type }}</td>
-            <td class="nowrap"><a appExternalUrl [href]="dataEntry.url">{{ dataEntry.name }}</a></td>
+            <td class="nowrap"><a tasksExternalUrl [href]="dataEntry.url">{{ dataEntry.name }}</a></td>
             <td>
               <div *ngIf="currentDataTab === 'description'">
                 {{ dataEntry.description }}

@@ -4,13 +4,13 @@ import {TaskStoreService} from 'app/task/state/task.store-service';
 import {Field, SortDirection} from 'app/task/state/task.reducer';
 
 @Component({
-  selector: '[sortable-column]',
+  selector: '[tasks-sortable-column]',
   templateUrl: './sortable-column.component.html',
   styleUrls: []
 })
 export class SortableColumnComponent implements OnInit, OnDestroy {
 
-  @Input('sortable-column')
+  @Input('tasks-sortable-column')
   fieldName: string;
 
   @Input('sort-direction')
@@ -21,7 +21,7 @@ export class SortableColumnComponent implements OnInit, OnDestroy {
   @HostListener('click')
   toggle() {
     const newDirection = this.direction === SortDirection.ASC ? SortDirection.DESC : SortDirection.ASC;
-    this.taskStore.updateSortingColumn({ fieldName: this.fieldName, direction: newDirection });
+    this.taskStore.updateSortingColumn({field: { fieldName: this.fieldName, direction: newDirection }});
   }
 
   constructor(private taskStore: TaskStoreService) {

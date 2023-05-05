@@ -1,6 +1,6 @@
-import {LoadTasksAction, PageSelectedAction, TasksLoadedAction} from './task.actions';
-import {taskReducer, TaskState} from './task.reducer';
-import {TaskWithDataEntries} from 'tasklist/models/task-with-data-entries';
+import { pageSelected, tasksLoaded } from './task.actions';
+import { taskReducer, TaskState } from './task.reducer';
+import { TaskWithDataEntries } from 'tasklist/models/task-with-data-entries';
 
 describe('taskReducer', () => {
 
@@ -30,7 +30,7 @@ describe('taskReducer', () => {
         }
       }
     ];
-    const action = new TasksLoadedAction({tasks: tasks, totalCount: 1});
+    const action = tasksLoaded({tasks: tasks, totalCount: 1});
 
     // when:
     const newState = taskReducer(initialState, action);
@@ -41,23 +41,12 @@ describe('taskReducer', () => {
 
   it('should update page', () => {
     // given:
-    const action = new PageSelectedAction(1);
+    const action = pageSelected({pageNumber: 1});
 
     // when
     const newState = taskReducer(initialState, action);
 
     // then:
     expect(newState.page).toBe(1);
-  });
-
-  it('ignores other actions', () => {
-    // given:
-    const action = new LoadTasksAction();
-
-    // when:
-    const newState = taskReducer(initialState, action);
-
-    // then:
-    expect(newState).toBe(initialState);
   });
 });

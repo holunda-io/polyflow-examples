@@ -1,87 +1,35 @@
-import {Action} from '@ngrx/store';
-import {TaskWithDataEntries} from 'tasklist/models/task-with-data-entries';
-import {Task} from 'tasklist/models/task';
-import {Field} from 'app/task/state/task.reducer';
+import { createAction, props } from '@ngrx/store';
+import { TaskWithDataEntries } from 'tasklist/models/task-with-data-entries';
+import { Task } from 'tasklist/models/task';
+import { Field } from 'app/task/state/task.reducer';
 
-export enum TaskActionTypes {
-  LoadTasks = '[Task] Load tasks',
-  TasksLoaded = '[Task] Tasks loaded',
-  UpdateSortingColumn = '[Task] Update sorting column',
-  SelectPage = '[Task] Select page',
-  PageSelected = '[Task] Page Selected',
-  ClaimTask = '[Task] Claim task',
-  TaskClaimed = '[Task] Task claimed',
-  UnclaimTask = '[Task] Unclaim task',
-  TaskUnclaimed = '[Task] Task unclaimed'
-}
+export const loadTasks = createAction('[Task] Load tasks');
 
-export class LoadTasksAction implements Action {
-  readonly type = TaskActionTypes.LoadTasks;
-
-  constructor() {
-  }
-}
-
-export interface PaginatedTasks {
+export const tasksLoaded = createAction('[Task] Tasks loaded', props<{
   tasks: TaskWithDataEntries[];
-  totalCount: number;
-}
+  totalCount: number
+}>());
 
-export class TasksLoadedAction implements Action {
-  readonly type = TaskActionTypes.TasksLoaded;
+export const updateSortingColumn = createAction('[Task] Update sorting column', props<{
+  field: Field
+}>());
 
-  constructor(public payload: PaginatedTasks) {
-  }
-}
+export const selectPage = createAction('[Task] Select page', props<{
+  pageNumber: number
+}>());
 
-export class UpdateSortingColumnAction implements Action {
-  readonly type = TaskActionTypes.UpdateSortingColumn;
+export const pageSelected = createAction('[Task] Page selected', props<{
+  pageNumber: number
+}>());
 
-  constructor(public payload: Field) {
-  }
-}
+export const claimTask = createAction('[Task] Claim', props<{
+  task: Task
+}>());
 
-export class SelectPageAction implements Action {
-  readonly type = TaskActionTypes.SelectPage;
+export const taskClaimed = createAction('[Task] Claimed');
 
-  constructor(public payload: number) {
-  }
-}
+export const unclaimTask = createAction('[Task] Unclaim', props<{
+  task: Task
+}>());
 
-export class PageSelectedAction implements Action {
-  readonly type = TaskActionTypes.PageSelected;
-
-  constructor(public payload: number) {
-  }
-}
-
-export class ClaimTaskAction implements Action {
-  readonly type = TaskActionTypes.ClaimTask;
-
-  constructor(public payload: Task) {}
-}
-
-export class TaskClaimedAction implements Action {
-  readonly type = TaskActionTypes.TaskClaimed;
-}
-
-export class UnclaimTaskAction implements Action {
-  readonly type = TaskActionTypes.UnclaimTask;
-
-  constructor(public payload: Task) {}
-}
-
-export class TaskUnclaimedAction implements Action {
-  readonly type = TaskActionTypes.TaskUnclaimed;
-}
-
-export type TaskActions =
-  | LoadTasksAction
-  | TasksLoadedAction
-  | UpdateSortingColumnAction
-  | SelectPageAction
-  | PageSelectedAction
-  | ClaimTaskAction
-  | TaskClaimedAction
-  | UnclaimTaskAction
-  | TaskUnclaimedAction;
+export const taskUnclaimed = createAction('[Task] Unclaimed');

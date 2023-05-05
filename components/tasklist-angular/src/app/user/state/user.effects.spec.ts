@@ -1,13 +1,12 @@
-import {UserEffects} from './user.effects';
-import {Action} from '@ngrx/store';
-import {of} from 'rxjs';
-import {Actions} from '@ngrx/effects';
-import {ProfileService} from 'tasklist/services';
-import {LoadAvailableUsersAction, LoadUserProfileAction, SelectUserAction} from 'app/user/state/user.actions';
-import {UserProfile} from 'app/user/state/user.reducer';
-import {UserStoreService} from 'app/user/state/user.store-service';
-import {createStoreServiceMock} from '@ngxp/store-service/testing';
-import { UserInfo } from 'tasklist/models';
+import { UserEffects } from './user.effects';
+import { Action } from '@ngrx/store';
+import { of } from 'rxjs';
+import { Actions } from '@ngrx/effects';
+import { ProfileService } from 'tasklist/services';
+import { loadAvailableUsers, loadUserProfile, selectUser } from 'app/user/state/user.actions';
+import { UserProfile } from 'app/user/state/user.reducer';
+import { UserStoreService } from 'app/user/state/user.store-service';
+import { createStoreServiceMock } from '@ngxp/store-service/testing';
 
 describe('UserEffects', () => {
 
@@ -26,26 +25,26 @@ describe('UserEffects', () => {
 
   it('should load available users', (done) => {
     // given:
-    const action = new LoadAvailableUsersAction();
+    const action = loadAvailableUsers();
     const usersList = [{ id: '1', username: 'foo'}, { id: '2', username: 'bar'}];
     const serviceSpy = spyOn(profileService, 'getUsers').and.returnValue(of(usersList));
 
     // when:
     effectsFor(action).loadAvailableUserIds$.subscribe((newAction) => {
       expect(serviceSpy).toHaveBeenCalled();
-      expect(newAction.payload).toEqual(usersList);
+      expect(newAction.users).toEqual(usersList);
       done();
     });
   });
 
   it('should trigger a user load on user selection', (done) => {
     // given:
-    const user = 'foo';
-    const action = new SelectUserAction(user);
+    const userId = 'foo';
+    const action = selectUser({userId});
 
     // when:
     effectsFor(action).selectUser$.subscribe(newAction => {
-      expect(newAction).toEqual(new LoadUserProfileAction(user));
+      expect(newAction).toEqual(loadUserProfile({userId}));
       done();
     });
   });
@@ -58,12 +57,12 @@ describe('UserEffects', () => {
       userIdentifier: 'foo',
       fullName: 'Foo'
     };
-    const action = new LoadUserProfileAction(userId);
+    const action = loadUserProfile({userId});
     spyOn(profileService, 'getProfile').and.returnValue(of(user));
 
     // when:
     effectsFor(action).loadUserProfile$.subscribe((newAction) => {
-      expect(newAction.payload).toEqual(user);
+      expect(newAction.profile).toEqual(user);
       done();
     });
   });

@@ -1,4 +1,5 @@
-import {DataEntryActions, DataEntryActionTypes, LoadDataEntries} from './dataentry.actions';
+import { dataEntriesLoaded } from './dataentry.actions';
+import { createReducer, on } from "@ngrx/store";
 
 export interface DataEntry {
   name: string;
@@ -28,16 +29,10 @@ const initialState: DataEntryState = {
   dataEntries: []
 };
 
-export function dataentryReducer(state: DataEntryState = initialState, action: DataEntryActions): DataEntryState {
-  switch (action.type) {
-
-    case DataEntryActionTypes.DataEntriesLoaded:
-      return {
-        ...state,
-        dataEntries: action.dataEntries
-      };
-
-    default:
-      return state;
-  }
-}
+export const dataentryReducer = createReducer(
+  initialState,
+  on(dataEntriesLoaded, (state, action) => ({
+    ...state,
+    dataEntries: action.dataEntries
+  }))
+);

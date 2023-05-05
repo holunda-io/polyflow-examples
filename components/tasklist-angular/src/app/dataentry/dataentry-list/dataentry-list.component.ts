@@ -1,19 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {DataentryStoreService} from 'app/dataentry/state/dataentry.store-service';
-import {Observable} from 'rxjs';
-import {DataEntry} from 'app/dataentry/state/dataentry.reducer';
-import {UserStoreService} from 'app/user/state/user.store-service';
-import {UserProfile} from 'app/user/state/user.reducer';
+import { Component } from '@angular/core';
+import { DataentryStoreService } from 'app/dataentry/state/dataentry.store-service';
 
 @Component({
-  selector: 'data-entry-list',
+  selector: 'tasks-data-entry-list',
   templateUrl: './dataentry-list.component.html',
   styleUrls: ['dataentry-list.component.scss']
 })
-export class DataentryListComponent implements OnInit {
+export class DataentryListComponent {
 
-  dataEntries$: Observable<DataEntry[]>;
-  currentProfile$: Observable<UserProfile>;
+  dataEntries$ = this.dataEntryStore.dataEntries$();
   currentDataTab = 'description';
   itemsPerPage: number;
   totalItems: any;
@@ -21,13 +16,7 @@ export class DataentryListComponent implements OnInit {
 
   constructor(
     private dataEntryStore: DataentryStoreService,
-    private userStore: UserStoreService
   ) {  }
-
-  ngOnInit() {
-    this.dataEntries$ = this.dataEntryStore.dataEntries$();
-    this.currentProfile$ = this.userStore.currentUserProfile$();
-  }
 
   toFieldSet(payload: any) {
     const payloadProps = Object.keys(payload);

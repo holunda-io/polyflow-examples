@@ -1,12 +1,11 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import 'rxjs/add/observable/of';
 import { ApproveTaskComponent } from './approve-task.component';
 import { FormsModule } from '@angular/forms';
 import { UserTaskApproveRequestService } from 'process/services/user-task-approve-request.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EnvironmentHelperService } from 'app/services/environment.helper.service';
-import { of } from 'rxjs-compat/observable/of';
+import { of } from 'rxjs';
 
 
 describe('Component: ApproveTaskComponent', () => {

@@ -1,5 +1,5 @@
-import {LoadStartableProcessDefinitions, StartableProcessDefinitionsLoaded} from './process.actions';
-import {ProcessDefinition, processReducer, ProcessState} from './process.reducer';
+import { startableProcessDefinitionsLoaded } from './process.actions';
+import { ProcessDefinition, processReducer, ProcessState } from './process.reducer';
 
 describe('processReducer', () => {
 
@@ -9,27 +9,16 @@ describe('processReducer', () => {
 
   it('updates available users', () => {
     // given:
-    const procDefs: ProcessDefinition[] = [
+    const definitions: ProcessDefinition[] = [
       {name: 'foo', description: '', url: ''},
       {name: 'bar', description: '', url: ''}
     ];
-    const action = new StartableProcessDefinitionsLoaded(procDefs);
+    const action = startableProcessDefinitionsLoaded({definitions});
 
     // when:
     const newState = processReducer(initialState, action);
 
     // then:
-    expect(newState.startableProcesses).toBe(procDefs);
-  });
-
-  it('ignores other actions', () => {
-    // given:
-    const action = new LoadStartableProcessDefinitions();
-
-    // when:
-    const newState = processReducer(initialState, action);
-
-    // then:
-    expect(newState).toBe(initialState);
+    expect(newState.startableProcesses).toBe(definitions);
   });
 });
