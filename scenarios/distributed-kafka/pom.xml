@@ -24,11 +24,11 @@
 
   <dependencyManagement>
     <dependencies>
+
       <dependency>
-        <groupId>org.axonframework</groupId>
-        <artifactId>axon-server-connector</artifactId>
-        <version>4.6.7</version>
-        <scope>runtime</scope>
+        <groupId>org.axonframework.extensions.kafka</groupId>
+        <artifactId>axon-kafka-spring-boot-starter</artifactId>
+        <version>4.6.0</version>
       </dependency>
 
     </dependencies>

@@ -53,24 +53,19 @@ class ExamplePlatformApplicationDistributedWithKafka {
   @Qualifier(PAYLOAD_OBJECT_MAPPER)
   @Bean
   @Primary
-  fun payloadObjectMapper(): ObjectMapper {
-    return jacksonObjectMapper()
+  fun objectMapper(): ObjectMapper =
+    jacksonObjectMapper()
       .registerModule(JavaTimeModule())
       .configurePolyflowJacksonObjectMapper()
-      .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS) // let the dates be strings and not nanoseconds
-      .disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES) // be nice to properties we don't understand
-  }
+      .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
 
-  @Bean("defaultAxonXStream")
-  @ConditionalOnMissingBean
-  fun defaultAxonXStream(applicationContext: ApplicationContext): XStream {
-    val xStream = XStream(CompactDriver())
-    xStream.allowTypesByWildcard(XStreamSecurityTypeUtility.autoConfigBasePackages(applicationContext))
-    // This configures XStream to permit any class to be deserialized.
-    // FIXME: We might want to make this more restrictive to improve security
-    xStream.addPermission(AnyTypePermission.ANY)
-    return xStream
-  }
+  @Bean("defaultAxonObjectMapper")
+  @Qualifier("defaultAxonObjectMapper")
+  fun defaultAxonObjectMapper(): ObjectMapper =
+    jacksonObjectMapper()
+      .registerModule(JavaTimeModule())
+      .configurePolyflowJacksonObjectMapper()
+      .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
 
   /**
    * Factory function creating correlation data provider for revision information.

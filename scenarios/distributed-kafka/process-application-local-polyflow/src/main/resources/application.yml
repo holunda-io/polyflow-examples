@@ -1,0 +1,134 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: example-process-approval
+  datasource:
+    url: jdbc:postgresql://localhost:25433/enginedb
+    username: polyflow_user
+    password: S3Cr3T!
+  jpa:
+    generate-ddl: false
+    hibernate.ddl-auto: validate
+    show-sql: false
+    open-in-view: false
+    database-platform: io.holunda.polyflow.example.infrastructure.jpa.NoToastPostgresSQLDialect
+  flyway:
+    enabled: true
+    locations: "classpath:db/migrations"
+  groovy:
+    template:
+      check-template-location: false
+
+springdoc:
+  swagger-ui:
+    try-it-out-enabled: true
+    display-request-duration: true
+
+#axon.serializer:
+#  general: jackson
+#  events: jackson
+#  messages: jackson
+
+camunda:
+  bpm:
+    login:
+      enabled: true
+      user-id: admin
+    admin-user:
+      email: admin@local
+      id: admin
+      first-name: Adminus
+      last-name: Administratius
+      password: admin
+    default-serialization-format: application/json
+    authorization:
+      enabled: false
+    history-level: full
+    id-generator: strong
+    database:
+      schema-update: false
+      type: postgres
+    webapp:
+      index-redirect-enabled: false
+    eventing:
+      task: false
+
+axon:
+  serializer:
+    events: jackson
+    messages: jackson
+    general: jackson
+  axonserver:
+    enabled: false
+  kafka:
+    clientid: ${STAGE:local}-${APPLICATION_NAME:engine}-${HOSTNAME:localhost}
+    # we intentionally provide no default values from here on to have a fail-fast behaviour
+    # ($ is not a legal character for a kafka topic name or a server URL)
+    defaulttopic: polyflow-task
+    publisher:
+      confirmation-mode: wait_for_ack
+    producer:
+      retries: 0 # If we enabled retries, there is a chance of producing duplicate messages out of order.
+      bootstrap-servers: localhost:29092
+      event-processor-mode: tracking
+      properties:
+        max.in.flight.requests.per.connection: "1" # Note that if this setting is set to be greater than 1 and there are failed sends, there is a risk of message re-ordering due to retries (i.e., if retries are enabled). Even though we disabled retries, we keep this configuration here because if we ever enable retries again, we don't want to forget it.
+        delivery.timeout.ms: "30000" # Even with no retries, Kafka can buffer messages and send them later if there is no connection to the broker. The publisherAckTimeout of the KafkaPublisher would throw an error after 1 second and cause an axon-side retry, which might happen on a different pod and cause the same out-of-order duplicate problem as the retry. So we reduce the delivery timeout to the minimum possible (must be at least as high as request.timeout.ms) and increase the publisherAckTimeout to a little more than this.
+    properties:
+      security.protocol: PLAINTEXT
+
+polyflow:
+  axon:
+    kafka:
+      topics:
+        - payloadType: io.holunda.camunda.taskpool.api.task.TaskEvent
+          topic: polyflow-task
+        - payloadType: io.holunda.camunda.taskpool.api.business.DataEntryCreatedEvent
+          topic: polyflow-data
+        - payloadType: io.holunda.camunda.taskpool.api.business.DataEntryUpdatedEvent
+          topic: polyflow-data
+        - payloadType: io.holunda.camunda.taskpool.api.business.DataEntryDeletedEvent
+          topic: polyflow-data
+  integration:
+    collector:
+      camunda:
+        application-name: ${spring.application.name}  # default
+        process-instance:
+          enabled: true
+        process-definition:
+          enabled: true
+        task:
+          enabled: true
+          enricher:
+            type: processVariables
+          importer:
+            enabled: true
+            task-filter-type: eventstore
+    sender:
+      enabled: true
+      data-entry:
+        enabled: true
+        type: simple
+        application-name: ${spring.application.name}  # default
+      process-definition:
+        enabled: true
+      process-instance:
+        enabled: true
+      task:
+        enabled: true
+        type: tx
+        send-within-transaction: true
+    tasklist:
+      tasklist-url: http://localhost:8081/polyflow/tasks
+
+logging.level:
+  io.holunda.polyflow:
+    taskpool:
+      gateway: DEBUG
+      sender: INFO
+      core: WARN
+      view.simple: INFO
+    datapool:
+      sender: INFO
+  org.hibernate.engine.jdbc.env.internal.LobCreatorBuilderImpl: ERROR
