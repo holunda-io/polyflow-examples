@@ -1,0 +1,13 @@
+version: "3.5"
+
+services:
+  mariadb:
+    container_name: polyflow-mariadb
+    image: mariadb:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: polyflow
+      MARIADB_USER: sa
+      MARIADB_PASSWORD: sa
