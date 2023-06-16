@@ -19,6 +19,7 @@
 
   <modules>
     <module>single-node-jpa</module>
+    <module>single-node-jpa-maria</module>
     <module>distributed-axon-server</module>
     <module>distributed-axon-server-local-polyflow</module>
   </modules>

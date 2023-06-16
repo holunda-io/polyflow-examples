@@ -643,6 +643,19 @@
                 </configuration>
               </execution>
               <execution>
+                <id>generate-mariadb-ddl</id>
+                <goals>
+                  <goal>create</goal>
+                </goals>
+                <configuration>
+                  <dialect>org.hibernate.dialect.MariaDB103Dialect</dialect>
+                  <execute>false</execute>
+                  <show>true</show>
+                  <format>true</format>
+                  <outputFile>mariadb_ddl.sql</outputFile>
+                </configuration>
+              </execution>
+              <execution>
                 <id>generate-postgresql-ddl</id>
                 <goals>
                   <goal>create</goal>
