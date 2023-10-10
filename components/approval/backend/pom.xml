@@ -15,6 +15,7 @@
 
   <properties>
     <maven.deploy.skip>true</maven.deploy.skip>
+    <camunda-platform-7-autologin.version>0.0.2</camunda-platform-7-autologin.version>
   </properties>
 
   <dependencies>
@@ -29,7 +30,7 @@
     <dependency>
       <groupId>io.holunda</groupId>
       <artifactId>camunda-platform-7-autologin</artifactId>
-      <version>0.0.1</version>
+      <version>${camunda-platform-7-autologin.version}</version>
     </dependency>
     <dependency>
       <groupId>io.holunda.polyflow</groupId>
