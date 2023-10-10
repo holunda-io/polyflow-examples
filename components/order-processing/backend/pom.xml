@@ -185,6 +185,7 @@
                 <bigDecimalAsString>true</bigDecimalAsString>
                 <useOptional>true</useOptional>
                 <useBeanValidation>true</useBeanValidation>
+                <useSpringBoot3>true</useSpringBoot3>
               </configOptions>
             </configuration>
           </execution>

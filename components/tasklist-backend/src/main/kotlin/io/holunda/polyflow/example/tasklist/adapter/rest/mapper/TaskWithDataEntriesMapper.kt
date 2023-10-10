@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import java.time.Instant
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
-import javax.validation.Valid
+import jakarta.validation.Valid
 
 /**
  * DTO mapper.

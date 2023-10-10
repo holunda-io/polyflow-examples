@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
 import java.util.*
-import javax.validation.Valid
+import jakarta.validation.Valid
 
 /**
  * REST mapper.

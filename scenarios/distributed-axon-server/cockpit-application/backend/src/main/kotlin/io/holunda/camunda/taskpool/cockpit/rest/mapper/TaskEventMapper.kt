@@ -11,7 +11,7 @@ import java.time.Instant
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
 import java.util.*
-import javax.validation.Valid
+import jakarta.validation.Valid
 
 /**
  * DTO mapper.

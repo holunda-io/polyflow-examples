@@ -190,6 +190,7 @@
                 <exceptionHandler>false</exceptionHandler>
                 <useTags>true</useTags>
                 <enumPropertyNaming>UPPERCASE</enumPropertyNaming>
+                <useSpringBoot3>true</useSpringBoot3>
               </configOptions>
             </configuration>
           </execution>

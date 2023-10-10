@@ -15,7 +15,7 @@
 
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <java.version>11</java.version>
+    <java.version>17</java.version>
     <version.java>${java.version}</version.java>
     <version.java>${java.version}</version.java>
 
@@ -36,17 +36,17 @@
       Use the system property: -Dcamunda-ee to enable EE
     -->
 
-    <springboot.version>2.7.15</springboot.version>
-    <polyflow.version>3.11.0</polyflow.version>
+    <springboot.version>3.1.3</springboot.version>
+    <polyflow.version>4.0.0-SNAPSHOT</polyflow.version>
 
-    <camunda-ce.version>7.18.0</camunda-ce.version>
-    <camunda-ee.version>7.18.5-ee</camunda-ee.version>
+    <camunda-ce.version>7.20.0</camunda-ce.version>
+    <camunda-ee.version>7.20.0-ee</camunda-ee.version>
     <camunda-springboot.version>${camunda-ce.version}</camunda-springboot.version>
 
     <camunda-bpm-assert.version>${camunda-ce.version}</camunda-bpm-assert.version>
-    <camunda-bpm-mockito.version>6.18.0</camunda-bpm-mockito.version>
-    <version.camunda.spin>1.18.0</version.camunda.spin>
-    <camunda-bpm-data.version>1.2.8</camunda-bpm-data.version>
+    <camunda-bpm-mockito.version>7.20.0</camunda-bpm-mockito.version>
+    <version.camunda.spin>1.22.0</version.camunda.spin>
+    <camunda-bpm-data.version>1.4.0</camunda-bpm-data.version>
     <springdoc.version>1.7.0</springdoc.version>
     <org.mapstruct.version>1.5.2.Final</org.mapstruct.version>
     <mockito-kotlin.version>5.1.0</mockito-kotlin.version>

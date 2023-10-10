@@ -84,18 +84,9 @@
     </dependency>
 
     <dependency>
-      <groupId>jakarta.validation</groupId>
-      <artifactId>jakarta.validation-api</artifactId>
-    </dependency>
-    <dependency>
       <groupId>jakarta.annotation</groupId>
       <artifactId>jakarta.annotation-api</artifactId>
       <version>2.1.1</version>
-    </dependency>
-    <dependency>
-      <groupId>javax.annotation</groupId>
-      <artifactId>javax.annotation-api</artifactId>
-      <version>1.3.2</version>
     </dependency>
 
   </dependencies>
@@ -131,6 +122,7 @@
                 <serializationLibrary>jackson</serializationLibrary>
                 <useTags>true</useTags>
                 <enumPropertyNaming>UPPERCASE</enumPropertyNaming>
+                <useSpringBoot3>true</useSpringBoot3>
               </configOptions>
             </configuration>
           </execution>
