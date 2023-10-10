@@ -22,8 +22,9 @@ import io.holunda.polyflow.example.process.approval.process.RequestApprovalProce
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.ORIGINATOR
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.PROJECTION_REVISION
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.REQUEST_ID
-import io.holunda.polyflow.example.process.approval.service.*
 import io.holunda.polyflow.example.process.approval.service.BusinessDataEntry
+import io.holunda.polyflow.example.process.approval.service.Request
+import io.holunda.polyflow.example.process.approval.service.RequestService
 import io.holunda.polyflow.taskpool.collector.task.TaskEventCollectorService
 import org.camunda.bpm.engine.delegate.DelegateExecution
 import org.camunda.bpm.engine.delegate.DelegateTask
@@ -32,7 +33,6 @@ import org.springframework.context.event.EventListener
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
 import java.time.OffsetDateTime
-import java.util.*
 
 @Component
 class RequestStatusListener(
@@ -182,6 +182,6 @@ class RequestStatusListener(
     return newRevision
   }
 
-  private fun getRevision(variableScope: VariableScope): Long = PROJECTION_REVISION.from(variableScope).optional.orElseGet { 0L }
+  private fun getRevision(variableScope: VariableScope): Long = PROJECTION_REVISION.from(variableScope).getOrDefault(0L)
 
 }

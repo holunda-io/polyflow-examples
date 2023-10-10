@@ -1,18 +1,18 @@
 package io.holunda.polyflow.example.infrastructure
 
-import org.hibernate.dialect.PostgreSQL94Dialect
-import org.hibernate.type.descriptor.sql.BinaryTypeDescriptor
-import org.hibernate.type.descriptor.sql.SqlTypeDescriptor
+import org.hibernate.boot.model.TypeContributions
+import org.hibernate.dialect.PostgreSQLDialect
+import org.hibernate.service.ServiceRegistry
+import org.hibernate.type.descriptor.sql.internal.DdlTypeImpl
 import java.sql.Types
 
-class NoToastPostgresSQLDialect : PostgreSQL94Dialect() {
-  init {
-    this.registerColumnType(Types.BLOB, "BYTEA")
-  }
+class NoToastPostgresSQLDialect : PostgreSQLDialect() {
 
-  override fun remapSqlTypeDescriptor(sqlTypeDescriptor: SqlTypeDescriptor): SqlTypeDescriptor {
-    return if (sqlTypeDescriptor.sqlType == Types.BLOB) {
-      BinaryTypeDescriptor.INSTANCE
-    } else super.remapSqlTypeDescriptor(sqlTypeDescriptor)
+  override fun registerColumnTypes(typeContributions: TypeContributions, serviceRegistry: ServiceRegistry) {
+    super.registerColumnTypes(typeContributions, serviceRegistry)
+    val ddlTypeRegistry = typeContributions.typeConfiguration.ddlTypeRegistry
+    ddlTypeRegistry.addDescriptor(DdlTypeImpl(Types.BLOB, "bytea", this))
+    ddlTypeRegistry.addDescriptor(DdlTypeImpl(Types.CLOB, "bytea", this))
+    ddlTypeRegistry.addDescriptor(DdlTypeImpl(Types.NCLOB, "bytea", this))
   }
 }

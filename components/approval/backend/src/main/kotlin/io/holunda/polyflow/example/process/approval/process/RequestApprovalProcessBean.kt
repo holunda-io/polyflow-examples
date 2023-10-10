@@ -1,8 +1,6 @@
 package io.holunda.polyflow.example.process.approval.process
 
 import io.holunda.camunda.bpm.data.CamundaBpmData.builder
-import io.holunda.camunda.taskpool.api.task.ProcessReference
-import io.holunda.camunda.taskpool.api.task.TaskToBeCompletedEvent
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Values.RESUBMIT
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.AMEND_ACTION
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcess.Variables.APPROVE_DECISION
@@ -13,12 +11,9 @@ import io.holunda.polyflow.example.process.approval.process.RequestApprovalProce
 import io.holunda.polyflow.example.process.approval.service.Request
 import io.holunda.polyflow.example.process.approval.service.RequestService
 import org.axonframework.commandhandling.CommandHandler
-import org.axonframework.eventhandling.gateway.EventGateway
 import org.camunda.bpm.engine.RuntimeService
 import org.camunda.bpm.engine.TaskService
 import org.camunda.bpm.engine.task.Task
-import org.camunda.bpm.engine.variable.Variables.createVariables
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Propagation
 import org.springframework.transaction.annotation.Transactional
@@ -78,8 +73,11 @@ class RequestApprovalProcessBean(
     taskService.complete(
       task.id,
       builder()
-        .set(APPROVE_DECISION, decision.uppercase(Locale.getDefault()))
-        .set(COMMENT, comment)
+        .set(APPROVE_DECISION, decision.uppercase(Locale.getDefault())).apply {
+          if (comment != null) {
+            this.set(COMMENT, comment)
+          }
+        }
         .build()
     )
   }
@@ -110,8 +108,11 @@ class RequestApprovalProcessBean(
     }
 
     val variables = builder()
-      .set(AMEND_ACTION, action.uppercase(Locale.getDefault()))
-      .set(COMMENT, comment)
+      .set(AMEND_ACTION, action.uppercase(Locale.getDefault())).apply {
+        if (comment != null) {
+          this.set(COMMENT, comment)
+        }
+      }
 
 
     if (action == RESUBMIT) {
@@ -160,9 +161,13 @@ class RequestApprovalProcessBean(
       .initializeFormKeys()
       .singleResult() ?: throw NoSuchElementException("Task with id $taskId not found.")
 
-    val requestId = REQUEST_ID.from(runtimeService, task.executionId).optional.orElseThrow { NoSuchElementException("Request id could not be found for task $taskId") }
+    val requestId =
+      REQUEST_ID.from(runtimeService, task.executionId).getOptional().orElseThrow { NoSuchElementException("Request id could not be found for task $taskId") }
     val revision =
-      PROJECTION_REVISION.from(runtimeService, task.executionId).optional.orElseThrow { NoSuchElementException("Project revision could not be found for task $taskId") }
+      PROJECTION_REVISION.from(
+        runtimeService,
+        task.executionId
+      ).getOptional().orElseThrow { NoSuchElementException("Project revision could not be found for task $taskId") }
 
     val request = this.requestService.getRequest(requestId, revision)
     return TaskAndRequest(task = task, approvalRequest = request)
@@ -192,11 +197,11 @@ class RequestApprovalProcessBean(
 
   @CommandHandler
   fun changeAssignment(command: AssignmentCommand) {
-      command.newCandidateUsers.forEach { user -> taskService.addCandidateUser(command.taskId, user) }
-      command.newCandidateGroups.forEach { group -> taskService.addCandidateGroup(command.taskId, group) }
-      command.deleteCandidateUsers.forEach { user -> taskService.deleteCandidateUser(command.taskId, user) }
-      command.deleteCandidateGroups.forEach { group -> taskService.deleteCandidateGroup(command.taskId, group) }
-      command.deleteCandidateGroups.forEach { group -> taskService.deleteCandidateGroup(command.taskId, group) }
+    command.newCandidateUsers.forEach { user -> taskService.addCandidateUser(command.taskId, user) }
+    command.newCandidateGroups.forEach { group -> taskService.addCandidateGroup(command.taskId, group) }
+    command.deleteCandidateUsers.forEach { user -> taskService.deleteCandidateUser(command.taskId, user) }
+    command.deleteCandidateGroups.forEach { group -> taskService.deleteCandidateGroup(command.taskId, group) }
+    command.deleteCandidateGroups.forEach { group -> taskService.deleteCandidateGroup(command.taskId, group) }
   }
 }
 
