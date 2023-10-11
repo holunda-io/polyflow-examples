@@ -2,3 +2,4 @@ logging:
   level:
     root: INFO
     org.springframework.test.util.ReflectionTestUtils: INFO
+    # org.springframework.web: TRACE

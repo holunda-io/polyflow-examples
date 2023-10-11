@@ -147,7 +147,8 @@ class TaskResource(
     return ResponseEntity.noContent().build()
   }
 
-  private fun getAuthorizedTask(taskId: String, user: User): Task = taskServiceGateway.getTask(taskId)
+  private fun getAuthorizedTask(taskId: String, user: User): Task = taskServiceGateway
+    .getTask(taskId)
     .apply {
       if (!isAuthorized(this, user)) {
         // if the user is not allowed to access, behave if the task is not found
