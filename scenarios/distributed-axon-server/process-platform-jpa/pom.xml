@@ -48,6 +48,10 @@
       <artifactId>postgresql</artifactId>
       <scope>runtime</scope>
     </dependency>
+    <dependency>
+      <groupId>io.holunda.polyflow</groupId>
+      <artifactId>polyflow-example-infrastructure</artifactId>
+    </dependency>
 
     <!-- Axon -->
     <dependency>

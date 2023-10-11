@@ -59,7 +59,7 @@ class AxonKafkaIngressConfiguration(
      * @param kafkaConsumerFactory consumer factory.
      * @param kafkaFetcher         fetcher instance.
      * @param serializer           serializer.
-     * @param meterRegistry        meter registry.
+     * @param messageConverter     meter converter.
      * @return streaming source.
      */
     @Bean("kafkaMessageSourcePolyflowData")
@@ -96,7 +96,7 @@ class AxonKafkaIngressConfiguration(
      * @param kafkaConsumerFactory consumer factory.
      * @param kafkaFetcher         fetcher instance.
      * @param serializer           serializer.
-     * @param meterRegistry        meter registry.
+     * @param messageConverter     meter converter.
      * @return streaming source.
      */
     @Bean("kafkaMessageSourcePolyflowTask")

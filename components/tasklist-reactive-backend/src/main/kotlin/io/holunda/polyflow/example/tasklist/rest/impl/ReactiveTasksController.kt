@@ -52,7 +52,7 @@ class ReactiveTasksController(
           user = user,
           page = page.orElse(1),
           size = size.orElse(Int.MAX_VALUE),
-          sort = sort.orElseGet { "" },
+          sort = listOf(sort.orElseGet { "" }),
           filters = filters
         ),
         ResponseTypes.instanceOf(TasksWithDataEntriesQueryResult::class.java),

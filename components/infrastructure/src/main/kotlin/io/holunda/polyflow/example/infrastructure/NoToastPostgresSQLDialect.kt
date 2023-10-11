@@ -14,8 +14,6 @@ class NoToastPostgresSQLDialect : PostgreSQLDialect() {
     super.registerColumnTypes(typeContributions, serviceRegistry)
     val ddlTypeRegistry = typeContributions.typeConfiguration.ddlTypeRegistry
     ddlTypeRegistry.addDescriptor(DdlTypeImpl(Types.BLOB, "bytea", this))
-    ddlTypeRegistry.addDescriptor(DdlTypeImpl(Types.CLOB, "bytea", this))
-    ddlTypeRegistry.addDescriptor(DdlTypeImpl(Types.NCLOB, "bytea", this))
   }
 
   override fun columnType(sqlTypeCode: Int): String {

@@ -1,4 +1,4 @@
-package io.holunda.polyflow.example.infrastructure.jpa
+package io.holunda.polyflow.example.infrastructure
 
 import org.hibernate.boot.model.TypeContributions
 import org.hibernate.dialect.H2Dialect

@@ -63,6 +63,7 @@
     <module>components/tasklist-backend</module>
     <module>components/approval/backend</module>
     <module>components/order-processing/backend</module>
+    <module>components/infrastructure</module>
 
     <!-- Example implementations for different scenarios -->
     <module>scenarios</module>
@@ -110,6 +111,11 @@
       <dependency>
         <groupId>io.holunda.polyflow</groupId>
         <artifactId>polyflow-example-tasklist-backend</artifactId>
+        <version>${project.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>io.holunda.polyflow</groupId>
+        <artifactId>polyflow-example-infrastructure</artifactId>
         <version>${project.version}</version>
       </dependency>
       <dependency>

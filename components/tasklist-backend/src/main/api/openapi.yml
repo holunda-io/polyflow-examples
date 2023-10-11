@@ -285,8 +285,8 @@ components:
       required: false
       schema:
         type: array
+        minItems: 0
         items:
-          minimum: 0
           type: string
 
     SortParam:
