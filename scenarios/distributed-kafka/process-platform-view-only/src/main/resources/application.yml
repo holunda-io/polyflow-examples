@@ -1,0 +1,87 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: taskpool
+  datasource:
+    url: jdbc:postgresql://localhost:25432/tasklistdb
+    username: polyflow_user
+    password: S3Cr3T!
+  jpa:
+    generate-ddl: false
+    hibernate.ddl-auto: validate
+    show-sql: false
+    open-in-view: false
+    database-platform: io.holunda.polyflow.example.process.platform.infrastructure.NoToastPostgresSQLDialect
+  flyway:
+    enabled: true
+    locations: "classpath:db/migrations"
+
+springdoc:
+  packagesToScan: io.holunda.polyflow.example.tasklist.rest
+  auto-tag-classes: false
+  swagger-ui:
+    try-it-out-enabled: true
+
+axon:
+  serializer:
+    events: jackson
+    messages: jackson
+    general: jackson
+  axonserver:
+    enabled: false # disable axon server connector
+  eventhandling:
+    processors:
+      "[io.holunda.polyflow.view.jpa.service.task]":
+        source: kafkaMessageSourcePolyflowTask
+        mode: TRACKING
+        threadCount: 1
+        batchSize: 1
+      "[io.holunda.polyflow.view.jpa.service.data]":
+        source: kafkaMessageSourcePolyflowData
+        mode: TRACKING
+        threadCount: 1
+        batchSize: 1
+  kafka:
+    defaulttopic: not_used_but_must_be_set_to_some_value
+    client-id: will_be_set_in_properties_manually
+    consumer:
+      bootstrap-servers: localhost:29092
+      event-processor-mode: TRACKING
+      auto-offset-reset: earliest
+    properties:
+      security.protocol: PLAINTEXT
+
+polyflow:
+  axon:
+    kafka:
+      enabled: true
+      topic-tasks: polyflow-task
+      topic-data-entries: polyflow-data
+  integration:
+    form-url-resolver:
+      default-task-template:  "tasks/${formKey}/${id}?userId=%userId%"
+      default-process-template: "${formKey}?userId=%userId%"
+      default-data-entry-template: "${entryType}/${entryId}?userId=%userId%"
+      default-application-template: "http://localhost:${server.port}/${applicationName}"
+      applications:
+        example-process-approval:
+          url: "http://localhost:8080/example-process-approval"
+          processes:
+            process_approve_request: "start?userId=%userId%"
+          data-entries:
+            io.holunda.camunda.taskpool.example.ApprovalRequest: "approval-request/${entryId}?userId=%userId%"
+  view:
+    jpa:
+      stored-items: TASK, DATA_ENTRY, PROCESS_DEFINITION
+
+logging.level:
+  io.holunda.polyflow:
+    core.taskpool: WARN
+    view.simple.service.DataEntryService : DEBUG
+    view.simple.service.TaskPoolService : INFO
+    view.jpa.JpaPolyflowViewProcessDefinitionService : DEBUG
+    example.tasklist: WARN
+#  org.springframework.web.bind: DEBUG
+#  org.springframework.web: DEBUG

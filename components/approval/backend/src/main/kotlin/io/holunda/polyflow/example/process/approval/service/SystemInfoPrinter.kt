@@ -8,6 +8,7 @@ import io.holunda.polyflow.view.query.process.ProcessInstancesByStateQuery
 import mu.KLogging
 import org.axonframework.queryhandling.QueryGateway
 import org.springframework.boot.ApplicationRunner
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
@@ -47,6 +48,7 @@ class SystemInfoPrinter(
     }
   }
 
+  @ConditionalOnProperty(value = ["axon.axonserver.enabled"], havingValue = "true", matchIfMissing = false)
   @Bean
   fun processInstancePrinter(): ApplicationRunner {
     return ApplicationRunner {
