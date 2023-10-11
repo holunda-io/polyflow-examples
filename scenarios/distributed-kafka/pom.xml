@@ -5,11 +5,11 @@
 
   <parent>
     <groupId>io.holunda.polyflow</groupId>
-    <artifactId>polyflow-examples-parent</artifactId>
+    <artifactId>polyflow-example-scenario-root</artifactId>
     <version>3.8.3-SNAPSHOT</version>
   </parent>
 
-  <artifactId>polyflow-example-scenario-root</artifactId>
+  <artifactId>polyflow-example-scenario-distributed-kafka</artifactId>
   <name>POM: examples/${project.artifactId}</name>
   <packaging>pom</packaging>
 
@@ -18,11 +18,21 @@
   </properties>
 
   <modules>
-    <module>single-node-jpa</module>
-    <module>single-node-jpa-maria</module>
-    <module>distributed-axon-server</module>
-    <module>distributed-axon-server-local-polyflow</module>
-    <module>distributed-kafka</module>
+    <module>process-application-local-polyflow</module>
+    <module>process-platform-view-only</module>
   </modules>
+
+  <dependencyManagement>
+    <dependencies>
+
+      <dependency>
+        <groupId>org.axonframework.extensions.kafka</groupId>
+        <artifactId>axon-kafka-spring-boot-starter</artifactId>
+        <version>4.6.0</version>
+      </dependency>
+
+    </dependencies>
+
+  </dependencyManagement>
 
 </project>
