@@ -18,6 +18,6 @@ ${AnsiColor.WHITE}
   Taskpool:     ${application.formatted-version}
 
   Swagger UI:                     http://localhost:${server.port}/swagger-ui/index.html
-  Cockpit:                        http://localhost:${server.port}/app/camunda/
+  Cockpit:                        http://localhost:${server.port}/camunda/app/cockpit/
   Task list URL:                  http://localhost:${server.port}/polyflow/tasks
   Business data entries list URL: http://localhost:${server.port}/polyflow/archive
