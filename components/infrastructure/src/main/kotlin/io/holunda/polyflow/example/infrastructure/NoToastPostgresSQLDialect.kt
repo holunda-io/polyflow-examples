@@ -2,13 +2,14 @@ package io.holunda.polyflow.example.infrastructure
 
 import org.hibernate.boot.model.TypeContributions
 import org.hibernate.dialect.PostgreSQLDialect
+import org.hibernate.engine.jdbc.dialect.spi.DialectResolutionInfo
 import org.hibernate.service.ServiceRegistry
 import org.hibernate.type.SqlTypes
 import org.hibernate.type.descriptor.jdbc.BinaryJdbcType
 import org.hibernate.type.descriptor.sql.internal.DdlTypeImpl
 import java.sql.Types
 
-class NoToastPostgresSQLDialect : PostgreSQLDialect() {
+class NoToastPostgresSQLDialect(info: DialectResolutionInfo) : PostgreSQLDialect(info) {
 
   override fun registerColumnTypes(typeContributions: TypeContributions, serviceRegistry: ServiceRegistry) {
     super.registerColumnTypes(typeContributions, serviceRegistry)
