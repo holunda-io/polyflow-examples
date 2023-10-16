@@ -7,6 +7,7 @@ import org.hibernate.service.ServiceRegistry
 import org.hibernate.type.descriptor.sql.internal.DdlTypeImpl
 import java.sql.Types
 
+@Suppress("unused") // used in application.yaml
 class FixedH2Dialect(info: DialectResolutionInfo) : H2Dialect(info) {
 
   override fun registerColumnTypes(typeContributions: TypeContributions, serviceRegistry: ServiceRegistry) {

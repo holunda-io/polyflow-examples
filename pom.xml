@@ -22,7 +22,7 @@
     <kotlin.version>1.9.10</kotlin.version>
     <kotlin.compiler.jvmTarget>${java.version}</kotlin.compiler.jvmTarget>
     <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
-    <kotlin-logging.version>3.0.4</kotlin-logging.version>
+    <kotlin-logging.version>3.0.5</kotlin-logging.version>
 
     <!-- Never deploy examples -->
     <maven.deploy.skip>true</maven.deploy.skip>
@@ -49,10 +49,10 @@
     <version.camunda.spin>1.22.0</version.camunda.spin>
     <camunda-bpm-data.version>1.4.0</camunda-bpm-data.version>
     <springdoc.version>1.7.0</springdoc.version>
-    <org.mapstruct.version>1.5.2.Final</org.mapstruct.version>
+    <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
     <mockito-kotlin.version>5.1.0</mockito-kotlin.version>
     <jackson-databind-nullable.version>0.2.6</jackson-databind-nullable.version>
-    <junit-jupiter.version>5.9.2</junit-jupiter.version>
+    <junit-jupiter.version>5.10.0</junit-jupiter.version>
 
   </properties>
 
@@ -259,8 +259,8 @@
           <version>${kotlin.version}</version>
           <configuration>
             <jvmTarget>${java.version}</jvmTarget>
-            <languageVersion>1.6</languageVersion>
-            <apiVersion>1.6</apiVersion>
+            <languageVersion>1.9</languageVersion>
+            <apiVersion>1.9</apiVersion>
             <compilerPlugins>
               <plugin>spring</plugin>
               <plugin>jpa</plugin>
