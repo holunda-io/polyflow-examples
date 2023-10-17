@@ -12,7 +12,7 @@ spring:
     hibernate.ddl-auto: validate
     show-sql: false
     open-in-view: false
-    database-platform: io.holunda.polyflow.example.process.approval.infrastructure.NoToastPostgresSQLDialect
+    database-platform: io.holunda.polyflow.example.infrastructure.NoToastPostgresSQLDialect
   flyway:
     enabled: true
     locations: "classpath:db/migrations"

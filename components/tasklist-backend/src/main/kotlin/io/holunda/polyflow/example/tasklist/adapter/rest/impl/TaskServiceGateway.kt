@@ -49,9 +49,10 @@ class TaskServiceGateway(
     .query(
       TasksWithDataEntriesForUserQuery(
         user = user,
+        assignedToMeOnly = false,
         page = page,
         size = size,
-        sort = sort ?: "",
+        sort = sort?.let { sortParam -> listOf(sortParam) } ?: listOf(),
         filters = filters
       )
     ).join() ?: throw ElementNotFoundException()

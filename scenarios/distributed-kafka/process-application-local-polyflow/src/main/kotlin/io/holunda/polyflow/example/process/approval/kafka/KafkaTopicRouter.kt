@@ -1,6 +1,6 @@
 package io.holunda.polyflow.example.process.approval.kafka
 
-import javax.validation.constraints.NotNull
+import jakarta.validation.constraints.NotNull
 
 /**
  * Router to decide where to publish events to.

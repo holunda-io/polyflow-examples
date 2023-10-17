@@ -86,13 +86,13 @@ class ProcessApproveRequestSPAConfiguration(
       .allowedOrigins("http://localhost:4200")
       .allowedOrigins("http://localhost:4300")
       .allowedMethods(
-        HttpMethod.GET.name,
-        HttpMethod.HEAD.name,
-        HttpMethod.POST.name,
-        HttpMethod.DELETE.name,
-        HttpMethod.OPTIONS.name,
-        HttpMethod.PATCH.name,
-        HttpMethod.PUT.name
+        HttpMethod.GET.name(),
+        HttpMethod.HEAD.name(),
+        HttpMethod.POST.name(),
+        HttpMethod.DELETE.name(),
+        HttpMethod.OPTIONS.name(),
+        HttpMethod.PATCH.name(),
+        HttpMethod.PUT.name()
       )
   }
 

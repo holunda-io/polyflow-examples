@@ -6,7 +6,7 @@
   <parent>
     <groupId>io.holunda.polyflow</groupId>
     <artifactId>polyflow-examples-parent</artifactId>
-    <version>3.8.3-SNAPSHOT</version>
+    <version>4.0.0-SNAPSHOT</version>
     <relativePath>../../../pom.xml</relativePath>
   </parent>
 
@@ -60,7 +60,6 @@
     <dependency>
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
-      <!--<scope>test</scope>-->
     </dependency>
 
 
@@ -185,6 +184,7 @@
                 <bigDecimalAsString>true</bigDecimalAsString>
                 <useOptional>true</useOptional>
                 <useBeanValidation>true</useBeanValidation>
+                <useSpringBoot3>true</useSpringBoot3>
               </configOptions>
             </configuration>
           </execution>

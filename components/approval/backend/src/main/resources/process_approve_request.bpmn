@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1j1qqbn" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.3.0">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_1j1qqbn" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.6.0">
   <bpmn:collaboration id="Collaboration_0zzop8w">
     <bpmn:participant id="Participant_0sj47qc" name="Request Approval Process" processRef="process_approve_request" />
   </bpmn:collaboration>
-  <bpmn:process id="process_approve_request" name="Request Approval" isExecutable="true" camunda:candidateStarterGroups="muppetshow, avengers">
+  <bpmn:process id="process_approve_request" name="Request Approval" isExecutable="true" camunda:candidateStarterGroups="muppetshow, avengers" camunda:historyTimeToLive="P1D">
     <bpmn:documentation>This is a wonderful process.</bpmn:documentation>
     <bpmn:startEvent id="start" camunda:asyncAfter="true" camunda:formKey="start-approval">
       <bpmn:outgoing>SequenceFlow_1xw9ijb</bpmn:outgoing>

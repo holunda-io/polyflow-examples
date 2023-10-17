@@ -16,8 +16,8 @@ import org.springframework.http.MediaType
 import org.springframework.web.bind.annotation.*
 import reactor.core.publisher.Flux
 import java.util.*
-import javax.validation.constraints.NotNull
-import javax.validation.constraints.Pattern
+import jakarta.validation.constraints.NotNull
+import jakarta.validation.constraints.Pattern
 
 /**
  * Reactive controller delivering tasks.
@@ -52,7 +52,7 @@ class ReactiveTasksController(
           user = user,
           page = page.orElse(1),
           size = size.orElse(Int.MAX_VALUE),
-          sort = sort.orElseGet { "" },
+          sort = listOf(sort.orElseGet { "" }),
           filters = filters
         ),
         ResponseTypes.instanceOf(TasksWithDataEntriesQueryResult::class.java),

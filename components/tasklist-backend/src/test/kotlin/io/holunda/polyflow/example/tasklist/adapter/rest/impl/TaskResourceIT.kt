@@ -2,16 +2,16 @@ package io.holunda.polyflow.example.tasklist.adapter.rest.impl
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.holunda.camunda.taskpool.api.task.*
+import io.holunda.polyflow.example.tasklist.adapter.rest.Rest.REQUEST_PATH
 import io.holunda.polyflow.example.tasklist.itest.ITestApplication
 import io.holunda.polyflow.example.tasklist.itest.ITestApplication.Companion.ITEST
-import io.holunda.polyflow.example.tasklist.adapter.rest.Rest.REQUEST_PATH
 import io.holunda.polyflow.view.Task
-import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.kotlin.any
 import org.mockito.kotlin.verify
 import org.mockito.kotlin.whenever
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.http.MediaType
@@ -19,8 +19,6 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
-import org.springframework.test.web.servlet.setup.MockMvcBuilders
-import org.springframework.web.context.WebApplicationContext
 import java.time.Instant
 import java.time.OffsetDateTime
 import java.time.ZoneOffset.UTC
@@ -29,26 +27,17 @@ import java.util.*
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = [ITestApplication::class])
 @ActiveProfiles(ITEST)
+@AutoConfigureMockMvc
 internal class TaskResourceIT {
 
+  @Autowired
   private lateinit var mockMvc: MockMvc
 
   @MockBean
   private lateinit var taskServiceGateway: TaskServiceGateway
 
   @Autowired
-  private lateinit var webApplicationContext: WebApplicationContext
-
-  @Autowired
-  private lateinit var resource: TaskResource
-
-  @Autowired
   private lateinit var objectMapper: ObjectMapper
-
-  @BeforeEach
-  fun setup() {
-    this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build()
-  }
 
   @Test
   fun `should not allow to claim without the user header`() {
@@ -59,7 +48,7 @@ internal class TaskResourceIT {
     this.mockMvc
       .perform(
         post("${REQUEST_PATH}/task/{taskId}/claim", taskId)
-          .servletPath(REQUEST_PATH)
+          .contentType(MediaType.APPLICATION_JSON)
       )
       .andExpect(status().isBadRequest)
   }
@@ -73,8 +62,8 @@ internal class TaskResourceIT {
     this.mockMvc
       .perform(
         post("${REQUEST_PATH}/task/{taskId}/claim", taskId)
+          .contentType(MediaType.APPLICATION_JSON)
           .header("X-Current-User-ID", "id1")
-          .servletPath(REQUEST_PATH)
       )
       .andExpect(status().isNotFound)
   }
@@ -91,8 +80,8 @@ internal class TaskResourceIT {
     this.mockMvc
       .perform(
         post("${REQUEST_PATH}/task/{taskId}/claim", taskId)
+          .contentType(MediaType.APPLICATION_JSON)
           .header("X-Current-User-ID", "id1")
-          .servletPath(REQUEST_PATH)
       )
       .andExpect(status().isNoContent)
 
@@ -110,8 +99,8 @@ internal class TaskResourceIT {
     this.mockMvc
       .perform(
         post("${REQUEST_PATH}/task/{taskId}/unclaim", taskId)
+          .contentType(MediaType.APPLICATION_JSON)
           .header("X-Current-User-ID", "id1")
-          .servletPath(REQUEST_PATH)
       )
       .andExpect(status().isNoContent)
 
@@ -132,7 +121,6 @@ internal class TaskResourceIT {
       .perform(
         post("${REQUEST_PATH}/task/{taskId}/defer", taskId)
           .header("X-Current-User-ID", "id1")
-          .servletPath(REQUEST_PATH)
           .contentType(MediaType.APPLICATION_JSON)
           .content(json)
       )
@@ -152,8 +140,8 @@ internal class TaskResourceIT {
     this.mockMvc
       .perform(
         post("${REQUEST_PATH}/task/{taskId}/undefer", taskId)
+          .contentType(MediaType.APPLICATION_JSON)
           .header("X-Current-User-ID", "id1")
-          .servletPath(REQUEST_PATH)
       )
       .andExpect(status().isNoContent)
 

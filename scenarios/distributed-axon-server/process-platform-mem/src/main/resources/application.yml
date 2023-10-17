@@ -13,7 +13,7 @@ spring:
       schema: PUBLIC
     driver-class-name: org.h2.Driver
   jpa:
-    database-platform: io.holunda.polyflow.example.infrastructure.jpa.FixedH2Dialect
+    database-platform: io.holunda.polyflow.example.infrastructure.FixedH2Dialect
     generate-ddl: false
     hibernate.ddl-auto: none
     show-sql: false
