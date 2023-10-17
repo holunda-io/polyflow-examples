@@ -14,6 +14,11 @@ spring:
     show-sql: false
     open-in-view: false
     database-platform: io.holunda.polyflow.example.process.infrastructure.NoToastPostgresSQLDialect
+    properties:
+      hibernate:
+        type:
+          preferred_instant_jdbc_type: TIMESTAMP
+          preferred_uuid_jdbc_type: BINARY
   flyway:
     enabled: true
     locations: "classpath:db/migrations"

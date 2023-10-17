@@ -1,10 +1,10 @@
 package io.holunda.polyflow.example.process.approval.service.impl.datajpa
 
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.Id
+import jakarta.persistence.Table
 import java.math.BigDecimal
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.Table
 
 @Entity
 @Table(name = "APP_APPROVAL_REQUEST")

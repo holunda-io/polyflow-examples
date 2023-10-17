@@ -8,10 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        jdk: ['11.0.5']
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -20,7 +16,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: ${{ matrix.jdk }}
+          java-version: 17
           cache: maven
 
       - name: Prepare Maven Wrapper
