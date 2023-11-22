@@ -12,13 +12,20 @@ import io.holunda.polyflow.bus.jackson.configurePolyflowJacksonObjectMapper
 import io.holunda.polyflow.datapool.core.EnablePolyflowDataPool
 import io.holunda.polyflow.example.tasklist.EnableTasklist
 import io.holunda.polyflow.example.users.EnableExampleUsers
+import io.holunda.polyflow.serializer.gdpr.*
 import io.holunda.polyflow.taskpool.core.EnablePolyflowTaskPool
 import io.holunda.polyflow.urlresolver.EnablePropertyBasedFormUrlResolver
 import io.holunda.polyflow.view.jpa.EnablePolyflowJpaView
 import org.axonframework.commandhandling.CommandMessage
+import org.axonframework.common.jpa.EntityManagerProvider
+import org.axonframework.common.transaction.TransactionManager
 import org.axonframework.eventhandling.deadletter.jpa.DeadLetterEntry
 import org.axonframework.eventhandling.tokenstore.jpa.TokenEntry
+import org.axonframework.eventsourcing.eventstore.EmbeddedEventStore
+import org.axonframework.eventsourcing.eventstore.EventStorageEngine
+import org.axonframework.eventsourcing.eventstore.EventStore
 import org.axonframework.eventsourcing.eventstore.jpa.DomainEventEntry
+import org.axonframework.eventsourcing.eventstore.jpa.JpaEventStorageEngine
 import org.axonframework.messaging.correlation.CorrelationDataProvider
 import org.axonframework.messaging.correlation.MessageOriginProvider
 import org.axonframework.messaging.correlation.MultiCorrelationDataProvider
@@ -93,5 +100,17 @@ class SingleNodeExampleProcessApplication {
   @Qualifier("eventSerializer")
   fun mySerializer(): Serializer = XStreamSerializer.builder().xStream(XStream().apply { addPermission(AnyTypePermission.ANY) }).build()
 
+  @Bean
+  fun storageEngine(
+    emp: EntityManagerProvider,
+    txManager: TransactionManager,
+    @Qualifier("eventSerializer")
+    eventSerializer: Serializer
+  ): EventStorageEngine = JpaEventStorageEngine.builder()
+    .entityManagerProvider(emp)
+    .eventSerializer(eventSerializer)
+    .snapshotSerializer(eventSerializer)
+    .transactionManager(txManager)
+    .build()
 }
 
