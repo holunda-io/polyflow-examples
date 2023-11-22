@@ -12,11 +12,16 @@ import io.holunda.polyflow.bus.jackson.configurePolyflowJacksonObjectMapper
 import io.holunda.polyflow.datapool.core.EnablePolyflowDataPool
 import io.holunda.polyflow.example.process.approval.RequestApprovalProcessConfiguration
 import io.holunda.polyflow.taskpool.core.EnablePolyflowTaskPool
+import org.axonframework.common.jpa.EntityManagerProvider
+import org.axonframework.common.transaction.TransactionManager
 import org.axonframework.eventhandling.deadletter.jpa.DeadLetterEventEntry
 import org.axonframework.eventhandling.tokenstore.jpa.TokenEntry
+import org.axonframework.eventsourcing.eventstore.EventStorageEngine
 import org.axonframework.eventsourcing.eventstore.jpa.DomainEventEntry
+import org.axonframework.eventsourcing.eventstore.jpa.JpaEventStorageEngine
 import org.axonframework.eventsourcing.eventstore.jpa.SnapshotEventEntry
 import org.axonframework.modelling.saga.repository.jpa.SagaEntry
+import org.axonframework.serialization.Serializer
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.boot.SpringApplication
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -70,5 +75,18 @@ class ExampleProcessApplicationLocalPolyflowDistributedWithKafka {
       .registerModule(JavaTimeModule())
       .configurePolyflowJacksonObjectMapper()
       .disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
+
+  @Bean
+  fun storageEngine(
+    emp: EntityManagerProvider,
+    txManager: TransactionManager,
+    @Qualifier("eventSerializer")
+    eventSerializer: Serializer
+  ): EventStorageEngine = JpaEventStorageEngine.builder()
+    .entityManagerProvider(emp)
+    .eventSerializer(eventSerializer)
+    .snapshotSerializer(eventSerializer)
+    .transactionManager(txManager)
+    .build()
 
 }
