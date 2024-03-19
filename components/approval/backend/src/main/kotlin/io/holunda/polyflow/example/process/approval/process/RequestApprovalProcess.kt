@@ -10,7 +10,7 @@ object RequestApprovalProcess {
   const val RESOURCE = "process_approve_request.bpmn"
 
   object Variables {
-    val REQUEST_ID = stringVariable("request")
+    val REQUEST_ID = stringVariable("request").nonNull
     val ORIGINATOR = stringVariable("originator")
     val APPLICANT = stringVariable("applicant")
     val SUBJECT = stringVariable("subject")
@@ -21,7 +21,7 @@ object RequestApprovalProcess {
     val AMEND_ACTION = stringVariable("amendAction")
     val COMMENT = stringVariable("comment")
 
-    val PROJECTION_REVISION = longVariable("projectionRevision")
+    val PROJECTION_REVISION = longVariable("projectionRevision").nonNull
   }
 
   object Elements {
