@@ -142,7 +142,7 @@
                 <swaggerDocketConfig>false</swaggerDocketConfig>
                 <reactive>false</reactive>
                 <bigDecimalAsString>true</bigDecimalAsString>
-                <useOptional>true</useOptional>
+                <useOptional>false</useOptional>
                 <useBeanValidation>true</useBeanValidation>
                 <useSpringBoot3>true</useSpringBoot3>
               </configOptions>
