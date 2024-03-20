@@ -2,7 +2,7 @@ package io.holunda.polyflow.example.process.approval.adapter.rest
 
 import io.holunda.polyflow.view.auth.UnknownUserException
 import io.swagger.v3.oas.models.info.Info
-import org.springdoc.core.GroupedOpenApi
+import org.springdoc.core.models.GroupedOpenApi
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpStatus
@@ -29,7 +29,7 @@ class RequestApprovalProcessRestConfiguration {
       .group("request-approval")
       .displayName("Request Approval")
       .pathsToMatch(Rest.REST_PREFIX + "/**")
-      .addOpenApiCustomiser { openApi ->
+      .addOpenApiCustomizer { openApi ->
         openApi
           .info(
             Info()
