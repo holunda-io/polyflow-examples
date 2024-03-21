@@ -2,7 +2,7 @@ FROM node:10.15 as installer
 
 WORKDIR /opt/build
 COPY package.json ./
-RUN npm install
+RUN npm ci
 
 
 FROM node:10.15 as builder

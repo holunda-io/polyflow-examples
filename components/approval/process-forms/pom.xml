@@ -166,7 +166,7 @@
                 </goals>
                 <phase>initialize</phase>
                 <configuration>
-                  <arguments>install --no-optional</arguments>
+                  <arguments>ci --no-optional --no-audit</arguments>
                 </configuration>
               </execution>
               <execution>
