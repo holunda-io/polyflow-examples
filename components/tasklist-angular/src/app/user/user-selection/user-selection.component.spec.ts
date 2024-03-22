@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import {UserSelectionComponent} from './user-selection.component';
-import {provideStoreServiceMock} from '@ngxp/store-service/testing';
-import {UserStoreService} from 'app/user/state/user.store-service';
+import { provideMockStore } from '@ngrx/store/testing';
+import { availableUsers, currentUserProfile } from '../state/user.selectors';
+import { UserStoreService } from '../state/user.store-service';
+import { UserSelectionComponent } from './user-selection.component';
 
 describe('UserSelectionComponent', () => {
   let component: UserSelectionComponent;
@@ -10,18 +11,18 @@ describe('UserSelectionComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserSelectionComponent ],
+      declarations: [UserSelectionComponent],
       providers: [
-        provideStoreServiceMock(UserStoreService, {
-          currentUserProfile$: {
-            userIdentifier: '',
-            username: '',
-            fullName: ''
-          }
+        UserStoreService,
+        provideMockStore({
+          selectors: [
+            { selector: currentUserProfile, value: { username: '', userIdentifier: '', fullName: '' } },
+            { selector: availableUsers, value: [] }
+          ]
         })
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

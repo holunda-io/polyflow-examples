@@ -1,12 +1,13 @@
-import { DataentryEffects } from './dataentry.effects';
-import { Action } from '@ngrx/store';
-import { of } from 'rxjs';
 import { Actions } from '@ngrx/effects';
-import { BusinessDataService } from 'tasklist/services';
-import { UserStoreService } from 'app/user/state/user.store-service';
-import { createStoreServiceMock } from '@ngxp/store-service/testing';
+import { Action } from '@ngrx/store';
+import { createMockStore } from '@ngrx/store/testing';
 import { dataEntriesLoaded, loadDataEntries } from 'app/dataentry/state/dataentry.actions';
 import { DataEntry } from 'app/dataentry/state/dataentry.reducer';
+import { currentUserId } from 'app/user/state/user.selectors';
+import { UserStoreService } from 'app/user/state/user.store-service';
+import { of } from 'rxjs';
+import { BusinessDataService } from 'tasklist/services';
+import { DataentryEffects } from './dataentry.effects';
 
 describe('DataEntryEffects', () => {
 
@@ -16,8 +17,11 @@ describe('DataEntryEffects', () => {
   beforeEach(() => {
     businessDataService = new BusinessDataService(null, null);
     // default user store to be overridden in test if needed.
-    userStore = createStoreServiceMock(UserStoreService,
-      { userId$: 'kermit' });
+    userStore = new UserStoreService(createMockStore({
+      selectors: [
+        { selector: currentUserId, value: 'kermit' }
+      ]
+    }))
   });
 
   function effectsFor(action: Action): DataentryEffects {
@@ -36,10 +40,12 @@ describe('DataEntryEffects', () => {
 
     // when:
     effectsFor(action).loadDataEntries$.subscribe((newAction) => {
-      expect(newAction).toEqual(dataEntriesLoaded({dataEntries: [
-        { name: 'foo', description: '', url: '', type: 'type', payload: {}, currentState: 'MY STATE', currentStateType: '', protocol: [] },
-        { name: 'bar', description: '', url: '', type: 'type2', payload: {}, currentState: 'MY STATE2', currentStateType: '', protocol: [] }
-      ]}));
+      expect(newAction).toEqual(dataEntriesLoaded({
+        dataEntries: [
+          { name: 'foo', description: '', url: '', type: 'type', payload: {}, currentState: 'MY STATE', currentStateType: '', protocol: [] },
+          { name: 'bar', description: '', url: '', type: 'type2', payload: {}, currentState: 'MY STATE2', currentStateType: '', protocol: [] }
+        ]
+      }));
       done();
     });
   });

@@ -1,27 +1,42 @@
 import { Injectable } from '@angular/core';
-import { dispatch, select, StoreService } from '@ngxp/store-service';
+import { Store } from '@ngrx/store';
+import { StateWithTasks, getCount, getSelectedPage, getSortingColumn, getTasks } from 'app/task/state/task.selectors';
+import { Task } from 'tasklist/models/task';
 import { claimTask, loadTasks, selectPage, unclaimTask, updateSortingColumn } from './task.actions';
-import { TaskState } from 'app/task/state/task.reducer';
-import { getCount, getSelectedPage, getSortingColumn, getTasks } from 'app/task/state/task.selectors';
+import { Field } from './task.reducer';
 
 @Injectable()
-export class TaskStoreService extends StoreService<TaskState> {
+export class TaskStoreService {
 
-  loadTasks = dispatch(loadTasks);
+  constructor(
+    private store: Store<StateWithTasks>
+  ) { }
 
-  updateSortingColumn = dispatch(updateSortingColumn);
+  loadTasks() {
+    this.store.dispatch(loadTasks());
+  }
 
-  selectPage = dispatch(selectPage);
+  updateSortingColumn(field: Field) {
+    this.store.dispatch(updateSortingColumn({ field }));
+  }
 
-  claim = dispatch(claimTask);
+  selectPage(pageNumber: number) {
+    this.store.dispatch(selectPage({ pageNumber }));
+  }
 
-  unclaim = dispatch(unclaimTask);
+  claim(task: Task) {
+    this.store.dispatch(claimTask({ task }));
+  }
 
-  tasks = select(getTasks);
+  unclaim(task: Task) {
+    this.store.dispatch(unclaimTask({ task }));
+  }
 
-  sortingColumn$ = select(getSortingColumn);
+  tasks$ = this.store.select(getTasks);
 
-  taskCount$ = select(getCount);
+  sortingColumn$ = this.store.select(getSortingColumn);
 
-  selectedPage$ = select(getSelectedPage);
+  taskCount$ = this.store.select(getCount);
+
+  selectedPage$ = this.store.select(getSelectedPage);
 }

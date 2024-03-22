@@ -1,14 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { UserStoreService } from 'app/user/state/user.store-service';
-import { BusinessDataService } from 'tasklist/services';
 import { dataEntriesLoaded, loadDataEntries } from 'app/dataentry/state/dataentry.actions';
-import { catchError, filter, map, mergeMap, withLatestFrom } from 'rxjs/operators';
-import { DataEntry as DataEntryDto } from 'tasklist/models';
 import { DataEntry } from 'app/dataentry/state/dataentry.reducer';
 import { selectUser } from 'app/user/state/user.actions';
-import { StrictHttpResponse } from 'tasklist/strict-http-response';
+import { UserStoreService } from 'app/user/state/user.store-service';
 import { of } from 'rxjs';
+import { catchError, filter, map, mergeMap, withLatestFrom } from 'rxjs/operators';
+import { DataEntry as DataEntryDto } from 'tasklist/models';
+import { BusinessDataService } from 'tasklist/services';
+import { StrictHttpResponse } from 'tasklist/strict-http-response';
 
 @Injectable()
 export class DataentryEffects {
@@ -27,12 +27,12 @@ export class DataentryEffects {
 
   loadDataEntries$ = createEffect(() => this.actions$.pipe(
     ofType(loadDataEntries),
-    withLatestFrom(this.userStore.userId$()),
+    withLatestFrom(this.userStore.userId$),
     mergeMap(([_, userId]) => this.businessDataService.getBusinessDataEntries$Response({
       'X-Current-User-ID': userId
     })),
     map(dataEntriesDtos => mapFromDto(dataEntriesDtos)),
-    map(dataEntries => dataEntriesLoaded({dataEntries})),
+    map(dataEntries => dataEntriesLoaded({ dataEntries })),
     catchError(err => {
       console.log('Error loading data entries:', err);
       return of();

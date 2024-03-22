@@ -8,7 +8,7 @@ import { ProcessStoreService } from 'app/process/state/process.store-service';
 })
 export class ProcesslistComponent {
 
-  processes$ = this.processStore.startableProcesses$();
+  processes$ = this.processStore.startableProcesses$;
 
   constructor(
     private processStore: ProcessStoreService

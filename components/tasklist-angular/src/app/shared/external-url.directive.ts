@@ -1,7 +1,7 @@
-import {Directive, ElementRef, HostListener, OnDestroy} from '@angular/core';
-import {Router} from '@angular/router';
-import {UserStoreService} from 'app/user/state/user.store-service';
-import {Subscription} from 'rxjs';
+import { Directive, ElementRef, HostListener, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserStoreService } from 'app/user/state/user.store-service';
+import { Subscription } from 'rxjs';
 
 @Directive({
   selector: 'a[tasksExternalUrl]',
@@ -12,7 +12,7 @@ export class ExternalUrlDirective implements OnDestroy {
   private _sub: Subscription;
 
   constructor(private el: ElementRef, private router: Router, private userStore: UserStoreService) {
-    this._sub = this.userStore.userId$().subscribe(userId => this.userId = userId);
+    this._sub = this.userStore.userId$.subscribe(userId => this.userId = userId);
   }
 
   ngOnDestroy(): void {
@@ -27,7 +27,7 @@ export class ExternalUrlDirective implements OnDestroy {
     }
     const parsedUrl = url.replace('%userId%', this.userId);
 
-    this.router.navigate(['/externalRedirect', {externalUrl: parsedUrl}], {
+    this.router.navigate(['/externalRedirect', { externalUrl: parsedUrl }], {
       skipLocationChange: true,
     });
 

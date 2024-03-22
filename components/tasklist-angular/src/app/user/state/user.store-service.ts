@@ -1,24 +1,31 @@
 import { Injectable } from '@angular/core';
-import { dispatch, select, StoreService } from '@ngxp/store-service';
-import { UserState } from './user.reducer';
-import { availableUsers, currentUserId, currentUserProfile } from './user.selectors';
-import { loadAvailableUsers, selectUser } from './user.actions';
+import { Store } from '@ngrx/store';
 import { first } from 'rxjs/operators';
+import { loadAvailableUsers, selectUser } from './user.actions';
+import { availableUsers, currentUserId, currentUserProfile, StateWithUsers } from './user.selectors';
 
 @Injectable()
-export class UserStoreService extends StoreService<UserState> {
+export class UserStoreService {
 
-  availableUsers$ = select(availableUsers);
+  constructor(
+    private store: Store<StateWithUsers>
+  ) { }
 
-  userId$ = select(currentUserId);
+  availableUsers$ = this.store.select(availableUsers);
 
-  currentUserProfile$ = select(currentUserProfile);
+  userId$ = this.store.select(currentUserId);
 
-  loadAvailableUsers = dispatch(loadAvailableUsers);
+  currentUserProfile$ = this.store.select(currentUserProfile);
 
-  selectUser = dispatch(selectUser)
+  loadAvailableUsers() {
+    this.store.dispatch(loadAvailableUsers());
+  }
+
+  selectUser(userId: string) {
+    this.store.dispatch(selectUser({ userId }))
+  }
 
   loadInitialUser(): void {
-    this.userId$().pipe(first()).subscribe(userId => this.selectUser({userId}));
+    this.userId$.pipe(first()).subscribe(userId => this.selectUser(userId));
   }
 }

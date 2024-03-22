@@ -1,12 +1,13 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { provideMockStore } from '@ngrx/store/testing';
 
-import { DataentryListComponent } from 'app/dataentry/dataentry-list/dataentry-list.component';
 import { FormsModule } from '@angular/forms';
+import { DataentryListComponent } from 'app/dataentry/dataentry-list/dataentry-list.component';
 
-import { provideStoreServiceMock } from '@ngxp/store-service/testing';
-import { DataentryStoreService } from 'app/dataentry/state/dataentry.store-service';
-import { SharedModule } from 'app/shared/shared.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SharedModule } from 'app/shared/shared.module';
+import { dataEntries } from '../state/dataentry.selectors';
+import { DataentryStoreService } from '../state/dataentry.store-service';
 
 describe('Component: DataentrylistComponent', () => {
 
@@ -25,8 +26,11 @@ describe('Component: DataentrylistComponent', () => {
         DataentryListComponent
       ],
       providers: [
-        provideStoreServiceMock(DataentryStoreService, {
-          dataEntries$: []
+        DataentryStoreService,
+        provideMockStore({
+          selectors: [
+            { selector: dataEntries, value: [] }
+          ]
         }),
       ],
     }).compileComponents().then(() => {
@@ -40,6 +44,8 @@ describe('Component: DataentrylistComponent', () => {
       fixture.detectChanges();
     });
   }));
+
+
 
   it('should create', () => {
     expect(component).toBeDefined();
