@@ -48,7 +48,7 @@
     <camunda-bpm-mockito.version>7.20.0</camunda-bpm-mockito.version>
     <version.camunda.spin>1.23.0</version.camunda.spin>
     <camunda-bpm-data.version>1.5.0</camunda-bpm-data.version>
-    <springdoc.version>2.2.0</springdoc.version>
+    <springdoc.version>2.4.0</springdoc.version>
     <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
     <mockito-kotlin.version>5.2.1</mockito-kotlin.version>
     <jackson-databind-nullable.version>0.2.6</jackson-databind-nullable.version>
