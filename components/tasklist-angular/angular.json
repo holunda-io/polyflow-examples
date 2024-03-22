@@ -77,20 +77,20 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "polyflow:build",
             "port": 4200,
-            "proxyConfig": "proxy-local.json"
+            "proxyConfig": "proxy-local.json",
+            "buildTarget": "polyflow:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "polyflow:build:production"
+              "buildTarget": "polyflow:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "polyflow:build"
+            "buildTarget": "polyflow:build"
           }
         },
         "test": {

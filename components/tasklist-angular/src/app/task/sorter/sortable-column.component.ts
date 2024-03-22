@@ -4,6 +4,7 @@ import { TaskStoreService } from 'app/task/state/task.store-service';
 import { Subscription } from 'rxjs';
 
 @Component({
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: '[tasks-sortable-column]',
   templateUrl: './sortable-column.component.html',
   styleUrls: []
@@ -13,7 +14,7 @@ export class SortableColumnComponent implements OnInit, OnDestroy {
   @Input('tasks-sortable-column')
   fieldName: string;
 
-  @Input('sort-direction')
+  @Input()
   direction: SortDirection;
 
   private columnSortedSubscription: Subscription;
