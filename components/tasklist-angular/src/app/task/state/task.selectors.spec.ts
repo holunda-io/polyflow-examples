@@ -1,4 +1,4 @@
-import {getTasks, StateWithTasks} from 'app/task/state/task.selectors';
+import { getTasks, StateWithTasks } from 'app/task/state/task.selectors';
 
 describe('task selectors', () => {
   const state: StateWithTasks = {
@@ -10,7 +10,7 @@ describe('task selectors', () => {
     }
   };
 
-  it('should select current userId', () => {
+  it('should select current tasks', () => {
     // when:
     const tasks = getTasks(state);
 

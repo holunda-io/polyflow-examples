@@ -8,7 +8,7 @@ import { DataentryStoreService } from 'app/dataentry/state/dataentry.store-servi
 })
 export class DataentryListComponent {
 
-  dataEntries$ = this.dataEntryStore.dataEntries$();
+  dataEntries$ = this.dataEntryStore.dataEntries$;
   currentDataTab = 'description';
   itemsPerPage: number;
   totalItems: any;
@@ -16,7 +16,7 @@ export class DataentryListComponent {
 
   constructor(
     private dataEntryStore: DataentryStoreService,
-  ) {  }
+  ) { }
 
   toFieldSet(payload: any) {
     const payloadProps = Object.keys(payload);

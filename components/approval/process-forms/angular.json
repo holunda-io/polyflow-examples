@@ -73,20 +73,20 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "example-process-approval:build",
             "port": 4300,
-            "proxyConfig": "proxy-local.json"
+            "proxyConfig": "proxy-local.json",
+            "buildTarget": "example-process-approval:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "example-process-approval:build:production"
+              "buildTarget": "example-process-approval:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "example-process-approval:build"
+            "buildTarget": "example-process-approval:build"
           }
         },
         "test": {

@@ -1,13 +1,18 @@
 import { Injectable } from '@angular/core';
-import { dispatch, select, StoreService } from '@ngxp/store-service';
-import { DataEntryState } from './dataentry.reducer';
-import { dataEntries } from './dataentry.selectors';
+import { Store } from '@ngrx/store';
 import { loadDataEntries } from './dataentry.actions';
+import { dataEntries, StateWithDataEntries } from './dataentry.selectors';
 
 @Injectable()
-export class DataentryStoreService extends StoreService<DataEntryState> {
+export class DataentryStoreService {
 
-  dataEntries$ = select(dataEntries);
+  constructor(
+    private store: Store<StateWithDataEntries>
+  ) { }
 
-  loadDataEntries = dispatch(loadDataEntries);
+  dataEntries$ = this.store.select(dataEntries);
+
+  loadDataEntries() {
+    this.store.dispatch(loadDataEntries());
+  }
 }

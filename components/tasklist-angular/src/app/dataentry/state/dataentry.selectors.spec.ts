@@ -1,11 +1,11 @@
-import {dataEntries, StateWithDataEntries} from 'app/dataentry/state/dataentry.selectors';
+import { dataEntries, StateWithDataEntries } from 'app/dataentry/state/dataentry.selectors';
 
-describe('user selectors', () => {
+describe('data entry selectors', () => {
   const state: StateWithDataEntries = {
     archive: {
       dataEntries: [
-        {name: 'foo', description: '', url: '', type: 'type', payload: {}, currentState: 'MY STATE', currentStateType: '', protocol: []},
-        {name: 'bar', description: '', url: '', type: 'type2', payload: {}, currentState: 'MY STATE2', currentStateType: '', protocol: []}
+        { name: 'foo', description: '', url: '', type: 'type', payload: {}, currentState: 'MY STATE', currentStateType: '', protocol: [] },
+        { name: 'bar', description: '', url: '', type: 'type2', payload: {}, currentState: 'MY STATE2', currentStateType: '', protocol: [] }
       ]
     }
   };

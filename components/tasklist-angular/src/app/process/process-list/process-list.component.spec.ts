@@ -1,9 +1,10 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import {ProcesslistComponent} from './process-list.component';
-import {FormsModule} from '@angular/forms';
-import {provideStoreServiceMock} from '@ngxp/store-service/testing';
-import {ProcessStoreService} from 'app/process/state/process.store-service';
+import { FormsModule } from '@angular/forms';
+import { provideMockStore } from '@ngrx/store/testing';
+import { startableProcesses } from '../state/process.selectors';
+import { ProcessStoreService } from '../state/process.store-service';
+import { ProcesslistComponent } from './process-list.component';
 
 describe('Component: TasklistComponent', () => {
 
@@ -20,7 +21,12 @@ describe('Component: TasklistComponent', () => {
         ProcesslistComponent
       ],
       providers: [
-        provideStoreServiceMock(ProcessStoreService)
+        ProcessStoreService,
+        provideMockStore({
+          selectors: [
+            { selector: startableProcesses, value: [] }
+          ]
+        })
       ],
     }).compileComponents().then(() => {
       // create component and test fixture

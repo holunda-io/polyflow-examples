@@ -1,6 +1,10 @@
+import { TitleCasePipe } from '@angular/common';
 import { Injectable } from '@angular/core';
-import { ProfileService } from 'tasklist/services';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { UserStoreService } from 'app/user/state/user.store-service';
+import { filter, map, mergeMap, withLatestFrom } from 'rxjs/operators';
+import { UserProfile as UserDto, UserInfo } from 'tasklist/models';
+import { ProfileService } from 'tasklist/services';
 import {
   availableUsersLoaded,
   loadAvailableUsers,
@@ -8,11 +12,7 @@ import {
   selectUser,
   userProfileLoaded
 } from './user.actions';
-import { filter, map, mergeMap, withLatestFrom } from 'rxjs/operators';
-import { UserInfo, UserProfile as UserDto } from 'tasklist/models';
 import { UserProfile } from './user.reducer';
-import { TitleCasePipe } from '@angular/common';
-import { UserStoreService } from 'app/user/state/user.store-service';
 
 @Injectable()
 export class UserEffects {
@@ -26,22 +26,22 @@ export class UserEffects {
   loadAvailableUserIds$ = createEffect(() => this.actions$.pipe(
     ofType(loadAvailableUsers),
     mergeMap(() => this.profileService.getUsers()),
-    map((users: UserInfo[]) => availableUsersLoaded({users}))
+    map((users: UserInfo[]) => availableUsersLoaded({ users }))
   ));
 
-  loadInitialUser$ = createEffect(() =>this.actions$.pipe(
+  loadInitialUser$ = createEffect(() => this.actions$.pipe(
     ofType(availableUsersLoaded),
-    withLatestFrom(this.userStore.userId$()),
+    withLatestFrom(this.userStore.userId$),
     filter(([_, userId]) => !userId),
     map(([action]) => action.users),
-    map((users) => selectUser({userId: users[0].id}))
+    map((users) => selectUser({ userId: users[0].id }))
   ));
 
   selectUser$ = createEffect(() => this.actions$.pipe(
     ofType(selectUser),
     map((action) => action.userId),
     filter(userId => !!userId),
-    map(userId => loadUserProfile({userId}))
+    map(userId => loadUserProfile({ userId }))
   ));
 
   loadUserProfile$ = createEffect(() => this.actions$.pipe(
@@ -50,7 +50,7 @@ export class UserEffects {
     mergeMap((userId) => this.profileService.getProfile({ 'X-Current-User-ID': userId }).pipe(
       map((profile) => mapFromDto(profile, userId))
     )),
-    map((profile) => userProfileLoaded({profile}))
+    map((profile) => userProfileLoaded({ profile }))
   ));
 }
 

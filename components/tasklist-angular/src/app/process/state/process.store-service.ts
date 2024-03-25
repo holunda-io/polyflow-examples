@@ -1,13 +1,18 @@
 import { Injectable } from '@angular/core';
-import { dispatch, select, StoreService } from '@ngxp/store-service';
-import { ProcessState } from './process.reducer';
-import { startableProcesses } from './process.selectors';
+import { Store } from '@ngrx/store';
 import { loadStartableProcessDefinitions } from './process.actions';
+import { StateWithProcesses, startableProcesses } from './process.selectors';
 
 @Injectable()
-export class ProcessStoreService extends StoreService<ProcessState> {
+export class ProcessStoreService {
 
-  startableProcesses$ = select(startableProcesses);
+  constructor(
+    private store: Store<StateWithProcesses>
+  ) { }
 
-  loadStartableProcessDefinitions = dispatch(loadStartableProcessDefinitions);
+  startableProcesses$ = this.store.select(startableProcesses);
+
+  loadStartableProcessDefinitions() {
+    this.store.dispatch(loadStartableProcessDefinitions());
+  }
 }

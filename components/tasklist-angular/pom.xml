@@ -165,7 +165,7 @@
                 </goals>
                 <phase>initialize</phase>
                 <configuration>
-                  <arguments>ci --no-optional --no-audit</arguments>
+                  <arguments>ci --no-audit</arguments>
                 </configuration>
               </execution>
               <execution>
