@@ -5,9 +5,7 @@ import io.holunda.polyflow.example.tasklist.adapter.rest.ElementNotFoundExceptio
 import io.holunda.polyflow.view.Task
 import io.holunda.polyflow.view.TaskQueryClient
 import io.holunda.polyflow.view.auth.User
-import io.holunda.polyflow.view.query.task.TaskForIdQuery
-import io.holunda.polyflow.view.query.task.TasksWithDataEntriesForUserQuery
-import io.holunda.polyflow.view.query.task.TasksWithDataEntriesQueryResult
+import io.holunda.polyflow.view.query.task.*
 import mu.KLogging
 import org.axonframework.commandhandling.gateway.CommandGateway
 import org.axonframework.queryhandling.QueryGateway
@@ -53,6 +51,32 @@ class TaskServiceGateway(
         page = page,
         size = size,
         sort = sort?.let { sortParam -> listOf(sortParam) } ?: listOf(),
+        filters = filters
+      )
+    ).join() ?: throw ElementNotFoundException()
+
+  fun getTaskAttributeNames(
+    user: User,
+    filters: List<String>
+  ): TaskAttributeNamesQueryResult = taskQueryClient
+    .query(
+      TaskAttributeNamesQuery(
+        user = user,
+        assignedToMeOnly = false,
+        filters = filters
+      )
+    ).join() ?: throw ElementNotFoundException()
+
+  fun getTaskAttributeValues(
+    attributeName: String,
+    user: User,
+    filters: List<String>
+  ): TaskAttributeValuesQueryResult = taskQueryClient
+    .query(
+      TaskAttributeValuesQuery(
+        attributeName = attributeName,
+        user = user,
+        assignedToMeOnly = false,
         filters = filters
       )
     ).join() ?: throw ElementNotFoundException()

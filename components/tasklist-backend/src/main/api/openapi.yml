@@ -221,6 +221,67 @@ paths:
         '404':
           description: Task not found.
 
+  '/tasks/payload/attribute/names':
+    parameters:
+      - $ref: '#/components/parameters/CurrentUserIdParam'
+      - $ref: '#/components/parameters/FiltersParam'
+    get:
+      tags:
+        - Task
+      summary: Lists all available attribute names for task payload.
+      operationId: getTasksAttributeNames
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                title: List of attribute names.
+                type: array
+                items:
+                  type: string
+
+          headers:
+            X-ElementCount:
+              description: Number of elements in total.
+              schema:
+                type: integer
+        '401':
+          description: Not authenticated.
+        '403':
+          description: Not authorized.
+
+  '/tasks/payload/attribute/{attributeName}/values':
+    parameters:
+      - $ref: '#/components/parameters/CurrentUserIdParam'
+      - $ref: '#/components/parameters/AttributeNameParam'
+      - $ref: '#/components/parameters/FiltersParam'
+    get:
+      tags:
+        - Task
+      summary: Lists all available attribute values for given attribute name.
+      operationId: getTasksAttributeValues
+      responses:
+        '200':
+          description: Successful operation.
+          content:
+            application/json:
+              schema:
+                title: List of attribute values.
+                type: array
+                items:
+                  type: object
+
+          headers:
+            X-ElementCount:
+              description: Number of elements in total.
+              schema:
+                type: integer
+        '401':
+          description: Not authenticated.
+        '403':
+          description: Not authorized.
+
   '/business-data-entries':
     parameters:
       - $ref: '#/components/parameters/CurrentUserIdParam'
@@ -309,6 +370,14 @@ components:
       name: X-Current-User-ID
       in: header
       description: Specifies the id of current user.
+      required: true
+      schema:
+        type: string
+
+    AttributeNameParam:
+      name: attributeName
+      in: path
+      description: Payload Attribute Name.
       required: true
       schema:
         type: string
@@ -553,5 +622,3 @@ components:
         username:
           type: string
           description: username of currently logged-in user.
-
-

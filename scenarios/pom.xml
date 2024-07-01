@@ -18,6 +18,7 @@
   </properties>
 
   <modules>
+    <module>single-node-simple</module>
     <module>single-node-jpa</module>
     <module>single-node-jpa-maria</module>
     <module>distributed-axon-server</module>
