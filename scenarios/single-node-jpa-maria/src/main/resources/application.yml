@@ -14,7 +14,7 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
   jpa:
     # database-platform: org.hibernate.dialect.H2Dialect
-    database-platform: org.hibernate.dialect.MariaDB103Dialect
+    database-platform: org.hibernate.dialect.MariaDBDialect
     generate-ddl: false
     hibernate.ddl-auto: none
     show-sql: false

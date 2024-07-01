@@ -657,7 +657,7 @@
                   <goal>create</goal>
                 </goals>
                 <configuration>
-                  <dialect>org.hibernate.dialect.MariaDB103Dialect</dialect>
+                  <dialect>org.hibernate.dialect.MariaDBDialect</dialect>
                   <execute>false</execute>
                   <show>true</show>
                   <format>true</format>
