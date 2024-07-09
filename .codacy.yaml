@@ -9,3 +9,4 @@ exclude_paths:
   - "examples/components/tasklist-angular/**"
   - "examples/components/process-forms/**"
   - "docs/**"
+  - "**/db/migrations/**"
