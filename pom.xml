@@ -52,7 +52,7 @@
     <org.mapstruct.version>1.6.2</org.mapstruct.version>
     <mockito-kotlin.version>5.3.1</mockito-kotlin.version>
     <jackson-databind-nullable.version>0.2.6</jackson-databind-nullable.version>
-    <junit-jupiter.version>5.11.2</junit-jupiter.version>
+    <junit-jupiter.version>5.11.3</junit-jupiter.version>
 
   </properties>
 
