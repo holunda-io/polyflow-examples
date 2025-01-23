@@ -47,8 +47,10 @@
 
     <camunda-bpm-assert.version>${camunda-ce.version}</camunda-bpm-assert.version>
     <camunda-bpm-mockito.version>7.21.0</camunda-bpm-mockito.version>
-    <version.camunda.spin>1.23.0</version.camunda.spin>
+
+    <version.camunda.spin>7.22.0</version.camunda.spin>
     <camunda-bpm-data.version>1.6.0</camunda-bpm-data.version>
+
     <springdoc.version>2.6.0</springdoc.version>
     <org.mapstruct.version>1.6.2</org.mapstruct.version>
     <mockito-kotlin.version>5.3.1</mockito-kotlin.version>
