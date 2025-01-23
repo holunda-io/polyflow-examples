@@ -19,7 +19,7 @@
     <version.java>${java.version}</version.java>
     <version.java>${java.version}</version.java>
 
-    <kotlin.version>2.0.20</kotlin.version>
+    <kotlin.version>2.0.21</kotlin.version>
     <kotlin.compiler.jvmTarget>${java.version}</kotlin.compiler.jvmTarget>
     <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
     <kotlin-logging.version>3.0.5</kotlin-logging.version>
@@ -37,8 +37,9 @@
     -->
 
 
-    <springboot.version>3.3.4</springboot.version>
-    <polyflow.version>4.2.1</polyflow.version>
+
+    <springboot.version>3.3.5</springboot.version>
+    <polyflow.version>4.2.2</polyflow.version>
 
     <camunda-ce.version>7.21.0</camunda-ce.version>
     <camunda-ee.version>7.21.0-ee</camunda-ee.version>
@@ -46,13 +47,15 @@
 
     <camunda-bpm-assert.version>${camunda-ce.version}</camunda-bpm-assert.version>
     <camunda-bpm-mockito.version>7.21.0</camunda-bpm-mockito.version>
+
     <version.camunda.spin>7.22.0</version.camunda.spin>
-    <camunda-bpm-data.version>1.5.0</camunda-bpm-data.version>
+    <camunda-bpm-data.version>1.6.0</camunda-bpm-data.version>
+
     <springdoc.version>2.6.0</springdoc.version>
     <org.mapstruct.version>1.6.2</org.mapstruct.version>
     <mockito-kotlin.version>5.3.1</mockito-kotlin.version>
     <jackson-databind-nullable.version>0.2.6</jackson-databind-nullable.version>
-    <junit-jupiter.version>5.11.1</junit-jupiter.version>
+    <junit-jupiter.version>5.11.4</junit-jupiter.version>
 
   </properties>
 
@@ -254,7 +257,7 @@
           <!-- Open API generator -->
           <groupId>org.openapitools</groupId>
           <artifactId>openapi-generator-maven-plugin</artifactId>
-          <version>7.7.0</version>
+          <version>7.11.0</version>
         </plugin>
 
         <plugin>
@@ -431,7 +434,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
-          <version>3.5.0</version>
+          <version>3.5.2</version>
           <configuration>
             <useSystemClassLoader>false</useSystemClassLoader>
             <includes>
@@ -450,7 +453,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-failsafe-plugin</artifactId>
-          <version>3.5.0</version>
+          <version>3.5.1</version>
           <executions>
             <execution>
               <phase>integration-test</phase>
@@ -519,7 +522,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.5.0</version>
+        <version>3.5.2</version>
         <configuration>
           <useSystemClassLoader>false</useSystemClassLoader>
           <runOrder>random</runOrder>
