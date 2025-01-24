@@ -36,8 +36,7 @@
       Use the system property: -Dcamunda-ee to enable EE
     -->
 
-
-    <springboot.version>3.3.5</springboot.version>
+    <springboot.version>3.4.2</springboot.version>
     <polyflow.version>4.2.2</polyflow.version>
 
 
@@ -51,7 +50,7 @@
     <version.camunda.spin>7.22.0</version.camunda.spin>
     <camunda-bpm-data.version>1.6.0</camunda-bpm-data.version>
 
-    <springdoc.version>2.6.0</springdoc.version>
+    <springdoc.version>2.8.3</springdoc.version>
     <mockito-kotlin.version>5.4.0</mockito-kotlin.version>
 
     <jackson-databind-nullable.version>0.2.6</jackson-databind-nullable.version>
