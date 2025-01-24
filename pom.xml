@@ -19,7 +19,7 @@
     <version.java>${java.version}</version.java>
     <version.java>${java.version}</version.java>
 
-    <kotlin.version>2.0.0</kotlin.version>
+    <kotlin.version>2.1.0</kotlin.version>
     <kotlin.compiler.jvmTarget>${java.version}</kotlin.compiler.jvmTarget>
     <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
     <kotlin-logging.version>3.0.5</kotlin-logging.version>
@@ -37,8 +37,9 @@
     -->
 
 
-    <springboot.version>3.2.6</springboot.version>
-    <polyflow.version>4.2.1-SNAPSHOT</polyflow.version>
+    <springboot.version>3.3.5</springboot.version>
+    <polyflow.version>4.2.2</polyflow.version>
+
 
     <camunda-ce.version>7.21.0</camunda-ce.version>
     <camunda-ee.version>7.21.0-ee</camunda-ee.version>
@@ -46,13 +47,16 @@
 
     <camunda-bpm-assert.version>${camunda-ce.version}</camunda-bpm-assert.version>
     <camunda-bpm-mockito.version>7.21.0</camunda-bpm-mockito.version>
-    <version.camunda.spin>1.23.0</version.camunda.spin>
-    <camunda-bpm-data.version>1.5.0</camunda-bpm-data.version>
-    <springdoc.version>2.5.0</springdoc.version>
-    <org.mapstruct.version>1.5.5.Final</org.mapstruct.version>
-    <mockito-kotlin.version>5.3.1</mockito-kotlin.version>
+
+    <version.camunda.spin>7.22.0</version.camunda.spin>
+    <camunda-bpm-data.version>1.6.0</camunda-bpm-data.version>
+
+    <springdoc.version>2.6.0</springdoc.version>
+    <mockito-kotlin.version>5.4.0</mockito-kotlin.version>
+
     <jackson-databind-nullable.version>0.2.6</jackson-databind-nullable.version>
-    <junit-jupiter.version>5.10.2</junit-jupiter.version>
+    <junit-jupiter.version>5.11.4</junit-jupiter.version>
+    <org.mapstruct.version>1.6.3</org.mapstruct.version>
 
   </properties>
 
@@ -254,7 +258,7 @@
           <!-- Open API generator -->
           <groupId>org.openapitools</groupId>
           <artifactId>openapi-generator-maven-plugin</artifactId>
-          <version>7.6.0</version>
+          <version>7.11.0</version>
         </plugin>
 
         <plugin>
@@ -393,7 +397,7 @@
           <!-- for running npm build -->
           <groupId>com.github.eirslett</groupId>
           <artifactId>frontend-maven-plugin</artifactId>
-          <version>1.15.0</version>
+          <version>1.15.1</version>
         </plugin>
 
         <plugin>
@@ -422,7 +426,7 @@
           <!-- versions plugin -->
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>versions-maven-plugin</artifactId>
-          <version>2.17.0</version>
+          <version>2.18.0</version>
           <configuration>
             <generateBackupPoms>false</generateBackupPoms>
           </configuration>
@@ -431,7 +435,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
-          <version>3.3.0</version>
+          <version>3.5.2</version>
           <configuration>
             <useSystemClassLoader>false</useSystemClassLoader>
             <includes>
@@ -450,7 +454,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-failsafe-plugin</artifactId>
-          <version>3.3.0</version>
+          <version>3.5.2</version>
           <executions>
             <execution>
               <phase>integration-test</phase>
@@ -519,7 +523,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.3.0</version>
+        <version>3.5.2</version>
         <configuration>
           <useSystemClassLoader>false</useSystemClassLoader>
           <runOrder>random</runOrder>
@@ -712,13 +716,13 @@
               <dependency>
                 <groupId>com.h2database</groupId>
                 <artifactId>h2</artifactId>
-                <version>2.2.224</version>
+                <version>2.3.232</version>
               </dependency>
               <!-- Hibernate Model Gen for type safe criteria -->
               <dependency>
                 <groupId>org.postgresql</groupId>
                 <artifactId>postgresql</artifactId>
-                <version>42.7.3</version>
+                <version>42.7.5</version>
               </dependency>
             </dependencies>
           </plugin>
