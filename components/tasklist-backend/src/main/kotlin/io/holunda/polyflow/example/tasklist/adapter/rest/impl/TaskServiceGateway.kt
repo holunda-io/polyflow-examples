@@ -57,27 +57,23 @@ class TaskServiceGateway(
 
   fun getTaskAttributeNames(
     user: User,
-    filters: List<String>
   ): TaskAttributeNamesQueryResult = taskQueryClient
     .query(
       TaskAttributeNamesQuery(
         user = user,
         assignedToMeOnly = false,
-        filters = filters
       )
     ).join() ?: throw ElementNotFoundException()
 
   fun getTaskAttributeValues(
     attributeName: String,
     user: User,
-    filters: List<String>
   ): TaskAttributeValuesQueryResult = taskQueryClient
     .query(
       TaskAttributeValuesQuery(
         attributeName = attributeName,
         user = user,
         assignedToMeOnly = false,
-        filters = filters
       )
     ).join() ?: throw ElementNotFoundException()
 }

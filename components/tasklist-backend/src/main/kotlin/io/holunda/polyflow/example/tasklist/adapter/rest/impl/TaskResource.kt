@@ -149,10 +149,10 @@ class TaskResource(
 
   override fun getTasksAttributeNames(
     xCurrentUserID: String,
-    filters: List<String>?
+    filters: List<String>? // FIXME -> no filters needed?
   ): ResponseEntity<List<String>> {
     val user = userService.getUser(xCurrentUserID)
-    val result = taskServiceGateway.getTaskAttributeNames(user,filters ?: listOf())
+    val result = taskServiceGateway.getTaskAttributeNames(user)
 
     return ResponseEntity
       .ok()
@@ -163,10 +163,10 @@ class TaskResource(
   override fun getTasksAttributeValues(
     xCurrentUserID: String,
     attributeName: String,
-    filters: List<String>?
+    filters: List<String>? // FIXME -> no filters needed?
   ): ResponseEntity<List<Any>> {
     val user = userService.getUser(xCurrentUserID)
-    val result = taskServiceGateway.getTaskAttributeValues(attributeName, user,filters ?: listOf())
+    val result = taskServiceGateway.getTaskAttributeValues(attributeName, user)
 
     return ResponseEntity
       .ok()
