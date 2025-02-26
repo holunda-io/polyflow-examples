@@ -1,9 +1,6 @@
 package io.holunda.polyflow.example.tasklist.adapter.rest.mapper
 
-import io.holunda.polyflow.example.tasklist.adapter.rest.model.DataEntryDto
-import io.holunda.polyflow.example.tasklist.adapter.rest.model.ProtocolEntryDto
-import io.holunda.polyflow.example.tasklist.adapter.rest.model.TaskDto
-import io.holunda.polyflow.example.tasklist.adapter.rest.model.TaskWithDataEntriesDto
+import io.holunda.polyflow.example.tasklist.adapter.rest.model.*
 import io.holunda.polyflow.view.*
 import org.mapstruct.*
 import org.springframework.beans.factory.annotation.Autowired

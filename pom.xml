@@ -36,10 +36,9 @@
       Use the system property: -Dcamunda-ee to enable EE
     -->
 
-
-
     <springboot.version>3.4.2</springboot.version>
     <polyflow.version>4.2.2</polyflow.version>
+
 
     <camunda-ce.version>7.21.0</camunda-ce.version>
     <camunda-ee.version>7.21.0-ee</camunda-ee.version>
@@ -148,11 +147,6 @@
         <groupId>org.openapitools</groupId>
         <artifactId>jackson-databind-nullable</artifactId>
         <version>${jackson-databind-nullable.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>org.springdoc</groupId>
-        <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-        <version>${springdoc.version}</version>
       </dependency>
       <dependency>
         <groupId>org.springdoc</groupId>

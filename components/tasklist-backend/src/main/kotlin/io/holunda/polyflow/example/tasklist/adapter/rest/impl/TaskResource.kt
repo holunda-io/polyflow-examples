@@ -147,6 +147,33 @@ class TaskResource(
     return ResponseEntity.noContent().build()
   }
 
+  override fun getTasksAttributeNames(
+    xCurrentUserID: String,
+    filters: List<String>? // FIXME -> no filters needed?
+  ): ResponseEntity<List<String>> {
+    val user = userService.getUser(xCurrentUserID)
+    val result = taskServiceGateway.getTaskAttributeNames(user)
+
+    return ResponseEntity
+      .ok()
+      .headers(HttpHeaders().apply { this[HEADER_ELEMENT_COUNT] = result.totalElementCount.toString() })
+      .body(result.elements)
+  }
+
+  override fun getTasksAttributeValues(
+    xCurrentUserID: String,
+    attributeName: String,
+    filters: List<String>? // FIXME -> no filters needed?
+  ): ResponseEntity<List<Any>> {
+    val user = userService.getUser(xCurrentUserID)
+    val result = taskServiceGateway.getTaskAttributeValues(attributeName, user)
+
+    return ResponseEntity
+      .ok()
+      .headers(HttpHeaders().apply { this[HEADER_ELEMENT_COUNT] = result.totalElementCount.toString() })
+      .body(result.elements)
+  }
+
   private fun getAuthorizedTask(taskId: String, user: User): Task = taskServiceGateway
     .getTask(taskId)
     .apply {
