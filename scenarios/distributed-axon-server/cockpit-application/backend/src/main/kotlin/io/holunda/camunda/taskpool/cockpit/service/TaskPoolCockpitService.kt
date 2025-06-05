@@ -3,7 +3,7 @@ package io.holunda.camunda.taskpool.cockpit.service
 import io.holunda.camunda.taskpool.api.task.SourceReference
 import io.holunda.camunda.taskpool.api.task.TaskEvent
 import io.holunda.camunda.taskpool.cockpit.service.TaskPoolCockpitService.Companion.PROCESSING_GROUP
-import mu.KLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.axonframework.config.EventProcessingConfiguration
 import org.axonframework.config.ProcessingGroup
 import org.axonframework.eventhandling.EventHandler
@@ -14,6 +14,8 @@ import org.axonframework.queryhandling.QueryHandler
 import org.axonframework.queryhandling.QueryUpdateEmitter
 import org.springframework.stereotype.Component
 import java.time.Instant
+
+private val logger = KotlinLogging.logger {}
 
 /**
  * Service collecting the events.
@@ -26,7 +28,7 @@ class TaskPoolCockpitService(
   private val queryUpdateEmitter: QueryUpdateEmitter
 ) {
 
-  companion object : KLogging() {
+  companion object {
     const val PROCESSING_GROUP = "io.holunda.camunda.taskpool.cockpit.service"
   }
 

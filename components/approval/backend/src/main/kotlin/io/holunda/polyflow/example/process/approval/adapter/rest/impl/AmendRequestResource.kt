@@ -8,18 +8,18 @@ import io.holunda.polyflow.example.process.approval.adapter.rest.model.TaskAmend
 import io.holunda.polyflow.example.process.approval.adapter.rest.request
 import io.holunda.polyflow.example.process.approval.adapter.rest.taskDto
 import io.holunda.polyflow.view.auth.UserService
-import mu.KLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
+
+private val logger = KotlinLogging.logger {}
 
 @Component
 class AmendRequestResource(
   private val requestApprovalProcessBean: RequestApprovalProcessBean,
   private val userService: UserService
 ) : UserTaskAmendRequestApiDelegate {
-
-  companion object : KLogging()
 
   override fun loadTaskAmendRequestFormData(
     id: String,

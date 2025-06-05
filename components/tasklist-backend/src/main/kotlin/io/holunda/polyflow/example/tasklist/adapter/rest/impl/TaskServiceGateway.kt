@@ -8,18 +8,18 @@ import io.holunda.polyflow.view.auth.User
 import io.holunda.polyflow.view.query.task.TaskForIdQuery
 import io.holunda.polyflow.view.query.task.TasksWithDataEntriesForUserQuery
 import io.holunda.polyflow.view.query.task.TasksWithDataEntriesQueryResult
-import mu.KLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.axonframework.commandhandling.gateway.CommandGateway
 import org.axonframework.queryhandling.QueryGateway
 import org.springframework.stereotype.Component
+
+private val logger = KotlinLogging.logger {}
 
 @Component
 class TaskServiceGateway(
   queryGateway: QueryGateway,
   val commandGateway: CommandGateway
 ) {
-
-  companion object : KLogging()
 
   val taskQueryClient = TaskQueryClient(queryGateway)
 

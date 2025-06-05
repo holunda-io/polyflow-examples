@@ -7,18 +7,18 @@ import io.holunda.polyflow.example.process.approval.adapter.rest.model.TaskAppro
 import io.holunda.polyflow.example.process.approval.adapter.rest.model.TaskApproveRequestSubmitDataDto
 import io.holunda.polyflow.example.process.approval.adapter.rest.taskDto
 import io.holunda.polyflow.view.auth.UserService
-import mu.KLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Component
 import org.springframework.transaction.annotation.Transactional
+
+private val logger = KotlinLogging.logger {}
 
 @Component
 class ApproveRequestResource(
   private val requestApprovalProcessBean: RequestApprovalProcessBean,
   private val userService: UserService
 ) : UserTaskApproveRequestApiDelegate {
-
-  companion object : KLogging()
 
   override fun loadTaskApproveRequestFormData(
     id: String,

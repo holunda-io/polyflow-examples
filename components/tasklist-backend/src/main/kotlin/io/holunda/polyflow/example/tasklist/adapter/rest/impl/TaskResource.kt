@@ -8,13 +8,15 @@ import io.holunda.polyflow.example.tasklist.adapter.rest.model.TaskWithDataEntri
 import io.holunda.polyflow.view.Task
 import io.holunda.polyflow.view.auth.User
 import io.holunda.polyflow.view.auth.UserService
-import mu.KLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.camunda.bpm.engine.variable.Variables
 import org.springframework.http.HttpHeaders
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Component
 import java.time.OffsetDateTime
 import java.util.*
+
+private val logger = KotlinLogging.logger {}
 
 @Component
 class TaskResource(
@@ -23,7 +25,7 @@ class TaskResource(
   private val mapper: TaskWithDataEntriesMapper
 ) : TaskApiDelegate {
 
-  companion object : KLogging() {
+  companion object {
     const val HEADER_ELEMENT_COUNT = "X-ElementCount"
   }
 

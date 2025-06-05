@@ -3,13 +3,15 @@ package io.holunda.camunda.taskpool.cockpit.rest.impl
 import io.holunda.camunda.taskpool.api.task.DeleteTaskCommand
 import io.holunda.camunda.taskpool.cockpit.rest.Rest
 import io.holunda.camunda.taskpool.cockpit.service.TaskPoolCockpitService
-import mu.KLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.axonframework.commandhandling.gateway.CommandGateway
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Mono
+
+private val logger = KotlinLogging.logger {}
 
 /**
  * Task operation controller.
@@ -20,8 +22,6 @@ class CockpitTaskOperationController(
   private val gateway: CommandGateway,
   private val cockpitService: TaskPoolCockpitService
 ) {
-
-  companion object : KLogging()
 
   /**
    * Send a command for a specific task.

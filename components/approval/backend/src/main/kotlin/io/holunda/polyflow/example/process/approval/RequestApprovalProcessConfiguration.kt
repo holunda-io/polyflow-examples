@@ -15,7 +15,7 @@ import io.holunda.polyflow.taskpool.EnableTaskpoolEngineSupport
 import io.holunda.polyflow.taskpool.collector.task.enricher.*
 import io.holunda.polyflow.taskpool.sender.gateway.CommandErrorHandler
 import io.holunda.polyflow.taskpool.sender.gateway.LoggingTaskCommandErrorHandler
-import mu.KLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.axonframework.commandhandling.CommandResultMessage
 import org.camunda.bpm.spring.boot.starter.annotation.EnableProcessApplication
 import org.springframework.boot.autoconfigure.domain.EntityScan
@@ -24,6 +24,8 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Import
 import org.springframework.context.annotation.Primary
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories
+
+private val logger = KotlinLogging.logger {}
 
 @Configuration
 @EnableProcessApplication
@@ -37,8 +39,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories
   ProcessApproveRequestSPAConfiguration::class
 )
 class RequestApprovalProcessConfiguration {
-
-  companion object : KLogging()
 
   @Bean
   fun processVariablesFilter(): ProcessVariablesFilter = ProcessVariablesFilter(

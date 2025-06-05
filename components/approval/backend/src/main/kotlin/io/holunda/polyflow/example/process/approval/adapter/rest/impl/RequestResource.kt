@@ -16,13 +16,15 @@ import io.holunda.polyflow.view.auth.User
 import io.holunda.polyflow.view.auth.UserService
 import io.holunda.polyflow.view.query.data.DataEntriesForUserQuery
 import io.holunda.polyflow.view.query.data.DataEntriesQueryResult
-import mu.KLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.axonframework.messaging.GenericMessage
 import org.axonframework.queryhandling.QueryGateway
 import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.noContent
 import org.springframework.http.ResponseEntity.ok
 import org.springframework.stereotype.Component
+
+private val logger = KotlinLogging.logger {}
 
 @Component
 class RequestResource(
@@ -32,9 +34,6 @@ class RequestResource(
   private val queryGateway: QueryGateway,
   private val objectMapper: ObjectMapper
 ) : RequestApiDelegate {
-
-  companion object : KLogging()
-
 
   override fun startNewApproval(
     xCurrentUserID: String,

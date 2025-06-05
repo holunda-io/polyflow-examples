@@ -1,17 +1,18 @@
 package io.holunda.polyflow.example.process.approval.service
 
+import io.github.oshai.kotlinlogging.KotlinLogging
 import io.holixon.axon.gateway.query.QueryResponseMessageResponseType
 import io.holunda.polyflow.example.users.UserStoreService
 import io.holunda.polyflow.view.ProcessInstanceState
 import io.holunda.polyflow.view.query.process.ProcessInstanceQueryResult
 import io.holunda.polyflow.view.query.process.ProcessInstancesByStateQuery
-import mu.KLogging
 import org.axonframework.queryhandling.QueryGateway
 import org.springframework.boot.ApplicationRunner
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
+private val logger = KotlinLogging.logger {}
 
 @Configuration
 class SystemInfoPrinter(
@@ -20,16 +21,14 @@ class SystemInfoPrinter(
   private val queryGateway: QueryGateway
 ) {
 
-  companion object : KLogging()
-
   @Bean
   fun requestPrinter(): ApplicationRunner {
     return ApplicationRunner {
       try {
         val requests = requestService.getAllRequests(1)
-        logger.info("Found ${requests.size} requests.")
+        logger.info { "Found ${requests.size} requests." }
         requests.forEach {
-          logger.info("Request $it")
+          logger.info { "Request $it" }
         }
       } catch (e: Exception) {
         logger.error(e) { "Error loading requests" }
