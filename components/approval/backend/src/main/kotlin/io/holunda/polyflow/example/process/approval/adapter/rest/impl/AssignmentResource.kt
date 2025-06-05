@@ -4,7 +4,7 @@ import io.holunda.polyflow.example.process.approval.process.AssignmentCommand
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcessBean
 import io.holunda.polyflow.example.process.approval.adapter.rest.api.UserTaskAssignmentApiDelegate
 import io.holunda.polyflow.example.process.approval.adapter.rest.model.TaskAssignmentDto
-import mu.KLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.axonframework.commandhandling.CommandMessage
 import org.axonframework.commandhandling.CommandResultMessage
 import org.axonframework.commandhandling.gateway.CommandGateway
@@ -12,13 +12,13 @@ import org.springframework.http.ResponseEntity
 import org.springframework.http.ResponseEntity.noContent
 import org.springframework.stereotype.Component
 
+private val logger = KotlinLogging.logger {}
+
 @Component
 class AssignmentResource(
   private val requestApprovalProcessBean: RequestApprovalProcessBean,
   private val commandGateway: CommandGateway
 ) : UserTaskAssignmentApiDelegate {
-
-  companion object : KLogging()
 
   override fun submitTaskAssignmentChange(
     taskId: String,
