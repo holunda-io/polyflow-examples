@@ -3,10 +3,12 @@ package io.holunda.polyflow.example.process.approval.schedule
 import io.holunda.polyflow.example.process.approval.process.RequestApprovalProcessBean
 import io.holunda.polyflow.example.process.approval.service.RequestService
 import io.holunda.polyflow.example.process.approval.service.BusinessDataEntry
-import mu.KLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.camunda.bpm.spring.boot.starter.event.PostDeployEvent
 import org.springframework.context.event.EventListener
 import org.springframework.stereotype.Component
+
+private val logger = KotlinLogging.logger {}
 
 /**
  * This configuration makes sure that some processes are started directly
@@ -19,7 +21,7 @@ class PrefillingConfiguration(
   private val requestService: RequestService
 ) {
 
-  companion object : KLogging() {
+  companion object {
     const val MIN_INSTANCES = 1L
   }
 

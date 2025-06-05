@@ -4,7 +4,7 @@ import io.holunda.polyflow.example.process.approval.process.RequestApprovalProce
 import io.holunda.polyflow.example.process.approval.service.RequestService
 import io.holunda.polyflow.example.process.approval.service.BusinessDataEntry
 import io.holunda.polyflow.example.users.UserStoreService
-import mu.KLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
@@ -19,14 +19,14 @@ import java.util.concurrent.atomic.AtomicLong
 @Profile("scheduled-processes")
 class ScheduledConfiguration
 
+private val logger = KotlinLogging.logger {}
+
 @Component
 class ScheduledStarter(
   private val processApprovalProcessBean: RequestApprovalProcessBean,
   private val requestService: RequestService,
   private val userStoreService: UserStoreService
 ) {
-
-  companion object : KLogging()
 
   @Value("\${scheduled-processes.limit:1000}")
   private var limit: Long = 999

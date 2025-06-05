@@ -5,7 +5,7 @@ import io.holunda.camunda.taskpool.cockpit.rest.mapper.TaskEventMapper
 import io.holunda.camunda.taskpool.cockpit.rest.model.TaskEventDto
 import io.holunda.camunda.taskpool.cockpit.service.QueryTaskEvents
 import io.holunda.camunda.taskpool.cockpit.service.TaskEventWithMetaData
-import mu.KLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.axonframework.queryhandling.QueryGateway
 import org.axonframework.queryhandling.SubscriptionQueryResult
@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Flux
+
+private val logger = KotlinLogging.logger {}
 
 /**
  * Task event controller.
@@ -24,8 +26,6 @@ class CockpitTasksController(
   private val queryGateway: QueryGateway,
   private val mapper: TaskEventMapper
 ) {
-
-  companion object : KLogging()
 
   /**
    * Retrieves all task events.

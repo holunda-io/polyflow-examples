@@ -8,7 +8,7 @@ import io.holunda.polyflow.view.TaskWithDataEntries
 import io.holunda.polyflow.view.auth.UserService
 import io.holunda.polyflow.view.query.task.TasksWithDataEntriesForUserQuery
 import io.holunda.polyflow.view.query.task.TasksWithDataEntriesQueryResult
-import mu.KLogging
+import io.github.oshai.kotlinlogging.KotlinLogging
 import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.axonframework.queryhandling.QueryGateway
 import org.axonframework.queryhandling.SubscriptionQueryResult
@@ -18,6 +18,8 @@ import reactor.core.publisher.Flux
 import java.util.*
 import jakarta.validation.constraints.NotNull
 import jakarta.validation.constraints.Pattern
+
+private val logger = KotlinLogging.logger {}
 
 /**
  * Reactive controller delivering tasks.
@@ -30,8 +32,6 @@ class ReactiveTasksController(
   private val queryGateway: QueryGateway,
   private val mapper: TaskWithDataEntriesMapper
 ) {
-
-  companion object : KLogging()
 
   @GetMapping(path = ["/tasks"], produces = [MediaType.TEXT_EVENT_STREAM_VALUE, MediaType.APPLICATION_JSON_VALUE])
   fun getTasks(
