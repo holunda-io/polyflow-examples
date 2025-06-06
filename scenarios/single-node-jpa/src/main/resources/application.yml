@@ -124,6 +124,7 @@ polyflow:
     jpa:
       payload-attribute-level-limit: 2
       stored-items: task, process-instance, process-definition, data-entry
+      include-correlated-data-entries-in-data-entry-queries: true
 
 
 logging.level:
