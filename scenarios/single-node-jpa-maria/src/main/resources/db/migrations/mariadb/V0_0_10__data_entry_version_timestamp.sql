@@ -1,0 +1,1 @@
+alter table plf_data_entry add column version_timestamp bigint
