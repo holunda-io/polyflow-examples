@@ -7,6 +7,7 @@ import io.holunda.polyflow.example.infrastructure.webmvc.Web.STATIC_RESOURCES_SH
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.io.Resource
+import org.springframework.core.io.UrlResource
 import org.springframework.http.CacheControl
 import org.springframework.http.HttpMethod
 import org.springframework.web.servlet.config.annotation.CorsRegistry
@@ -52,6 +53,7 @@ class ProcessApproveRequestSPAConfiguration(
     val routes = ROUTES.map { "/$applicationName$it" }.toTypedArray()
     registry
       .addResourceHandler(*routes)
+      // Resource location is not actually used, but has to be provided in order for the resolver to be called.
       .addResourceLocations("${RESOURCE_LOCATION}index.html")
       .resourceChain(true)
       .addResolver(LocationAwarePathResourceResolver())
@@ -101,7 +103,7 @@ class ProcessApproveRequestSPAConfiguration(
       return if (location.exists() && location.isReadable) {
         location
       } else {
-        null
+        UrlResource("${RESOURCE_LOCATION}index.html")
       }
     }
   }
