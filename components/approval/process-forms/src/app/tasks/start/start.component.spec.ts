@@ -11,8 +11,9 @@ import {ApprovalRequestDraft} from 'process/models/approval-request-draft';
 import {RequestFormComponent} from 'app/components/request-form/request-form.component';
 
 @Component({
-  selector: 'app-request',
-  template: '',
+    selector: 'app-request',
+    template: '',
+    standalone: false
 })
 export class StubRequestComponent {
   @Input()

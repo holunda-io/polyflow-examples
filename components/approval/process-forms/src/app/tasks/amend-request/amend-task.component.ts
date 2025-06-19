@@ -8,9 +8,10 @@ import { ApprovalRequest } from 'process/models/approval-request';
 import { Task } from 'process/models/task';
 
 @Component({
-  selector: 'app-task-amend',
-  templateUrl: './amend-task.component.html',
-  styleUrls: [ '../tasks.component.scss' ]
+    selector: 'app-task-amend',
+    templateUrl: './amend-task.component.html',
+    styleUrls: ['../tasks.component.scss'],
+    standalone: false
 })
 export class AmendTaskComponent {
 

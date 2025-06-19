@@ -7,9 +7,10 @@ import {ApprovalRequest} from 'process/models/approval-request';
 
 
 @Component({
-  selector: 'app-approval-request',
-  templateUrl: './approval-request.component.html',
-  styleUrls: ['./approval-request.component.scss']
+    selector: 'app-approval-request',
+    templateUrl: './approval-request.component.html',
+    styleUrls: ['./approval-request.component.scss'],
+    standalone: false
 })
 export class ApprovalRequestComponent {
 

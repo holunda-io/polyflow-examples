@@ -7,9 +7,10 @@ import * as ApprovalRequestDraftSamples from 'app/data/approval-request-draft';
 
 
 @Component({
-  selector: 'app-start',
-  templateUrl: './start.component.html',
-  styleUrls: ['../tasks.component.scss']
+    selector: 'app-start',
+    templateUrl: './start.component.html',
+    styleUrls: ['../tasks.component.scss'],
+    standalone: false
 })
 export class StartComponent {
 
