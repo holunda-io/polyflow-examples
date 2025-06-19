@@ -24,7 +24,7 @@ import { SharedModule } from 'app/shared/shared.module';
 import { DataEntryModule } from 'app/dataentry/dataentry.module';
 import { TaskModule } from 'app/task/task.module';
 import { storePersist } from 'app/store-persist';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { ApiConfiguration } from 'tasklist/api-configuration';
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 
@@ -45,7 +45,6 @@ registerLocaleData(localeEn, 'en');
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    HttpClientModule,
     FormsModule,
     AppRoutingModule,
     NgbModule,
@@ -66,7 +65,8 @@ registerLocaleData(localeEn, 'en');
   ],
   bootstrap: [AppComponent],
   providers: [
-    {provide: ApiConfiguration, useValue: {rootUrl: '/polyflow-platform/rest'}}
+    {provide: ApiConfiguration, useValue: {rootUrl: '/polyflow-platform/rest'}},
+        provideHttpClient(withInterceptorsFromDi())
   ]
 })
 export class AppModule {
