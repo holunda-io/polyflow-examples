@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 4201",
+    "start": "ng serve",
     "build": "ng build",
     "test": "ng test --code-coverage --watch=false --browsers=ChromeHeadless",
     "generate-sources": "ng-openapi-gen -i ../backend/src/main/api/openapi.yml -o ./src-gen/process",
