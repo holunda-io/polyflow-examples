@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { DataentryStoreService } from 'app/dataentry/state/dataentry.store-service';
 
 @Component({
-  selector: 'tasks-data-entry-list',
-  templateUrl: './dataentry-list.component.html',
-  styleUrls: ['dataentry-list.component.scss']
+    selector: 'tasks-data-entry-list',
+    templateUrl: './dataentry-list.component.html',
+    styleUrls: ['dataentry-list.component.scss'],
+    standalone: false
 })
 export class DataentryListComponent {
 

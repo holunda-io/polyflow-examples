@@ -1,7 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'fieldName'
+    name: 'fieldName',
+    standalone: false
 })
 export class FieldNamePipe implements PipeTransform {
 

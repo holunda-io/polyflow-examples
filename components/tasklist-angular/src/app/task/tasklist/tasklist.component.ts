@@ -5,9 +5,10 @@ import { UserStoreService } from 'app/user/state/user.store-service';
 import { Task } from 'tasklist/models';
 
 @Component({
-  selector: 'tasks-tasklist',
-  templateUrl: './tasklist.component.html',
-  styleUrls: ['tasklist.component.scss']
+    selector: 'tasks-tasklist',
+    templateUrl: './tasklist.component.html',
+    styleUrls: ['tasklist.component.scss'],
+    standalone: false
 })
 export class TasklistComponent {
 

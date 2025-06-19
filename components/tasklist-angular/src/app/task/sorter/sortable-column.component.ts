@@ -4,10 +4,11 @@ import { TaskStoreService } from 'app/task/state/task.store-service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  // eslint-disable-next-line @angular-eslint/component-selector
-  selector: '[tasks-sortable-column]',
-  templateUrl: './sortable-column.component.html',
-  styleUrls: []
+    // eslint-disable-next-line @angular-eslint/component-selector
+    selector: '[tasks-sortable-column]',
+    templateUrl: './sortable-column.component.html',
+    styleUrls: [],
+    standalone: false
 })
 export class SortableColumnComponent implements OnInit, OnDestroy {
 
