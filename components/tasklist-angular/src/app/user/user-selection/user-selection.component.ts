@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { UserStoreService } from '../state/user.store-service';
 
 @Component({
-  selector: 'tasks-user-selection',
-  templateUrl: './user-selection.component.html',
-  styleUrls: ['./user-selection.component.scss']
+    selector: 'tasks-user-selection',
+    templateUrl: './user-selection.component.html',
+    styleUrls: ['./user-selection.component.scss'],
+    standalone: false
 })
 export class UserSelectionComponent {
 

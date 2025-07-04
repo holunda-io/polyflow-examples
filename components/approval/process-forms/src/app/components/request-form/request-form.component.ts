@@ -4,9 +4,10 @@ import * as ApprovalRequestDraftSamples from 'app/data/approval-request-draft';
 import { ApprovalRequestDraft } from 'process/models/approval-request-draft';
 
 @Component({
-  selector: 'app-request-form',
-  templateUrl: './request-form.component.html',
-  styleUrls: []
+    selector: 'app-request-form',
+    templateUrl: './request-form.component.html',
+    styleUrls: [],
+    standalone: false
 })
 export class RequestFormComponent implements OnInit {
 

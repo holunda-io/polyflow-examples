@@ -8,9 +8,10 @@ import { EnvironmentHelperService } from 'app/services/environment.helper.servic
 import { Environment } from 'process/models/environment';
 
 @Component({
-  selector: 'app-task-approve',
-  templateUrl: './approve-task.component.html',
-  styleUrls: ['../tasks.component.scss']
+    selector: 'app-task-approve',
+    templateUrl: './approve-task.component.html',
+    styleUrls: ['../tasks.component.scss'],
+    standalone: false
 })
 export class ApproveTaskComponent {
 

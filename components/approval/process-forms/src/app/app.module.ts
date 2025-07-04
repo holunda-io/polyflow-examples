@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ApiModule } from 'process/api.module';
 import { AppComponent } from 'app/app.component';
 import { AppRoutingModule } from 'app/app-routing.module';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 
 import { AmendTaskComponent } from 'app/tasks/amend-request/amend-task.component';
 import { ApprovalRequestComponent } from 'app/data/approval-request/approval-request.component';
@@ -20,58 +20,52 @@ import { RequestViewComponent } from 'app/components/request-view/request-view.c
 import { StartComponent } from 'app/tasks/start/start.component';
 
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    /**
-     * Start form
-     */
-    StartComponent,
-    /**
-     * 404
-     */
-    PageNotFoundComponent,
-    /**
-     * "Approve request" user task form
-     */
-    ApproveTaskComponent,
-    /**
-     * "Amend request" user task form
-     */
-    AmendTaskComponent,
-    /**
-     * "Approval request" BO view
-     */
-    ApprovalRequestComponent,
-    /**
-     * Redirecter
-     */
-    ExternalUrlDirective,
-    /**
-     * Content component to enter "Approval request"
-     */
-    RequestFormComponent,
-    /**
-     * Content component to view "Approval request"
-     */
-    RequestViewComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    NgbModule,
-    ReactiveFormsModule,
-    // generated server API
-    ApiModule,
-    // routing
-    AppRoutingModule,
-    HttpClientModule
-  ],
-  providers: [
-    EnvironmentHelperService
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        /**
+         * Start form
+         */
+        StartComponent,
+        /**
+         * 404
+         */
+        PageNotFoundComponent,
+        /**
+         * "Approve request" user task form
+         */
+        ApproveTaskComponent,
+        /**
+         * "Amend request" user task form
+         */
+        AmendTaskComponent,
+        /**
+         * "Approval request" BO view
+         */
+        ApprovalRequestComponent,
+        /**
+         * Redirecter
+         */
+        ExternalUrlDirective,
+        /**
+         * Content component to enter "Approval request"
+         */
+        RequestFormComponent,
+        /**
+         * Content component to view "Approval request"
+         */
+        RequestViewComponent
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        NgbModule,
+        ReactiveFormsModule,
+        // generated server API
+        ApiModule,
+        // routing
+        AppRoutingModule], providers: [
+        EnvironmentHelperService,
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule {
 }

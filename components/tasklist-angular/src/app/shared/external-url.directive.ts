@@ -4,7 +4,8 @@ import { UserStoreService } from 'app/user/state/user.store-service';
 import { Subscription } from 'rxjs';
 
 @Directive({
-  selector: 'a[tasksExternalUrl]',
+    selector: 'a[tasksExternalUrl]',
+    standalone: false
 })
 export class ExternalUrlDirective implements OnDestroy {
 

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 @Directive({
     selector: 'a[appExternalUrl]',
+    standalone: false
 })
 export class ExternalUrlDirective {
     constructor(private el: ElementRef, private router: Router) {}
