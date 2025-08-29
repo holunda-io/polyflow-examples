@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ProcessStoreService } from 'app/process/state/process.store-service';
 
 @Component({
@@ -8,11 +8,8 @@ import { ProcessStoreService } from 'app/process/state/process.store-service';
     standalone: false
 })
 export class ProcesslistComponent {
+  private processStore = inject(ProcessStoreService);
+
 
   processes$ = this.processStore.startableProcesses$;
-
-  constructor(
-    private processStore: ProcessStoreService
-  ) {
-  }
 }

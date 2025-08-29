@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, OnDestroy } from '@angular/core';
+import { Directive, ElementRef, HostListener, OnDestroy, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserStoreService } from 'app/user/state/user.store-service';
 import { Subscription } from 'rxjs';
@@ -8,11 +8,15 @@ import { Subscription } from 'rxjs';
     standalone: false
 })
 export class ExternalUrlDirective implements OnDestroy {
+  private el = inject(ElementRef);
+  private router = inject(Router);
+  private userStore = inject(UserStoreService);
+
 
   private userId: string;
   private _sub: Subscription;
 
-  constructor(private el: ElementRef, private router: Router, private userStore: UserStoreService) {
+  constructor() {
     this._sub = this.userStore.userId$.subscribe(userId => this.userId = userId);
   }
 

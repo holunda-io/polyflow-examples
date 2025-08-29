@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { itemsPerPage } from 'app/task/state/task.selectors';
 import { TaskStoreService } from 'app/task/state/task.store-service';
 import { UserStoreService } from 'app/user/state/user.store-service';
@@ -11,6 +11,9 @@ import { Task } from 'tasklist/models';
     standalone: false
 })
 export class TasklistComponent {
+  private taskStore = inject(TaskStoreService);
+  private userStore = inject(UserStoreService);
+
 
   currentDataTab = 'description';
   itemsPerPage = itemsPerPage;
@@ -19,11 +22,6 @@ export class TasklistComponent {
   page = this.taskStore.selectedPage$;
   currentProfile$ = this.userStore.currentUserProfile$;
   tasks = this.taskStore.tasks$;
-
-  constructor(
-    private taskStore: TaskStoreService,
-    private userStore: UserStoreService
-  ) { }
 
   claim($event, task: Task) {
     this.taskStore.claim(task);

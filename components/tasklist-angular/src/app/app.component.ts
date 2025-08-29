@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import {UserStoreService} from 'app/user/state/user.store-service';
 
 @Component({
@@ -8,9 +8,8 @@ import {UserStoreService} from 'app/user/state/user.store-service';
     standalone: false
 })
 export class AppComponent implements OnInit {
+  private userStore = inject(UserStoreService);
 
-  constructor(private userStore: UserStoreService) {
-  }
 
   ngOnInit(): void {
     this.userStore.loadInitialUser();

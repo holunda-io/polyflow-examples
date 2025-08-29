@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
   claimTask,
@@ -20,12 +20,11 @@ import { TaskService } from 'tasklist/services';
 
 @Injectable()
 export class TaskEffects {
-  public constructor(
-    private taskService: TaskService,
-    private userStore: UserStoreService,
-    private taskStore: TaskStoreService,
-    private actions$: Actions) {
-  }
+  private taskService = inject(TaskService);
+  private userStore = inject(UserStoreService);
+  private taskStore = inject(TaskStoreService);
+  private actions$ = inject(Actions);
+
 
   loadTasksOnUserSelect$ = createEffect(() => this.actions$.pipe(
     ofType(selectUser),

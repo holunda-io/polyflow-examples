@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { DataentryStoreService } from 'app/dataentry/state/dataentry.store-service';
 
 @Component({
@@ -8,16 +8,14 @@ import { DataentryStoreService } from 'app/dataentry/state/dataentry.store-servi
     standalone: false
 })
 export class DataentryListComponent {
+  private dataEntryStore = inject(DataentryStoreService);
+
 
   dataEntries$ = this.dataEntryStore.dataEntries$;
   currentDataTab = 'description';
   itemsPerPage: number;
   totalItems: any;
   page: number;
-
-  constructor(
-    private dataEntryStore: DataentryStoreService,
-  ) { }
 
   toFieldSet(payload: any) {
     const payloadProps = Object.keys(payload);

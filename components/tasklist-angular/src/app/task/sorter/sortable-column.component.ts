@@ -1,4 +1,4 @@
-import { Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnDestroy, OnInit, inject } from '@angular/core';
 import { Field, SortDirection } from 'app/task/state/task.reducer';
 import { TaskStoreService } from 'app/task/state/task.store-service';
 import { Subscription } from 'rxjs';
@@ -11,6 +11,8 @@ import { Subscription } from 'rxjs';
     standalone: false
 })
 export class SortableColumnComponent implements OnInit, OnDestroy {
+  private taskStore = inject(TaskStoreService);
+
 
   @Input('tasks-sortable-column')
   fieldName: string;
@@ -24,9 +26,6 @@ export class SortableColumnComponent implements OnInit, OnDestroy {
   toggle() {
     const newDirection = this.direction === SortDirection.ASC ? SortDirection.DESC : SortDirection.ASC;
     this.taskStore.updateSortingColumn({ fieldName: this.fieldName, direction: newDirection });
-  }
-
-  constructor(private taskStore: TaskStoreService) {
   }
 
   ngOnInit() {

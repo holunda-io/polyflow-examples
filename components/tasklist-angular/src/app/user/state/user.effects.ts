@@ -1,5 +1,5 @@
 import { TitleCasePipe } from '@angular/common';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { UserStoreService } from 'app/user/state/user.store-service';
 import { filter, map, mergeMap, withLatestFrom } from 'rxjs/operators';
@@ -16,12 +16,10 @@ import { UserProfile } from './user.reducer';
 
 @Injectable()
 export class UserEffects {
+  private profileService = inject(ProfileService);
+  private userStore = inject(UserStoreService);
+  private actions$ = inject(Actions);
 
-  public constructor(
-    private profileService: ProfileService,
-    private userStore: UserStoreService,
-    private actions$: Actions) {
-  }
 
   loadAvailableUserIds$ = createEffect(() => this.actions$.pipe(
     ofType(loadAvailableUsers),
