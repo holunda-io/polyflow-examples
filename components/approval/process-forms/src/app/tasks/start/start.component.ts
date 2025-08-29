@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RequestService } from 'process/services/request.service';
 import { EnvironmentHelperService } from 'app/services/environment.helper.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,6 +13,10 @@ import * as ApprovalRequestDraftSamples from 'app/data/approval-request-draft';
     standalone: false
 })
 export class StartComponent {
+  private client = inject(RequestService);
+  private envProvider = inject(EnvironmentHelperService);
+  private router = inject(Router);
+
 
   approvalRequestDraft = ApprovalRequestDraftSamples.empty;
 
@@ -23,12 +27,9 @@ export class StartComponent {
   userId: string;
   valid = true;
 
-  constructor(
-    private client: RequestService,
-    private envProvider: EnvironmentHelperService,
-    private router: Router,
-    route: ActivatedRoute
-  ) {
+  constructor() {
+    const route = inject(ActivatedRoute);
+
     this.userId = route.snapshot.queryParams['userId'];
     this.envProvider.env().subscribe(e => this.environment = e);
   }

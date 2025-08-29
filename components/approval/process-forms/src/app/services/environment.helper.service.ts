@@ -1,14 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { Environment } from 'process/models/environment';
 import { EnvironmentService } from 'process/services/environment.service';
 
 @Injectable()
 export class EnvironmentHelperService {
+  private environmentService = inject(EnvironmentService);
+
 
   private environmentSubject: BehaviorSubject<Environment> = new BehaviorSubject<Environment>(this.none());
 
-  constructor(private environmentService: EnvironmentService) {
+  constructor() {
     this.environmentService.getEnvironment().subscribe(
       (environment) => {
         this.environmentSubject.next(environment);

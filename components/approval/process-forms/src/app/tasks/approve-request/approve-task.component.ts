@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApprovalRequest } from 'process/models/approval-request';
 import { UserTaskApproveRequestService } from 'process/services/user-task-approve-request.service';
@@ -14,13 +14,14 @@ import { Environment } from 'process/models/environment';
     standalone: false
 })
 export class ApproveTaskComponent {
+  private client = inject(UserTaskApproveRequestService);
+  private router = inject(Router);
+  private envProvider = inject(EnvironmentHelperService);
 
-  constructor(
-    private client: UserTaskApproveRequestService,
-    route: ActivatedRoute,
-    private router: Router,
-    private envProvider: EnvironmentHelperService
-  ) {
+
+  constructor() {
+    const route = inject(ActivatedRoute);
+
     const taskId: string = route.snapshot.paramMap.get('taskId');
     this.userId = route.snapshot.queryParams['userId'];
 
