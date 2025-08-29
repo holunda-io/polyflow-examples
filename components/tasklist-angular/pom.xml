@@ -103,10 +103,10 @@
                 <configuration>
                   <resources>
                     <resource>
-                      <directory>${project.basedir}/dist</directory>
+                      <directory>${project.basedir}/dist/polyflow/browser</directory>
                     </resource>
                   </resources>
-                  <outputDirectory>${project.build.directory}/classes/static</outputDirectory>
+                  <outputDirectory>${project.build.directory}/classes/static/polyflow</outputDirectory>
                 </configuration>
               </execution>
             </executions>

@@ -104,10 +104,10 @@
                 <configuration>
                   <resources>
                     <resource>
-                      <directory>${project.basedir}/dist</directory>
+                      <directory>${project.basedir}/dist/example-process-approval/browser</directory>
                     </resource>
                   </resources>
-                  <outputDirectory>${project.build.directory}/classes/static</outputDirectory>
+                  <outputDirectory>${project.build.directory}/classes/static/example-process-approval</outputDirectory>
                 </configuration>
               </execution>
             </executions>
