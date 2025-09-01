@@ -10,10 +10,11 @@ import { ProcessService } from 'tasklist/services';
 
 @Injectable()
 export class ProcessEffects {
-  private processService = inject(ProcessService);
-  private userStore = inject(UserStoreService);
-  private actions$ = inject(Actions);
-
+  public constructor(
+    private processService: ProcessService,
+    private userStore: UserStoreService,
+    private actions$: Actions) {
+  }
 
   loadProcessesOnUserSelect = createEffect(() => this.actions$.pipe(
     ofType(selectUser),

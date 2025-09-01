@@ -7,8 +7,8 @@ import { Field } from './task.reducer';
 
 @Injectable()
 export class TaskStoreService {
-  private store = inject<Store<StateWithTasks>>(Store);
-
+  constructor(private store: Store<StateWithTasks>) {
+  }
 
   loadTasks() {
     this.store.dispatch(loadTasks());

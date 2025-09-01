@@ -16,10 +16,11 @@ import { UserProfile } from './user.reducer';
 
 @Injectable()
 export class UserEffects {
-  private profileService = inject(ProfileService);
-  private userStore = inject(UserStoreService);
-  private actions$ = inject(Actions);
-
+  public constructor(
+    private profileService: ProfileService,
+    private userStore: UserStoreService,
+    private actions$: Actions) {
+  }
 
   loadAvailableUserIds$ = createEffect(() => this.actions$.pipe(
     ofType(loadAvailableUsers),

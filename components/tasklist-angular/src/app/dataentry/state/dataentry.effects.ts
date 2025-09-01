@@ -12,10 +12,11 @@ import { StrictHttpResponse } from 'tasklist/strict-http-response';
 
 @Injectable()
 export class DataentryEffects {
-  private businessDataService = inject(BusinessDataService);
-  private userStore = inject(UserStoreService);
-  private actions$ = inject(Actions);
-
+  public constructor(
+    private businessDataService: BusinessDataService,
+    private userStore: UserStoreService,
+    private actions$: Actions) {
+  }
 
   loadDataEntriesOnUserSelect = createEffect(() => this.actions$.pipe(
     ofType(selectUser),

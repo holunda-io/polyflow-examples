@@ -5,8 +5,9 @@ import { StateWithProcesses, startableProcesses } from './process.selectors';
 
 @Injectable()
 export class ProcessStoreService {
-  private store = inject<Store<StateWithProcesses>>(Store);
-
+  constructor(
+    private store: Store<StateWithProcesses>
+  ) { }
 
   startableProcesses$ = this.store.select(startableProcesses);
 

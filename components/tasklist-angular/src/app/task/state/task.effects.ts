@@ -20,11 +20,12 @@ import { TaskService } from 'tasklist/services';
 
 @Injectable()
 export class TaskEffects {
-  private taskService = inject(TaskService);
-  private userStore = inject(UserStoreService);
-  private taskStore = inject(TaskStoreService);
-  private actions$ = inject(Actions);
-
+  public constructor(
+    private taskService: TaskService,
+    private userStore: UserStoreService,
+    private taskStore: TaskStoreService,
+    private actions$: Actions) {
+  }
 
   loadTasksOnUserSelect$ = createEffect(() => this.actions$.pipe(
     ofType(selectUser),
