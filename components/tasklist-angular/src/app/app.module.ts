@@ -20,7 +20,7 @@ import { UserModule } from 'app/user/user.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { ProcessModule } from 'app/process/process.module';
-import { SharedModule } from 'app/shared/shared.module';
+
 import { DataEntryModule } from 'app/dataentry/dataentry.module';
 import { TaskModule } from 'app/task/task.module';
 import { storePersist } from 'app/store-persist';
@@ -37,30 +37,29 @@ registerLocaleData(localeEn, 'en');
 @NgModule({
     declarations: [AppComponent],
     imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        AppRoutingModule,
-        NgbModule,
-        StoreModule.forRoot({}, {
-            metaReducers: [storePersist],
-            runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true }
-        }),
-        EffectsModule.forRoot([]),
-        StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-        // generated
-        ApiModule,
-        // own
-        UserModule,
-        ProcessModule,
-        DataEntryModule,
-        TaskModule,
-        SharedModule,
-        PageNotFoundComponent,
-        FooterComponent,
-        HeaderComponent,
-        SearchComponent
-    ],
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    AppRoutingModule,
+    NgbModule,
+    StoreModule.forRoot({}, {
+        metaReducers: [storePersist],
+        runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true }
+    }),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    // generated
+    ApiModule,
+    // own
+    UserModule,
+    ProcessModule,
+    DataEntryModule,
+    TaskModule,
+    PageNotFoundComponent,
+    FooterComponent,
+    HeaderComponent,
+    SearchComponent
+],
     bootstrap: [AppComponent],
     providers: [
         { provide: ApiConfiguration, useValue: { rootUrl: '/polyflow-platform/rest' } },

@@ -10,21 +10,20 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {SortableColumnComponent} from 'app/task/sorter/sortable-column.component';
 import {FormsModule} from '@angular/forms';
 import {TaskStoreService} from 'app/task/state/task.store-service';
-import {SharedModule} from 'app/shared/shared.module';
+
 
 @NgModule({
     exports: [TasklistComponent],
     imports: [
-        CommonModule,
-        FormsModule,
-        StoreModule.forFeature('task', taskReducer),
-        EffectsModule.forFeature([TaskEffects]),
-        UserModule,
-        NgbModule,
-        SharedModule,
-        TasklistComponent,
-        SortableColumnComponent
-    ],
+    CommonModule,
+    FormsModule,
+    StoreModule.forFeature('task', taskReducer),
+    EffectsModule.forFeature([TaskEffects]),
+    UserModule,
+    NgbModule,
+    TasklistComponent,
+    SortableColumnComponent
+],
     providers: [
         TaskStoreService
     ]

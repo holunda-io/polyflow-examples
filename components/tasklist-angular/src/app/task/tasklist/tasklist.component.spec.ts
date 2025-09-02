@@ -1,17 +1,16 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { FormsModule } from '@angular/forms';
-import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
-import { provideMockStore } from '@ngrx/store/testing';
-import { ProcessStoreService } from 'app/process/state/process.store-service';
-import { SharedModule } from 'app/shared/shared.module';
-import { SortableColumnComponent } from 'app/task/sorter/sortable-column.component';
-import { SortDirection } from 'app/task/state/task.reducer';
-import { currentUserProfile } from 'app/user/state/user.selectors';
-import { UserStoreService } from 'app/user/state/user.store-service';
-import { getCount, getSelectedPage, getSortingColumn, getTasks } from '../state/task.selectors';
-import { TaskStoreService } from '../state/task.store-service';
-import { TasklistComponent } from './tasklist.component';
+import {FormsModule} from '@angular/forms';
+import {NgbPagination} from '@ng-bootstrap/ng-bootstrap';
+import {provideMockStore} from '@ngrx/store/testing';
+import {ProcessStoreService} from 'app/process/state/process.store-service';
+import {SortableColumnComponent} from 'app/task/sorter/sortable-column.component';
+import {SortDirection} from 'app/task/state/task.reducer';
+import {currentUserProfile} from 'app/user/state/user.selectors';
+import {UserStoreService} from 'app/user/state/user.store-service';
+import {getCount, getSelectedPage, getSortingColumn, getTasks} from '../state/task.selectors';
+import {TaskStoreService} from '../state/task.store-service';
+import {TasklistComponent} from './tasklist.component';
 
 describe('Component: TasklistComponent', () => {
 
@@ -23,7 +22,6 @@ describe('Component: TasklistComponent', () => {
     TestBed.configureTestingModule({
     imports: [
         FormsModule,
-        SharedModule,
         NgbPagination,
         TasklistComponent,
         SortableColumnComponent
