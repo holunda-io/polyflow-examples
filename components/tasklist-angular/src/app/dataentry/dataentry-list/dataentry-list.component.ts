@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { DataentryStoreService } from 'app/dataentry/state/dataentry.store-service';
 import { FormsModule } from '@angular/forms';
 import { NgFor, NgIf, AsyncPipe, DatePipe } from '@angular/common';
-import { ExternalUrlDirective } from '../../shared/external-url.directive';
+import { ExternalUrlDirective } from 'app/shared/external-url.directive';
 import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
 import { FieldNamePipe } from 'app/shared/field-name.pipe';
 

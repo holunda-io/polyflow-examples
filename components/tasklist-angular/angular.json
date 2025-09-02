@@ -3,7 +3,7 @@
   "cli": {
     "analytics": "59230b30-e5bd-412a-aba2-644c6a3e44a6",
     "schematicCollections": [
-      "@angular-eslint/schematics"
+      "angular-eslint"
     ]
   },
   "version": 1,

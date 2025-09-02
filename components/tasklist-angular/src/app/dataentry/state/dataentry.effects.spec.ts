@@ -31,7 +31,7 @@ describe('DataEntryEffects', () => {
   it('should load available users', (done) => {
     // given:
     const action = loadDataEntries();
-    const dataEntriesDtos: Array<DataEntry> = [
+    const dataEntriesDtos: DataEntry[] = [
       { name: 'foo', description: '', url: '', type: 'type', payload: {}, currentState: 'MY STATE', currentStateType: '', protocol: [] },
       { name: 'bar', description: '', url: '', type: 'type2', payload: {}, currentState: 'MY STATE2', currentStateType: '', protocol: [] }
     ];

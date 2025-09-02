@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { first } from 'rxjs/operators';
 import { loadAvailableUsers, selectUser } from './user.actions';
