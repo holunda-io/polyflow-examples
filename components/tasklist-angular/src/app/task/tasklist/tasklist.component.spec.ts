@@ -21,30 +21,28 @@ describe('Component: TasklistComponent', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         FormsModule,
         SharedModule,
-        NgbPagination
-      ],
-      declarations: [
+        NgbPagination,
         TasklistComponent,
         SortableColumnComponent
-      ],
-      providers: [
+    ],
+    providers: [
         TaskStoreService,
         UserStoreService,
         ProcessStoreService,
         provideMockStore({
-          selectors: [
-            { selector: getTasks, value: [] },
-            { selector: getCount, value: 0 },
-            { selector: getSelectedPage, value: 1 },
-            { selector: getSortingColumn, value: { fieldName: 'task.dueDate', direction: SortDirection.DESC } },
-            { selector: currentUserProfile, value: { username: '', userIdentifier: '', fullName: '' } },
-          ]
+            selectors: [
+                { selector: getTasks, value: [] },
+                { selector: getCount, value: 0 },
+                { selector: getSelectedPage, value: 1 },
+                { selector: getSortingColumn, value: { fieldName: 'task.dueDate', direction: SortDirection.DESC } },
+                { selector: currentUserProfile, value: { username: '', userIdentifier: '', fullName: '' } },
+            ]
         })
-      ],
-    }).compileComponents().then(() => {
+    ],
+}).compileComponents().then(() => {
       // create component and test fixture
       fixture = TestBed.createComponent(TasklistComponent);
 

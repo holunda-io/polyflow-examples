@@ -11,17 +11,17 @@ describe('UserSelectionComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [UserSelectionComponent],
-      providers: [
+    imports: [UserSelectionComponent],
+    providers: [
         UserStoreService,
         provideMockStore({
-          selectors: [
-            { selector: currentUserProfile, value: { username: '', userIdentifier: '', fullName: '' } },
-            { selector: availableUsers, value: [] }
-          ]
+            selectors: [
+                { selector: currentUserProfile, value: { username: '', userIdentifier: '', fullName: '' } },
+                { selector: availableUsers, value: [] }
+            ]
         })
-      ]
-    })
+    ]
+})
       .compileComponents();
   }));
 

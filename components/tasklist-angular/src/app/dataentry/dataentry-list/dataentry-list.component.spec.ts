@@ -17,23 +17,21 @@ describe('Component: DataentrylistComponent', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         FormsModule,
         SharedModule,
         NgbModule,
-      ],
-      declarations: [
-        DataentryListComponent
-      ],
-      providers: [
+        DataentryListComponent,
+    ],
+    providers: [
         DataentryStoreService,
         provideMockStore({
-          selectors: [
-            { selector: dataEntries, value: [] }
-          ]
+            selectors: [
+                { selector: dataEntries, value: [] }
+            ]
         }),
-      ],
-    }).compileComponents().then(() => {
+    ],
+}).compileComponents().then(() => {
       // create component and test fixture
       fixture = TestBed.createComponent(DataentryListComponent);
 

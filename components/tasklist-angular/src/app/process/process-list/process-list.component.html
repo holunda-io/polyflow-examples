@@ -1,10 +1,14 @@
-<div class="dropdown-menu" ngbDropdownMenu>
-  <a *ngFor="let process of (processes$ | async)"
-     tasksExternalUrl
-     class="dropdown-item"
-     data-toggle="tooltip"
-     data-placement="bottom"
-     title="{{ process.description }}"
-     [href]="process.url"
-  >{{ process.name }}</a>
+<div class="nav-item dropdown" ngbDropdown>
+  <div class="nav-link dropdown-toggle" ngbDropdownToggle>Start new...</div>
+
+  <div class="dropdown-menu" ngbDropdownMenu>
+    <a *ngFor="let process of (processes$ | async)"
+       tasksExternalUrl
+       class="dropdown-item"
+       data-toggle="tooltip"
+       data-placement="bottom"
+       title="{{ process.description }}"
+       [href]="process.url"
+    >{{ process.name }}</a>
+  </div>
 </div>

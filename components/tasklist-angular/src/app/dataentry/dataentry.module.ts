@@ -13,24 +13,22 @@ import {FormsModule} from '@angular/forms';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  declarations: [
-    DataentryListComponent
-  ],
-  exports: [
-    DataentryListComponent
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    EffectsModule.forFeature([DataentryEffects]),
-    StoreModule.forFeature('archive', dataentryReducer),
-    SharedModule,
-    UserModule,
-    NgbModule
-  ],
-  providers: [
-    DataentryStoreService,
-  ]
+    exports: [
+        DataentryListComponent
+    ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        EffectsModule.forFeature([DataentryEffects]),
+        StoreModule.forFeature('archive', dataentryReducer),
+        SharedModule,
+        UserModule,
+        NgbModule,
+        DataentryListComponent
+    ],
+    providers: [
+        DataentryStoreService,
+    ]
 })
 export class DataEntryModule {
 }

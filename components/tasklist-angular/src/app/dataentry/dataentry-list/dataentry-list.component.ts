@@ -1,11 +1,16 @@
 import { Component, inject } from '@angular/core';
 import { DataentryStoreService } from 'app/dataentry/state/dataentry.store-service';
+import { FormsModule } from '@angular/forms';
+import { NgFor, NgIf, AsyncPipe, DatePipe } from '@angular/common';
+import { ExternalUrlDirective } from '../../shared/external-url.directive';
+import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
+import { FieldNamePipe } from 'app/shared/field-name.pipe';
 
 @Component({
     selector: 'tasks-data-entry-list',
     templateUrl: './dataentry-list.component.html',
     styleUrls: ['dataentry-list.component.scss'],
-    standalone: false
+    imports: [FormsModule, NgFor, ExternalUrlDirective, NgIf, NgbPagination, AsyncPipe, DatePipe, FieldNamePipe]
 })
 export class DataentryListComponent {
   private dataEntryStore = inject(DataentryStoreService);

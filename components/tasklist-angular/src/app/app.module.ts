@@ -35,39 +35,37 @@ registerLocaleData(localeEn, 'en');
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    PageNotFoundComponent,
-    FooterComponent,
-    HeaderComponent,
-    SearchComponent
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    AppRoutingModule,
-    NgbModule,
-    StoreModule.forRoot({}, {
-      metaReducers: [storePersist],
-      runtimeChecks: {strictStateImmutability: true, strictActionImmutability: true}
-    }),
-    EffectsModule.forRoot([]),
-    StoreDevtoolsModule.instrument({maxAge: 25, logOnly: !isDevMode()}),
-    // generated
-    ApiModule,
-    // own
-    UserModule,
-    ProcessModule,
-    DataEntryModule,
-    TaskModule,
-    SharedModule
-  ],
-  bootstrap: [AppComponent],
-  providers: [
-    {provide: ApiConfiguration, useValue: {rootUrl: '/polyflow-platform/rest'}},
+    declarations: [AppComponent],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        AppRoutingModule,
+        NgbModule,
+        StoreModule.forRoot({}, {
+            metaReducers: [storePersist],
+            runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true }
+        }),
+        EffectsModule.forRoot([]),
+        StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+        // generated
+        ApiModule,
+        // own
+        UserModule,
+        ProcessModule,
+        DataEntryModule,
+        TaskModule,
+        SharedModule,
+        PageNotFoundComponent,
+        FooterComponent,
+        HeaderComponent,
+        SearchComponent
+    ],
+    bootstrap: [AppComponent],
+    providers: [
+        { provide: ApiConfiguration, useValue: { rootUrl: '/polyflow-platform/rest' } },
         provideHttpClient(withInterceptorsFromDi())
-  ]
+    ]
 })
 export class AppModule {
 }

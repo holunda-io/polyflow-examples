@@ -3,12 +3,18 @@ import { itemsPerPage } from 'app/task/state/task.selectors';
 import { TaskStoreService } from 'app/task/state/task.store-service';
 import { UserStoreService } from 'app/user/state/user.store-service';
 import { Task } from 'tasklist/models';
+import { SortableColumnComponent } from '../sorter/sortable-column.component';
+import { FormsModule } from '@angular/forms';
+import { NgFor, NgIf, AsyncPipe, DatePipe } from '@angular/common';
+import { ExternalUrlDirective } from '../../shared/external-url.directive';
+import { NgbPagination } from '@ng-bootstrap/ng-bootstrap';
+import { FieldNamePipe } from 'app/shared/field-name.pipe';
 
 @Component({
     selector: 'tasks-tasklist',
     templateUrl: './tasklist.component.html',
     styleUrls: ['tasklist.component.scss'],
-    standalone: false
+    imports: [SortableColumnComponent, FormsModule, NgFor, ExternalUrlDirective, NgIf, NgbPagination, AsyncPipe, DatePipe, FieldNamePipe]
 })
 export class TasklistComponent {
   private taskStore = inject(TaskStoreService);

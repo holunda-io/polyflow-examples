@@ -12,15 +12,12 @@ describe('Component: TasklistComponent', () => {
   beforeEach(waitForAsync(() => {
 
     TestBed.configureTestingModule({
-      imports: [
-        FormsModule
-      ],
-      declarations: [
+    imports: [
+        FormsModule,
         PageNotFoundComponent
-      ],
-      providers: [
-      ],
-    }).compileComponents().then(() => {
+    ],
+    providers: [],
+}).compileComponents().then(() => {
       // create component and test fixture
       fixture = TestBed.createComponent(PageNotFoundComponent);
 

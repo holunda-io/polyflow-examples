@@ -11,21 +11,21 @@ import {UserModule} from 'app/user/user.module';
 import {SharedModule} from 'app/shared/shared.module';
 
 @NgModule({
-  declarations: [ProcesslistComponent],
-  imports: [
-    CommonModule,
-    NgbModule,
-    EffectsModule.forFeature([ProcessEffects]),
-    StoreModule.forFeature('process', processReducer),
-    UserModule,
-    SharedModule
-  ],
-  exports: [
-    ProcesslistComponent
-  ],
-  providers: [
-    ProcessStoreService
-  ]
+    imports: [
+        CommonModule,
+        NgbModule,
+        EffectsModule.forFeature([ProcessEffects]),
+        StoreModule.forFeature('process', processReducer),
+        UserModule,
+        SharedModule,
+        ProcesslistComponent
+    ],
+    exports: [
+        ProcesslistComponent
+    ],
+    providers: [
+        ProcessStoreService
+    ]
 })
 export class ProcessModule {
 }

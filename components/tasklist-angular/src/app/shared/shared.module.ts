@@ -4,18 +4,16 @@ import {FieldNamePipe} from 'app/shared/field-name.pipe';
 import {ExternalUrlDirective} from 'app/shared/external-url.directive';
 
 @NgModule({
-  declarations: [
-    FieldNamePipe,
-    ExternalUrlDirective
-  ],
-  exports: [
-    FieldNamePipe,
-    ExternalUrlDirective
-  ],
-  imports: [
-    CommonModule,
-  ],
-  providers: []
+    exports: [
+        FieldNamePipe,
+        ExternalUrlDirective
+    ],
+    imports: [
+        CommonModule,
+        FieldNamePipe,
+        ExternalUrlDirective,
+    ],
+    providers: []
 })
 export class SharedModule {
 }

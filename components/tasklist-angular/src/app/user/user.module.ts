@@ -9,20 +9,18 @@ import {UserEffects} from './state/user.effects';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  declarations: [
-    UserSelectionComponent
-  ],
-  providers: [
-    UserStoreService
-  ],
-  imports: [
-    CommonModule,
-    NgbModule,
-    EffectsModule.forFeature([UserEffects]),
-    StoreModule.forFeature('user', userReducer)
-  ],
-  exports: [
-    UserSelectionComponent
-  ]
+    providers: [
+        UserStoreService
+    ],
+    imports: [
+        CommonModule,
+        NgbModule,
+        EffectsModule.forFeature([UserEffects]),
+        StoreModule.forFeature('user', userReducer),
+        UserSelectionComponent
+    ],
+    exports: [
+        UserSelectionComponent
+    ]
 })
 export class UserModule { }

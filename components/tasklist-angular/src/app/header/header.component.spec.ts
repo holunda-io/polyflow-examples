@@ -9,11 +9,11 @@ describe('HeaderComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ],
-      imports: [
-        NgbCollapseModule
-      ]
-    })
+    imports: [
+        NgbCollapseModule,
+        HeaderComponent
+    ]
+})
     .compileComponents();
   }));
 

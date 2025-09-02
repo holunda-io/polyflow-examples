@@ -13,22 +13,20 @@ import {TaskStoreService} from 'app/task/state/task.store-service';
 import {SharedModule} from 'app/shared/shared.module';
 
 @NgModule({
-  declarations: [
-    TasklistComponent,
-    SortableColumnComponent
-  ],
-  exports: [TasklistComponent],
-  imports: [
-    CommonModule,
-    FormsModule,
-    StoreModule.forFeature('task', taskReducer),
-    EffectsModule.forFeature([TaskEffects]),
-    UserModule,
-    NgbModule,
-    SharedModule
-  ],
-  providers: [
-    TaskStoreService
-  ]
+    exports: [TasklistComponent],
+    imports: [
+        CommonModule,
+        FormsModule,
+        StoreModule.forFeature('task', taskReducer),
+        EffectsModule.forFeature([TaskEffects]),
+        UserModule,
+        NgbModule,
+        SharedModule,
+        TasklistComponent,
+        SortableColumnComponent
+    ],
+    providers: [
+        TaskStoreService
+    ]
 })
 export class TaskModule { }
