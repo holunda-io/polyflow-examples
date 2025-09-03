@@ -45,7 +45,7 @@ export class TasklistComponent {
     this.taskStore.selectPage(page);
   }
 
-  toFieldSet(payload: any) {
+  toFieldSet(payload: Record<string, unknown>) {
     return Object.keys(payload)
       .map(prop => ({ name: prop, value: payload[prop] }));
   }

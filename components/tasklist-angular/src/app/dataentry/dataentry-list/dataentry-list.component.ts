@@ -19,10 +19,10 @@ export class DataentryListComponent {
   dataEntries$ = this.dataEntryStore.dataEntries$;
   currentDataTab = 'description';
   itemsPerPage: number;
-  totalItems: any;
+  totalItems: number;
   page: number;
 
-  toFieldSet(payload: any) {
+  toFieldSet(payload: Record<string, unknown>) {
     const payloadProps = Object.keys(payload);
     const result = [];
     for (const prop of payloadProps) {

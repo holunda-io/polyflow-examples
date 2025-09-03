@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { StateWithTasks, getCount, getSelectedPage, getSortingColumn, getTasks } from 'app/task/state/task.selectors';
 import { Task } from 'tasklist/models/task';

@@ -7,8 +7,9 @@ import { availableUsers, currentUserId, currentUserProfile, StateWithUsers } fro
 @Injectable()
 export class UserStoreService {
   constructor(
-    private store: Store<StateWithUsers>
-  ) { }
+    private readonly store: Store<StateWithUsers>
+  ) {
+  }
 
   availableUsers$ = this.store.select(availableUsers);
 

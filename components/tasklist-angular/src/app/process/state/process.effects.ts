@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { loadStartableProcessDefinitions, startableProcessDefinitionsLoaded } from 'app/process/state/process.actions';
 import { ProcessDefinition } from 'app/process/state/process.reducer';
@@ -25,7 +25,7 @@ export class ProcessEffects {
   loadStartableProcesses$ = createEffect(() => this.actions$.pipe(
     ofType(loadStartableProcessDefinitions),
     withLatestFrom(this.userStore.userId$),
-    mergeMap(([_, userId]) => this.processService.getStartableProcesses({
+    mergeMap(([, userId]) => this.processService.getStartableProcesses({
       'X-Current-User-ID': userId
     })),
     map(procDtos => mapFromDto(procDtos)),

@@ -7,9 +7,8 @@ export default defineConfig(
   {
     files: ["**/*.ts"],
     extends: [
-      // todo: reenable and fix issues
-      //eslint.configs.recommended,
-      //...tseslint.configs.recommended,
+      eslint.configs.recommended,
+      ...tseslint.configs.recommended,
       ...tseslint.configs.stylistic,
       ...angular.configs.tsRecommended,
     ],
@@ -39,7 +38,7 @@ export default defineConfig(
     files: ["**/*.html"],
     extends: [
       ...angular.configs.templateRecommended,
-//      ...angular.configs.templateAccessibility,
+      ...angular.configs.templateAccessibility,
     ],
     rules: {},
   }

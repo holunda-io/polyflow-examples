@@ -1,7 +1,7 @@
 import { ActionReducer } from '@ngrx/store';
 import { localStorageSync } from 'ngrx-store-localstorage';
 
-export function storePersist(reducer: ActionReducer<any>): ActionReducer<any> {
+export function storePersist(reducer: ActionReducer<unknown>): ActionReducer<unknown> {
   return localStorageSync({
     keys: [
       {
