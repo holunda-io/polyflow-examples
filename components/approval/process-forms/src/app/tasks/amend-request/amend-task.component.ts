@@ -6,12 +6,15 @@ import { Environment } from 'process/models/environment';
 import { TaskAmendRequestSubmitData } from 'process/models/task-amend-request-submit-data';
 import { ApprovalRequest } from 'process/models/approval-request';
 import { Task } from 'process/models/task';
+import { FormsModule } from '@angular/forms';
+import { ExternalUrlDirective } from '../../components/external-url.directive';
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-task-amend',
     templateUrl: './amend-task.component.html',
     styleUrls: ['../tasks.component.scss'],
-    standalone: false
+    imports: [FormsModule, ExternalUrlDirective, DatePipe]
 })
 export class AmendTaskComponent {
   private client = inject(UserTaskAmendRequestService);

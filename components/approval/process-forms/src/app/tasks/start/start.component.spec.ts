@@ -13,7 +13,8 @@ import {RequestFormComponent} from 'app/components/request-form/request-form.com
 @Component({
     selector: 'app-request',
     template: '',
-    standalone: false
+    imports: [FormsModule,
+        ReactiveFormsModule]
 })
 export class StubRequestComponent {
   @Input()
@@ -48,29 +49,27 @@ describe('Component: StartComponent', () => {
     });
 
     TestBed.configureTestingModule({
-      imports: [
+    imports: [
         FormsModule,
-        ReactiveFormsModule
-      ],
-      declarations: [
+        ReactiveFormsModule,
         StartComponent,
         StubRequestComponent,
         RequestFormComponent
-      ],
-      providers: [
+    ],
+    providers: [
         {
-          provide: ActivatedRoute, useValue: {
-            snapshot: {
-              queryParams: {'userId': 'some-id'}
-            }
-          },
+            provide: ActivatedRoute, useValue: {
+                snapshot: {
+                    queryParams: { 'userId': 'some-id' }
+                }
+            },
         },
-        {provide: Router, useValue: jasmine.createSpyObj('Router', {'navigate': {}})},
-        {provide: RequestService, useValue: requestServiceSpy},
-        {provide: EnvironmentHelperService, useValue: envSpy},
+        { provide: Router, useValue: jasmine.createSpyObj('Router', { 'navigate': {} }) },
+        { provide: RequestService, useValue: requestServiceSpy },
+        { provide: EnvironmentHelperService, useValue: envSpy },
         StubRequestComponent
-      ],
-    }).compileComponents().then(() => {
+    ],
+}).compileComponents().then(() => {
       // create component and test fixture
       fixture = TestBed.createComponent(StartComponent);
 

@@ -6,12 +6,15 @@ import { Task } from 'process/models/task';
 import { TaskApproveRequestSubmitData } from 'process/models/task-approve-request-submit-data';
 import { EnvironmentHelperService } from 'app/services/environment.helper.service';
 import { Environment } from 'process/models/environment';
+import { FormsModule } from '@angular/forms';
+import { ExternalUrlDirective } from '../../components/external-url.directive';
+import { DatePipe } from '@angular/common';
 
 @Component({
     selector: 'app-task-approve',
     templateUrl: './approve-task.component.html',
     styleUrls: ['../tasks.component.scss'],
-    standalone: false
+    imports: [FormsModule, ExternalUrlDirective, DatePipe]
 })
 export class ApproveTaskComponent {
   private client = inject(UserTaskApproveRequestService);

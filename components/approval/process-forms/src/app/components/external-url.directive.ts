@@ -1,10 +1,7 @@
 import { Directive, HostListener, ElementRef, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
-@Directive({
-    selector: 'a[appExternalUrl]',
-    standalone: false
-})
+@Directive({ selector: 'a[appExternalUrl]' })
 export class ExternalUrlDirective {
     private el = inject(ElementRef);
     private router = inject(Router);

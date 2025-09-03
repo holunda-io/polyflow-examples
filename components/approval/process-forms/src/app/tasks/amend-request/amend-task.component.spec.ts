@@ -35,25 +35,23 @@ describe('Component: ApproveTaskComponent', () => {
 
 
     TestBed.configureTestingModule({
-      imports: [
-        FormsModule
-      ],
-      declarations: [
-        AmendTaskComponent,
-      ],
-      providers: [
+    imports: [
+        FormsModule,
+        AmendTaskComponent
+    ],
+    providers: [
         { provide: Router, useValue: jasmine.createSpyObj('Router', { 'navigate': {} }) },
         { provide: UserTaskAmendRequestService, useValue: amendRequestServiceSpy },
         { provide: ActivatedRoute, useValue: {
-            snapshot: {
-              paramMap: {get: () => taskId},
-              queryParams: { 'userId': 'some-id'}
-            }
-          },
+                snapshot: {
+                    paramMap: { get: () => taskId },
+                    queryParams: { 'userId': 'some-id' }
+                }
+            },
         },
         { provide: EnvironmentHelperService, useValue: envSpy }
-      ],
-    }).compileComponents().then(() => {
+    ],
+}).compileComponents().then(() => {
       // create component and test fixture
       fixture = TestBed.createComponent(AmendTaskComponent);
 

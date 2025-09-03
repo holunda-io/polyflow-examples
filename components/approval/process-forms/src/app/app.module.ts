@@ -21,8 +21,16 @@ import { StartComponent } from 'app/tasks/start/start.component';
 import {ApiConfiguration} from "process/api-configuration";
 
 
-@NgModule({ declarations: [
-        AppComponent,
+@NgModule({ declarations: [AppComponent],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        NgbModule,
+        ReactiveFormsModule,
+        // generated server API
+        ApiModule.forRoot({ rootUrl: '/example-process-approval/rest' }),
+        // routing
+        AppRoutingModule, 
         /**
          * Start form
          */
@@ -54,17 +62,7 @@ import {ApiConfiguration} from "process/api-configuration";
         /**
          * Content component to view "Approval request"
          */
-        RequestViewComponent
-    ],
-    bootstrap: [AppComponent], imports: [BrowserModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        NgbModule,
-        ReactiveFormsModule,
-        // generated server API
-        ApiModule.forRoot({rootUrl: '/example-process-approval/rest'}),
-        // routing
-        AppRoutingModule], providers: [
+        RequestViewComponent], providers: [
         EnvironmentHelperService,
         provideHttpClient(withInterceptorsFromDi())
     ] })
