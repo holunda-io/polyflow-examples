@@ -13,7 +13,7 @@ describe('Component: ApproveTaskComponent', () => {
   let component: AmendTaskComponent;
   let fixture: ComponentFixture<AmendTaskComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(waitForAsync(async () => {
 
     const amendRequestServiceSpy = jasmine.createSpyObj('AmendRequestService', {
       'loadTaskAmendRequestFormData': of({
@@ -34,7 +34,7 @@ describe('Component: ApproveTaskComponent', () => {
     });
 
 
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
     imports: [
         FormsModule,
         AmendTaskComponent

@@ -80,7 +80,7 @@ export class AmendTaskComponent {
     }).subscribe({
       next: () => {
         console.log('Sucessfully submitted');
-        this.router.navigate(['/externalRedirect', {externalUrl: this.environment.tasklistUrl}], {
+        void this.router.navigate(['/externalRedirect', {externalUrl: this.environment.tasklistUrl}], {
           skipLocationChange: true,
         });
       },

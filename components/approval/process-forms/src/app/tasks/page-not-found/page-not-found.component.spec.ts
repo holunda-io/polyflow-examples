@@ -9,9 +9,9 @@ describe('Component: TasklistComponent', () => {
   let component: PageNotFoundComponent;
   let fixture: ComponentFixture<PageNotFoundComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(waitForAsync(async () => {
 
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
     imports: [
         FormsModule,
         PageNotFoundComponent

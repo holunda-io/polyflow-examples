@@ -32,7 +32,7 @@ describe('Component: StartComponent', () => {
   let component: StartComponent;
   let fixture: ComponentFixture<StartComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(waitForAsync(async () => {
 
     const requestServiceSpy = jasmine.createSpyObj('RequestService', {
       start: of({}),
@@ -48,7 +48,7 @@ describe('Component: StartComponent', () => {
       }
     });
 
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
     imports: [
         FormsModule,
         ReactiveFormsModule,

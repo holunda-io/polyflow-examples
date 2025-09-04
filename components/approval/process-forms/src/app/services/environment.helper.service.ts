@@ -11,14 +11,14 @@ export class EnvironmentHelperService {
   private environmentSubject: BehaviorSubject<Environment> = new BehaviorSubject<Environment>(this.none());
 
   constructor() {
-    this.environmentService.getEnvironment().subscribe(
-      (environment) => {
+    this.environmentService.getEnvironment().subscribe({
+      next: (environment) => {
         this.environmentSubject.next(environment);
       },
-      (error) => {
+      error: (error) => {
         console.log('Error loading environment', error);
       }
-    );
+    });
   }
 
   env() {

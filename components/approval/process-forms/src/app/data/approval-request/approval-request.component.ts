@@ -28,13 +28,14 @@ export class ApprovalRequestComponent {
     const requestId: string = route.snapshot.paramMap.get('requestId');
     this.envProvider.env().subscribe(e => this.environment = e);
 
-    this.client.getApprovalRequest({ 'X-Current-User-ID': this.userId, id: requestId}).subscribe(
-      approvalRequest => {
+    this.client.getApprovalRequest({ 'X-Current-User-ID': this.userId, id: requestId}).subscribe({
+      next: approvalRequest => {
         this.approvalRequest = approvalRequest;
-      }, () => {
+      },
+      error: () => {
         console.log('Error loading approval request with id', requestId);
       }
-    );
+    });
   }
 
   approvalRequest: ApprovalRequest = ApprovalRequestComponent.emptyApprovalRequest();
@@ -52,7 +53,7 @@ export class ApprovalRequestComponent {
   }
 
   tasklist() {
-    this.router.navigate(['/externalRedirect', {externalUrl: this.environment.tasklistUrl}], {
+    void this.router.navigate(['/externalRedirect', {externalUrl: this.environment.tasklistUrl}], {
       skipLocationChange: true,
     });
   }

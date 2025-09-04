@@ -14,7 +14,7 @@ export class ExternalUrlDirective {
             return;
         }
 
-        this.router.navigate(['/externalRedirect', { externalUrl: url }], {
+        void this.router.navigate(['/externalRedirect', { externalUrl: url }], {
             skipLocationChange: true,
         });
 

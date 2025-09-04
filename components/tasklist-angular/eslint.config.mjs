@@ -8,7 +8,15 @@ export default defineConfig(
     files: ["**/*.ts"],
     extends: [
       eslint.configs.recommended,
-      ...tseslint.configs.recommended,
+      tseslint.configs.recommendedTypeChecked,
+      {
+        languageOptions: {
+          parserOptions: {
+            projectService: true,
+            tsconfigRootDir: import.meta.dirname,
+          },
+        },
+      },
       ...tseslint.configs.stylistic,
       ...angular.configs.tsRecommended,
     ],
@@ -32,6 +40,11 @@ export default defineConfig(
         },
       ],
       "@angular-eslint/prefer-inject": ["off"],
+      "@typescript-eslint/no-deprecated": "warn",
+      /* disabled because of current usage of native APIs */
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      /* disabled because of current usage of native APIs */
+      "@typescript-eslint/no-unsafe-member-access": "off"
     },
   },
   {

@@ -67,7 +67,7 @@ export class StartComponent {
 
 
   tasklist() {
-    this.router.navigate(['/externalRedirect', { externalUrl: this.environment.tasklistUrl }], {
+    void this.router.navigate(['/externalRedirect', { externalUrl: this.environment.tasklistUrl }], {
       skipLocationChange: true
     });
   }
