@@ -24,7 +24,7 @@ export class DataentryListComponent {
 
   toFieldSet(payload: Record<string, unknown>) {
     const payloadProps = Object.keys(payload);
-    const result = [];
+    const result: {name: string, value: unknown}[] = [];
     for (const prop of payloadProps) {
       result.push({ name: prop, value: payload[prop] });
     }

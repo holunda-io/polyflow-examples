@@ -16,13 +16,13 @@
             <div class="col-lg-8">{{ submitData.approvalRequest.id }}</div>
 
             <div class="col-lg-4"><label for="applicant">Applicant:</label></div>
-            <div class="col-lg-8"><input type="text" required name="applicant" [(ngModel)]="submitData.approvalRequest.applicant" /></div>
+            <div class="col-lg-8"><input type="text" required id="applicant" name="applicant" [(ngModel)]="submitData.approvalRequest.applicant" /></div>
 
             <div class="col-lg-4"><label for="subject">Subject:</label></div>
-            <div class="col-lg-8"><input type="text" required name="subject" [(ngModel)]="submitData.approvalRequest.subject" /></div>
+            <div class="col-lg-8"><input type="text" required id="subject" name="subject" [(ngModel)]="submitData.approvalRequest.subject" /></div>
 
             <div class="col-lg-4"><label for="amount">Amount (Currency):</label></div>
-            <div class="col-lg-8"><input type="text" required name="amount" [(ngModel)]="submitData.approvalRequest.amount" />&nbsp;
+            <div class="col-lg-8"><input type="text" required id="amount" name="amount" [(ngModel)]="submitData.approvalRequest.amount" />&nbsp;
               <input type="text" required name="currency" [(ngModel)]="submitData.approvalRequest.currency" /></div>
           </div>
           </form>

@@ -11,9 +11,9 @@ describe('Component: ProcesslistComponent', () => {
   let component: ProcesslistComponent;
   let fixture: ComponentFixture<ProcesslistComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(waitForAsync(async () => {
 
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
     imports: [
         FormsModule,
         ProcesslistComponent,

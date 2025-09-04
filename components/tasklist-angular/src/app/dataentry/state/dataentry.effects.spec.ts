@@ -42,7 +42,8 @@ describe('DataEntryEffects', () => {
 
     // when:
     effectsFor(action).loadDataEntries$.subscribe((newAction) => {
-      expect(newAction).toEqual(dataEntriesLoaded({
+      // TODO: this toEqual function should actually return void. Why is there a promise?!
+      void expect(newAction).toEqual(dataEntriesLoaded({
         dataEntries: [
           { name: 'foo', description: '', url: '', type: 'type', payload: {}, currentState: 'MY STATE', currentStateType: '', protocol: [] },
           { name: 'bar', description: '', url: '', type: 'type2', payload: {}, currentState: 'MY STATE2', currentStateType: '', protocol: [] }

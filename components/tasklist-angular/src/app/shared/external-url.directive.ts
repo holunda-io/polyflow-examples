@@ -23,13 +23,13 @@ export class ExternalUrlDirective implements OnDestroy {
 
   @HostListener('click', ['$event'])
   clicked(event: Event) {
-    const url = this.el.nativeElement.href;
+    const url = this.el.nativeElement.href as string;
     if (url === undefined || url === '') {
       return;
     }
     const parsedUrl = url.replace('%userId%', this.userId);
 
-    this.router.navigate(['/externalRedirect', { externalUrl: parsedUrl }], {
+    void this.router.navigate(['/externalRedirect', { externalUrl: parsedUrl }], {
       skipLocationChange: true,
     });
 

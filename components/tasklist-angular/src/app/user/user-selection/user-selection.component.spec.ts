@@ -9,8 +9,8 @@ describe('UserSelectionComponent', () => {
   let component: UserSelectionComponent;
   let fixture: ComponentFixture<UserSelectionComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
+  beforeEach(waitForAsync(async () => {
+    await TestBed.configureTestingModule({
     imports: [UserSelectionComponent],
     providers: [
         UserStoreService,

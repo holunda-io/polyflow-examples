@@ -17,9 +17,9 @@ describe('Component: TasklistComponent', () => {
   let component: TasklistComponent;
   let fixture: ComponentFixture<TasklistComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(waitForAsync(async () => {
 
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
     imports: [
         FormsModule,
         NgbPagination,

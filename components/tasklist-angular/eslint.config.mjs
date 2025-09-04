@@ -44,7 +44,9 @@ export default defineConfig(
       /* disabled because of current usage of native APIs */
       "@typescript-eslint/no-unsafe-assignment": "off",
       /* disabled because of current usage of native APIs */
-      "@typescript-eslint/no-unsafe-member-access": "off"
+      "@typescript-eslint/no-unsafe-member-access": "off",
+      /* disabled for angular form validation methods */
+      "@typescript-eslint/unbound-method": "off"
     },
   },
   {

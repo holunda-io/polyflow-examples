@@ -20,7 +20,7 @@ export class RequestFormComponent implements OnInit {
   approvalRequestChange = new EventEmitter<ApprovalRequestDraft>();
 
   @Output()
-  isValid = new EventEmitter<object>();
+  isValid = new EventEmitter<{ valid: boolean }>();
 
   approvalForm: UntypedFormGroup;
 

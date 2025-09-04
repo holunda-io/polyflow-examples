@@ -13,9 +13,9 @@ describe('Component: DataentrylistComponent', () => {
   let component: DataentryListComponent;
   let fixture: ComponentFixture<DataentryListComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(waitForAsync(async () => {
 
-    TestBed.configureTestingModule({
+    await TestBed.configureTestingModule({
     imports: [
         FormsModule,
         NgbModule,

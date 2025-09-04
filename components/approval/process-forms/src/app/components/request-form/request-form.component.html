@@ -4,17 +4,17 @@
 
     <div class="col-lg-4"><label for="applicant">Applicant:</label></div>
     <div class="col-lg-8">
-      <input type="text" formControlName="applicant" name="applicant" [(ngModel)]="approvalRequest.applicant" />
+      <input type="text" formControlName="applicant" id="applicant" name="applicant" [(ngModel)]="approvalRequest.applicant" />
     </div>
 
     <div class="col-lg-4"><label for="subject">Subject:</label></div>
     <div class="col-lg-8">
-      <input type="text" formControlName="subject" name="subject" [(ngModel)]="approvalRequest.subject" />
+      <input type="text" formControlName="subject" id="subject" name="subject" [(ngModel)]="approvalRequest.subject" />
     </div>
 
     <div class="col-lg-4"><label for="amount">Amount (Currency):</label></div>
     <div class="col-lg-8">
-      <input type="text" formControlName="amount" name="amount" [(ngModel)]="approvalRequest.amount" />&nbsp;
+      <input type="text" formControlName="amount" id="amount" name="amount" [(ngModel)]="approvalRequest.amount" />&nbsp;
       <input type="text" formControlName="currency" name="currency" [(ngModel)]="approvalRequest.currency" />
     </div>
   </div>
