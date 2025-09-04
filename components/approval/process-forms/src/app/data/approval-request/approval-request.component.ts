@@ -4,8 +4,8 @@ import {EnvironmentHelperService} from 'app/services/environment.helper.service'
 import {ActivatedRoute, Router} from '@angular/router';
 import {Environment} from 'process/models/environment';
 import {ApprovalRequest} from 'process/models/approval-request';
-import { RequestViewComponent } from '../../components/request-view/request-view.component';
-import { ExternalUrlDirective } from '../../components/external-url.directive';
+import { RequestViewComponent } from 'app/components/request-view/request-view.component';
+import { ExternalUrlDirective } from 'app/components/external-url.directive';
 
 
 @Component({
@@ -31,7 +31,7 @@ export class ApprovalRequestComponent {
     this.client.getApprovalRequest({ 'X-Current-User-ID': this.userId, id: requestId}).subscribe(
       approvalRequest => {
         this.approvalRequest = approvalRequest;
-      }, error => {
+      }, () => {
         console.log('Error loading approval request with id', requestId);
       }
     );

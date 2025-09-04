@@ -7,7 +7,7 @@ import { TaskApproveRequestSubmitData } from 'process/models/task-approve-reques
 import { EnvironmentHelperService } from 'app/services/environment.helper.service';
 import { Environment } from 'process/models/environment';
 import { FormsModule } from '@angular/forms';
-import { ExternalUrlDirective } from '../../components/external-url.directive';
+import { ExternalUrlDirective } from 'app/components/external-url.directive';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -28,14 +28,14 @@ export class ApproveTaskComponent {
     const taskId: string = route.snapshot.paramMap.get('taskId');
     this.userId = route.snapshot.queryParams['userId'];
 
-    this.client.loadTaskApproveRequestFormData({ id: taskId, 'X-Current-User-ID': this.userId }).subscribe(
-      formData => {
+    this.client.loadTaskApproveRequestFormData({ id: taskId, 'X-Current-User-ID': this.userId }).subscribe({
+      next: formData => {
         this.task = formData.task;
         this.approvalRequest = formData.approvalRequest;
-      }, error => {
+      }, error: () => {
         console.log('Error loading approve request task with id', taskId);
       }
-    );
+    });
     this.envProvider.env().subscribe(e => {
       this.environment = e;
       console.log(this.environment);
@@ -73,16 +73,17 @@ export class ApproveTaskComponent {
 
   complete() {
     console.log('Decision for', this.task.id, 'is', this.submitData.decision);
-    this.client.submitTaskApproveRequestSubmitData({ id: this.task.id, 'X-Current-User-ID': this.userId, body: this.submitData }).subscribe(
-      result => {
+    this.client.submitTaskApproveRequestSubmitData({ id: this.task.id, 'X-Current-User-ID': this.userId, body: this.submitData }).subscribe({
+
+      next: () => {
         console.log('Sucessfully submitted');
-        this.router.navigate(['/externalRedirect', { externalUrl: this.environment.tasklistUrl }], {
+        this.router.navigate(['/externalRedirect', {externalUrl: this.environment.tasklistUrl}], {
           skipLocationChange: true
         });
-      }, error => {
+      }, error: () => {
         console.log('Error submitting approve request task with id', this.task.id);
       }
-    );
+    });
   }
 
   cancel() {

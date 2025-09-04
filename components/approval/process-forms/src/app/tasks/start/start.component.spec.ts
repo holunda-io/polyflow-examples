@@ -24,7 +24,7 @@ export class StubRequestComponent {
   approvalRequestChange = new EventEmitter<ApprovalRequestDraft>();
 
   @Output()
-  isValid = new EventEmitter<Object>();
+  isValid = new EventEmitter<object>();
 }
 
 describe('Component: StartComponent', () => {

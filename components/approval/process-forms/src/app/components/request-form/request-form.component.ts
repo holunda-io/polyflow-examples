@@ -20,7 +20,7 @@ export class RequestFormComponent implements OnInit {
   approvalRequestChange = new EventEmitter<ApprovalRequestDraft>();
 
   @Output()
-  isValid = new EventEmitter<Object>();
+  isValid = new EventEmitter<object>();
 
   approvalForm: UntypedFormGroup;
 
@@ -32,7 +32,7 @@ export class RequestFormComponent implements OnInit {
       currency: ['', Validators.required]
     });
 
-    this.approvalForm.valueChanges.subscribe((changes) => {
+    this.approvalForm.valueChanges.subscribe(() => {
       this.onChanges();
     });
 
