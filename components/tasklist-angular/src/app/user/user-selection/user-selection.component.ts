@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { UserStoreService } from '../state/user.store-service';
 
 @Component({
@@ -8,11 +8,13 @@ import { UserStoreService } from '../state/user.store-service';
     standalone: false
 })
 export class UserSelectionComponent {
+  private userStore = inject(UserStoreService);
+
 
   availableUsers$ = this.userStore.availableUsers$;
   currentProfile$ = this.userStore.currentUserProfile$;
 
-  constructor(private userStore: UserStoreService) {
+  constructor() {
     this.userStore.loadAvailableUsers();
   }
 

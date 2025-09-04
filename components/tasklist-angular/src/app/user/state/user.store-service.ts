@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { first } from 'rxjs/operators';
 import { loadAvailableUsers, selectUser } from './user.actions';
@@ -6,7 +6,6 @@ import { availableUsers, currentUserId, currentUserProfile, StateWithUsers } fro
 
 @Injectable()
 export class UserStoreService {
-
   constructor(
     private store: Store<StateWithUsers>
   ) { }

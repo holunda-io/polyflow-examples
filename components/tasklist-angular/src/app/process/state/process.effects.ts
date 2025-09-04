@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { loadStartableProcessDefinitions, startableProcessDefinitionsLoaded } from 'app/process/state/process.actions';
 import { ProcessDefinition } from 'app/process/state/process.reducer';
@@ -10,7 +10,6 @@ import { ProcessService } from 'tasklist/services';
 
 @Injectable()
 export class ProcessEffects {
-
   public constructor(
     private processService: ProcessService,
     private userStore: UserStoreService,

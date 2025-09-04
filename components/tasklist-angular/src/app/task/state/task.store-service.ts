@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { StateWithTasks, getCount, getSelectedPage, getSortingColumn, getTasks } from 'app/task/state/task.selectors';
 import { Task } from 'tasklist/models/task';
@@ -7,10 +7,8 @@ import { Field } from './task.reducer';
 
 @Injectable()
 export class TaskStoreService {
-
-  constructor(
-    private store: Store<StateWithTasks>
-  ) { }
+  constructor(private store: Store<StateWithTasks>) {
+  }
 
   loadTasks() {
     this.store.dispatch(loadTasks());

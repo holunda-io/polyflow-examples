@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EnvironmentHelperService } from 'app/services/environment.helper.service';
 import { UserTaskAmendRequestService } from 'process/services/user-task-amend-request.service';
@@ -14,13 +14,14 @@ import { Task } from 'process/models/task';
     standalone: false
 })
 export class AmendTaskComponent {
+  private client = inject(UserTaskAmendRequestService);
+  private envProvider = inject(EnvironmentHelperService);
+  private router = inject(Router);
 
-  constructor(
-    private client: UserTaskAmendRequestService,
-    private envProvider: EnvironmentHelperService,
-    private router: Router,
-    route: ActivatedRoute
-  ) {
+
+  constructor() {
+    const route = inject(ActivatedRoute);
+
     this.userId = route.snapshot.queryParams['userId'];
     const taskId: string = route.snapshot.paramMap.get('taskId');
     this.client.loadTaskAmendRequestFormData({ id: taskId, 'X-Current-User-ID': this.userId}).subscribe(

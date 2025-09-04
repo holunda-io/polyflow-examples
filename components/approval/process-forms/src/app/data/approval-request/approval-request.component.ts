@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {RequestService} from 'process/services/request.service';
 import {EnvironmentHelperService} from 'app/services/environment.helper.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -13,14 +13,15 @@ import {ApprovalRequest} from 'process/models/approval-request';
     standalone: false
 })
 export class ApprovalRequestComponent {
+  private client = inject(RequestService);
+  private envProvider = inject(EnvironmentHelperService);
+  private router = inject(Router);
 
 
-  constructor(
-    private client: RequestService,
-    private envProvider: EnvironmentHelperService,
-    private router: Router,
-    route: ActivatedRoute
-  ) {
+
+  constructor() {
+    const route = inject(ActivatedRoute);
+
     this.userId = route.snapshot.queryParams['userId'];
     const requestId: string = route.snapshot.paramMap.get('requestId');
     this.envProvider.env().subscribe(e => this.environment = e);

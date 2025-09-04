@@ -1,4 +1,4 @@
-import { Directive, HostListener, ElementRef } from '@angular/core';
+import { Directive, HostListener, ElementRef, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Directive({
@@ -6,7 +6,9 @@ import { Router } from '@angular/router';
     standalone: false
 })
 export class ExternalUrlDirective {
-    constructor(private el: ElementRef, private router: Router) {}
+    private el = inject(ElementRef);
+    private router = inject(Router);
+
 
     @HostListener('click', ['$event'])
     clicked(event: Event) {

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { dataEntriesLoaded, loadDataEntries } from 'app/dataentry/state/dataentry.actions';
 import { DataEntry } from 'app/dataentry/state/dataentry.reducer';
@@ -12,7 +12,6 @@ import { StrictHttpResponse } from 'tasklist/strict-http-response';
 
 @Injectable()
 export class DataentryEffects {
-
   public constructor(
     private businessDataService: BusinessDataService,
     private userStore: UserStoreService,

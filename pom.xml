@@ -28,8 +28,8 @@
     <maven.deploy.skip>true</maven.deploy.skip>
 
     <version.java>${java.version}</version.java>
-    <npm.version>10.2.4</npm.version>
-    <node.version>v18.19.1</node.version>
+    <npm.version>10.9.3</npm.version>
+    <node.version>v22.19.0</node.version>
 
     <!--
       <camunda-ee>false</camunda-ee>

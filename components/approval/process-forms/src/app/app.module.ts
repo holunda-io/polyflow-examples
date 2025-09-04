@@ -18,6 +18,7 @@ import { PageNotFoundComponent } from 'app/tasks/page-not-found/page-not-found.c
 import { RequestFormComponent } from 'app/components/request-form/request-form.component';
 import { RequestViewComponent } from 'app/components/request-view/request-view.component';
 import { StartComponent } from 'app/tasks/start/start.component';
+import {ApiConfiguration} from "process/api-configuration";
 
 
 @NgModule({ declarations: [
@@ -61,7 +62,7 @@ import { StartComponent } from 'app/tasks/start/start.component';
         NgbModule,
         ReactiveFormsModule,
         // generated server API
-        ApiModule,
+        ApiModule.forRoot({rootUrl: '/example-process-approval/rest'}),
         // routing
         AppRoutingModule], providers: [
         EnvironmentHelperService,
