@@ -1,17 +1,20 @@
-import { Component, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { EnvironmentHelperService } from 'app/services/environment.helper.service';
-import { UserTaskAmendRequestService } from 'process/services/user-task-amend-request.service';
-import { Environment } from 'process/models/environment';
-import { TaskAmendRequestSubmitData } from 'process/models/task-amend-request-submit-data';
-import { ApprovalRequest } from 'process/models/approval-request';
-import { Task } from 'process/models/task';
+import {Component, inject} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {EnvironmentHelperService} from 'app/services/environment.helper.service';
+import {UserTaskAmendRequestService} from 'process/services/user-task-amend-request.service';
+import {Environment} from 'process/models/environment';
+import {TaskAmendRequestSubmitData} from 'process/models/task-amend-request-submit-data';
+import {ApprovalRequest} from 'process/models/approval-request';
+import {Task} from 'process/models/task';
+import {FormsModule} from '@angular/forms';
+import {ExternalUrlDirective} from 'app/components/external-url.directive';
+import {DatePipe} from '@angular/common';
 
 @Component({
-    selector: 'app-task-amend',
-    templateUrl: './amend-task.component.html',
-    styleUrls: ['../tasks.component.scss'],
-    standalone: false
+  selector: 'app-task-amend',
+  templateUrl: './amend-task.component.html',
+  styleUrls: ['../tasks.component.scss'],
+  imports: [FormsModule, ExternalUrlDirective, DatePipe]
 })
 export class AmendTaskComponent {
   private client = inject(UserTaskAmendRequestService);
@@ -24,15 +27,17 @@ export class AmendTaskComponent {
 
     this.userId = route.snapshot.queryParams['userId'];
     const taskId: string = route.snapshot.paramMap.get('taskId');
-    this.client.loadTaskAmendRequestFormData({ id: taskId, 'X-Current-User-ID': this.userId}).subscribe(
-      formData => {
-        this.task = formData.task;
-        this.comment = formData.comment;
-        this.submitData.approvalRequest = formData.approvalRequest;
-      }, error => {
+    this.client.loadTaskAmendRequestFormData({id: taskId, 'X-Current-User-ID': this.userId}).subscribe({
+      next:
+        formData => {
+          this.task = formData.task;
+          this.comment = formData.comment;
+          this.submitData.approvalRequest = formData.approvalRequest;
+        },
+      error: () => {
         console.log('Error loading amend request task with id', taskId);
       }
-    );
+    });
     this.envProvider.env().subscribe(e => this.environment = e);
   }
 
@@ -68,15 +73,20 @@ export class AmendTaskComponent {
 
   complete() {
     console.log('Decision for', this.task.id, 'is', this.submitData.action);
-    this.client.submitTaskAmendRequestSubmitData({ id: this.task.id, 'X-Current-User-ID': this.userId, body: this.submitData}).subscribe(
-      result => {
+    this.client.submitTaskAmendRequestSubmitData({
+      id: this.task.id,
+      'X-Current-User-ID': this.userId,
+      body: this.submitData
+    }).subscribe({
+      next: () => {
         console.log('Sucessfully submitted');
-        this.router.navigate(['/externalRedirect', { externalUrl: this.environment.tasklistUrl }], {
+        void this.router.navigate(['/externalRedirect', {externalUrl: this.environment.tasklistUrl}], {
           skipLocationChange: true,
         });
-      }, error => {
+      },
+      error: () => {
         console.log('Error submitting amend request task with id', this.task.id);
       }
-    );
+    });
   }
 }

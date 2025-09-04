@@ -3,10 +3,7 @@ import { Router } from '@angular/router';
 import { UserStoreService } from 'app/user/state/user.store-service';
 import { Subscription } from 'rxjs';
 
-@Directive({
-    selector: 'a[tasksExternalUrl]',
-    standalone: false
-})
+@Directive({ selector: 'a[tasksExternalUrl]' })
 export class ExternalUrlDirective implements OnDestroy {
   private el = inject(ElementRef);
   private router = inject(Router);
@@ -26,13 +23,13 @@ export class ExternalUrlDirective implements OnDestroy {
 
   @HostListener('click', ['$event'])
   clicked(event: Event) {
-    const url = this.el.nativeElement.href;
+    const url = this.el.nativeElement.href as string;
     if (url === undefined || url === '') {
       return;
     }
     const parsedUrl = url.replace('%userId%', this.userId);
 
-    this.router.navigate(['/externalRedirect', { externalUrl: parsedUrl }], {
+    void this.router.navigate(['/externalRedirect', { externalUrl: parsedUrl }], {
       skipLocationChange: true,
     });
 

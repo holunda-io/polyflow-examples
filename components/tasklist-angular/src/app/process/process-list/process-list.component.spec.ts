@@ -6,29 +6,27 @@ import { startableProcesses } from '../state/process.selectors';
 import { ProcessStoreService } from '../state/process.store-service';
 import { ProcesslistComponent } from './process-list.component';
 
-describe('Component: TasklistComponent', () => {
+describe('Component: ProcesslistComponent', () => {
 
   let component: ProcesslistComponent;
   let fixture: ComponentFixture<ProcesslistComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(waitForAsync(async () => {
 
-    TestBed.configureTestingModule({
-      imports: [
-        FormsModule
-      ],
-      declarations: [
-        ProcesslistComponent
-      ],
-      providers: [
+    await TestBed.configureTestingModule({
+    imports: [
+        FormsModule,
+        ProcesslistComponent,
+    ],
+    providers: [
         ProcessStoreService,
         provideMockStore({
-          selectors: [
-            { selector: startableProcesses, value: [] }
-          ]
+            selectors: [
+                { selector: startableProcesses, value: [] }
+            ]
         })
-      ],
-    }).compileComponents().then(() => {
+    ],
+}).compileComponents().then(() => {
       // create component and test fixture
       fixture = TestBed.createComponent(ProcesslistComponent);
 

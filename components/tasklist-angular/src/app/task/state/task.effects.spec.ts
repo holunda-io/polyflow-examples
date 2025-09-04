@@ -19,6 +19,9 @@ import { Task } from "tasklist/models/task";
 import { TaskService } from 'tasklist/services';
 import { TaskEffects } from './task.effects';
 import { getSelectedPage } from './task.selectors';
+import {StrictHttpResponse} from "tasklist/strict-http-response";
+import {TaskWithDataEntries} from "tasklist/models/task-with-data-entries";
+import {HttpHeaders} from "@angular/common/http";
 
 describe('TaskEffects', () => {
 
@@ -57,8 +60,8 @@ describe('TaskEffects', () => {
     const action = loadTasks();
     const spy = spyOn(taskService, 'getTasks$Response').and.returnValue(of({
       body: [],
-      headers: { get: (field: string) => '0' }
-    } as any));
+      headers: new HttpHeaders()
+    } as StrictHttpResponse<TaskWithDataEntries[]>));
 
     // when:
     effectsFor(action).loadTasks$.subscribe(newAction => {

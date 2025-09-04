@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
   claimTask,
@@ -34,14 +34,14 @@ export class TaskEffects {
   ));
 
   reloadTasks$ = createEffect(() => this.actions$.pipe(
-    ofType(taskClaimed, taskUnclaimed, updateSortingColumn),
+    ofType(taskClaimed, taskUnclaimed, updateSortingColumn, pageSelected),
     map(() => loadTasks())
   ));
 
   loadTasks$ = createEffect(() => this.actions$.pipe(
     ofType(loadTasks),
     withLatestFrom(this.userStore.userId$),
-    mergeMap(([_, userId]) =>
+    mergeMap(([, userId]) =>
       this.taskService.getTasks$Response({
         'X-Current-User-ID': userId
       })),
@@ -60,7 +60,7 @@ export class TaskEffects {
     map(action => action.pageNumber),
     withLatestFrom(this.taskStore.selectedPage$),
     filter(([newPage, currentPage]) => newPage !== currentPage),
-    map(([pageNumber, _]) => pageSelected({ pageNumber }))
+    map(([pageNumber,]) => pageSelected({ pageNumber }))
   ));
 
   claimTask$ = createEffect(() => this.actions$.pipe(

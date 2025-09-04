@@ -4,13 +4,16 @@ import { EnvironmentHelperService } from 'app/services/environment.helper.servic
 import { ActivatedRoute, Router } from '@angular/router';
 import { Environment } from 'process/models/environment';
 import * as ApprovalRequestDraftSamples from 'app/data/approval-request-draft';
+import { NgIf } from '@angular/common';
+import { RequestFormComponent } from 'app/components/request-form/request-form.component';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
     selector: 'app-start',
     templateUrl: './start.component.html',
     styleUrls: ['../tasks.component.scss'],
-    standalone: false
+    imports: [NgIf, RequestFormComponent, FormsModule]
 })
 export class StartComponent {
   private client = inject(RequestService);
@@ -44,18 +47,18 @@ export class StartComponent {
       'X-Current-User-ID': this.userId,
       revision: '1',
       body: this.approvalRequestDraft
-    }).subscribe(
-      result => {
+    }).subscribe({
+      next: () => {
         console.log('Successfully submitted');
         this.startSuccess = true;
         if (!this.createAnotherRequest) {
           this.tasklist();
         }
-      }, error => {
+      }, error: () => {
         console.log('Error starting new process');
         this.startFailure = true;
       }
-    );
+    });
   }
 
   validate($event) {
@@ -64,7 +67,7 @@ export class StartComponent {
 
 
   tasklist() {
-    this.router.navigate(['/externalRedirect', { externalUrl: this.environment.tasklistUrl }], {
+    void this.router.navigate(['/externalRedirect', { externalUrl: this.environment.tasklistUrl }], {
       skipLocationChange: true
     });
   }

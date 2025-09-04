@@ -9,19 +9,19 @@ describe('UserSelectionComponent', () => {
   let component: UserSelectionComponent;
   let fixture: ComponentFixture<UserSelectionComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [UserSelectionComponent],
-      providers: [
+  beforeEach(waitForAsync(async () => {
+    await TestBed.configureTestingModule({
+    imports: [UserSelectionComponent],
+    providers: [
         UserStoreService,
         provideMockStore({
-          selectors: [
-            { selector: currentUserProfile, value: { username: '', userIdentifier: '', fullName: '' } },
-            { selector: availableUsers, value: [] }
-          ]
+            selectors: [
+                { selector: currentUserProfile, value: { username: '', userIdentifier: '', fullName: '' } },
+                { selector: availableUsers, value: [] }
+            ]
         })
-      ]
-    })
+    ]
+})
       .compileComponents();
   }));
 

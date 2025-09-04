@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import * as ApprovalRequestDraftSamples from 'app/data/approval-request-draft';
 import { ApprovalRequestDraft } from 'process/models/approval-request-draft';
 
@@ -7,7 +7,7 @@ import { ApprovalRequestDraft } from 'process/models/approval-request-draft';
     selector: 'app-request-form',
     templateUrl: './request-form.component.html',
     styleUrls: [],
-    standalone: false
+    imports: [FormsModule, ReactiveFormsModule]
 })
 export class RequestFormComponent implements OnInit {
   private formBuilder = inject(UntypedFormBuilder);
@@ -20,7 +20,7 @@ export class RequestFormComponent implements OnInit {
   approvalRequestChange = new EventEmitter<ApprovalRequestDraft>();
 
   @Output()
-  isValid = new EventEmitter<Object>();
+  isValid = new EventEmitter<{ valid: boolean }>();
 
   approvalForm: UntypedFormGroup;
 
@@ -32,7 +32,7 @@ export class RequestFormComponent implements OnInit {
       currency: ['', Validators.required]
     });
 
-    this.approvalForm.valueChanges.subscribe((changes) => {
+    this.approvalForm.valueChanges.subscribe(() => {
       this.onChanges();
     });
 

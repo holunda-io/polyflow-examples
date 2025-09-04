@@ -4,13 +4,15 @@ import {EnvironmentHelperService} from 'app/services/environment.helper.service'
 import {ActivatedRoute, Router} from '@angular/router';
 import {Environment} from 'process/models/environment';
 import {ApprovalRequest} from 'process/models/approval-request';
+import { RequestViewComponent } from 'app/components/request-view/request-view.component';
+import { ExternalUrlDirective } from 'app/components/external-url.directive';
 
 
 @Component({
     selector: 'app-approval-request',
     templateUrl: './approval-request.component.html',
     styleUrls: ['./approval-request.component.scss'],
-    standalone: false
+    imports: [RequestViewComponent, ExternalUrlDirective]
 })
 export class ApprovalRequestComponent {
   private client = inject(RequestService);
@@ -26,13 +28,14 @@ export class ApprovalRequestComponent {
     const requestId: string = route.snapshot.paramMap.get('requestId');
     this.envProvider.env().subscribe(e => this.environment = e);
 
-    this.client.getApprovalRequest({ 'X-Current-User-ID': this.userId, id: requestId}).subscribe(
-      approvalRequest => {
+    this.client.getApprovalRequest({ 'X-Current-User-ID': this.userId, id: requestId}).subscribe({
+      next: approvalRequest => {
         this.approvalRequest = approvalRequest;
-      }, error => {
+      },
+      error: () => {
         console.log('Error loading approval request with id', requestId);
       }
-    );
+    });
   }
 
   approvalRequest: ApprovalRequest = ApprovalRequestComponent.emptyApprovalRequest();
@@ -50,7 +53,7 @@ export class ApprovalRequestComponent {
   }
 
   tasklist() {
-    this.router.navigate(['/externalRedirect', {externalUrl: this.environment.tasklistUrl}], {
+    void this.router.navigate(['/externalRedirect', {externalUrl: this.environment.tasklistUrl}], {
       skipLocationChange: true,
     });
   }

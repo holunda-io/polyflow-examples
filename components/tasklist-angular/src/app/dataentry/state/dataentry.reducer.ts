@@ -5,7 +5,7 @@ export interface DataEntry {
   name: string;
   description?: string;
   type: string;
-  payload: {};
+  payload: Record<string, unknown>;
   url: string;
   currentState: string;
   currentStateType: string;

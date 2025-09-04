@@ -14,7 +14,7 @@ describe('Component: ApproveTaskComponent', () => {
   let component: ApproveTaskComponent;
   let fixture: ComponentFixture<ApproveTaskComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(waitForAsync(async () => {
 
     const approveRequestServiceSpy = jasmine.createSpyObj('ApproveRequestService', {
       loadTaskApproveRequestFormData: of({
@@ -34,27 +34,25 @@ describe('Component: ApproveTaskComponent', () => {
       }
     });
 
-    TestBed.configureTestingModule({
-      imports: [
-        FormsModule
-      ],
-      declarations: [
+    await TestBed.configureTestingModule({
+    imports: [
+        FormsModule,
         ApproveTaskComponent
-      ],
-      providers: [
+    ],
+    providers: [
         { provide: Router, useValue: jasmine.createSpyObj('Router', { 'navigate': {} }) },
         { provide: UserTaskApproveRequestService, useValue: approveRequestServiceSpy },
         {
-          provide: ActivatedRoute, useValue: {
-            snapshot: {
-              paramMap: { get: () => taskId },
-              queryParams: { 'userId': 'some-id' }
+            provide: ActivatedRoute, useValue: {
+                snapshot: {
+                    paramMap: { get: () => taskId },
+                    queryParams: { 'userId': 'some-id' }
+                }
             }
-          }
         },
         { provide: EnvironmentHelperService, useValue: envSpy }
-      ]
-    }).compileComponents().then(() => {
+    ]
+}).compileComponents().then(() => {
       // create component and test fixture
       fixture = TestBed.createComponent(ApproveTaskComponent);
 

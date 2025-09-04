@@ -7,13 +7,13 @@ describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ HeaderComponent ],
-      imports: [
-        NgbCollapseModule
-      ]
-    })
+  beforeEach(waitForAsync(async () => {
+    await TestBed.configureTestingModule({
+    imports: [
+        NgbCollapseModule,
+        HeaderComponent
+    ]
+})
     .compileComponents();
   }));
 

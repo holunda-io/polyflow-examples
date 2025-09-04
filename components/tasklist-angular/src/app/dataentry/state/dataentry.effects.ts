@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { dataEntriesLoaded, loadDataEntries } from 'app/dataentry/state/dataentry.actions';
 import { DataEntry } from 'app/dataentry/state/dataentry.reducer';
@@ -27,7 +27,7 @@ export class DataentryEffects {
   loadDataEntries$ = createEffect(() => this.actions$.pipe(
     ofType(loadDataEntries),
     withLatestFrom(this.userStore.userId$),
-    mergeMap(([_, userId]) => this.businessDataService.getBusinessDataEntries$Response({
+    mergeMap(([, userId]) => this.businessDataService.getBusinessDataEntries$Response({
       'X-Current-User-ID': userId
     })),
     map(dataEntriesDtos => mapFromDto(dataEntriesDtos)),

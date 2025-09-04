@@ -1,5 +1,5 @@
 import { TitleCasePipe } from '@angular/common';
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { UserStoreService } from 'app/user/state/user.store-service';
 import { filter, map, mergeMap, withLatestFrom } from 'rxjs/operators';
@@ -31,7 +31,7 @@ export class UserEffects {
   loadInitialUser$ = createEffect(() => this.actions$.pipe(
     ofType(availableUsersLoaded),
     withLatestFrom(this.userStore.userId$),
-    filter(([_, userId]) => !userId),
+    filter(([, userId]) => !userId),
     map(([action]) => action.users),
     map((users) => selectUser({ userId: users[0].id }))
   ));

@@ -1,39 +1,35 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { provideMockStore } from '@ngrx/store/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import {provideMockStore} from '@ngrx/store/testing';
 
-import { FormsModule } from '@angular/forms';
-import { DataentryListComponent } from 'app/dataentry/dataentry-list/dataentry-list.component';
+import {FormsModule} from '@angular/forms';
+import {DataentryListComponent} from 'app/dataentry/dataentry-list/dataentry-list.component';
 
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { SharedModule } from 'app/shared/shared.module';
-import { dataEntries } from '../state/dataentry.selectors';
-import { DataentryStoreService } from '../state/dataentry.store-service';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {dataEntries} from '../state/dataentry.selectors';
+import {DataentryStoreService} from '../state/dataentry.store-service';
 
 describe('Component: DataentrylistComponent', () => {
 
   let component: DataentryListComponent;
   let fixture: ComponentFixture<DataentryListComponent>;
 
-  beforeEach(waitForAsync(() => {
+  beforeEach(waitForAsync(async () => {
 
-    TestBed.configureTestingModule({
-      imports: [
+    await TestBed.configureTestingModule({
+    imports: [
         FormsModule,
-        SharedModule,
         NgbModule,
-      ],
-      declarations: [
-        DataentryListComponent
-      ],
-      providers: [
+        DataentryListComponent,
+    ],
+    providers: [
         DataentryStoreService,
         provideMockStore({
-          selectors: [
-            { selector: dataEntries, value: [] }
-          ]
+            selectors: [
+                { selector: dataEntries, value: [] }
+            ]
         }),
-      ],
-    }).compileComponents().then(() => {
+    ],
+}).compileComponents().then(() => {
       // create component and test fixture
       fixture = TestBed.createComponent(DataentryListComponent);
 

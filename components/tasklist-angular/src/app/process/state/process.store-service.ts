@@ -1,4 +1,4 @@
-import { Injectable, inject } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { loadStartableProcessDefinitions } from './process.actions';
 import { StateWithProcesses, startableProcesses } from './process.selectors';

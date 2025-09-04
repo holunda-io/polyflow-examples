@@ -8,6 +8,8 @@ import { UserStoreService } from 'app/user/state/user.store-service';
 import { of } from 'rxjs';
 import { BusinessDataService } from 'tasklist/services';
 import { DataentryEffects } from './dataentry.effects';
+import {StrictHttpResponse} from "tasklist/strict-http-response";
+import {DataEntry as ApiDataEntry} from "../../../../src-gen/tasklist/models/data-entry"
 
 describe('DataEntryEffects', () => {
 
@@ -31,16 +33,17 @@ describe('DataEntryEffects', () => {
   it('should load available users', (done) => {
     // given:
     const action = loadDataEntries();
-    const dataEntriesDtos: Array<DataEntry> = [
+    const dataEntriesDtos: DataEntry[] = [
       { name: 'foo', description: '', url: '', type: 'type', payload: {}, currentState: 'MY STATE', currentStateType: '', protocol: [] },
       { name: 'bar', description: '', url: '', type: 'type2', payload: {}, currentState: 'MY STATE2', currentStateType: '', protocol: [] }
     ];
-    const serviceSpy = spyOn(businessDataService, 'getBusinessDataEntries$Response')
-      .and.returnValue(of({ body: dataEntriesDtos, headers: {} } as any));
+    spyOn(businessDataService, 'getBusinessDataEntries$Response')
+      .and.returnValue(of({ body: dataEntriesDtos, headers: {} } as StrictHttpResponse<ApiDataEntry[]>));
 
     // when:
     effectsFor(action).loadDataEntries$.subscribe((newAction) => {
-      expect(newAction).toEqual(dataEntriesLoaded({
+      // TODO: this toEqual function should actually return void. Why is there a promise?!
+      void expect(newAction).toEqual(dataEntriesLoaded({
         dataEntries: [
           { name: 'foo', description: '', url: '', type: 'type', payload: {}, currentState: 'MY STATE', currentStateType: '', protocol: [] },
           { name: 'bar', description: '', url: '', type: 'type2', payload: {}, currentState: 'MY STATE2', currentStateType: '', protocol: [] }

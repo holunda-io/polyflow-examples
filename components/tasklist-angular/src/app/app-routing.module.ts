@@ -4,10 +4,9 @@ import { PageNotFoundComponent } from 'app/components/page-not-found/page-not-fo
 import {TasklistComponent} from 'app/task/tasklist/tasklist.component';
 import {DataentryListComponent} from 'app/dataentry/dataentry-list/dataentry-list.component';
 
-const externalUrlProvider = new InjectionToken('externalUrlRedirectResolver');
-const deactivateGuard = new InjectionToken('deactivateGuard');
+export const externalUrlProvider = new InjectionToken('externalUrlRedirectResolver');
 
-const routes: Routes = [
+export const routes: Routes = [
   {
     path: 'externalRedirect',
     canActivate: [externalUrlProvider],
@@ -19,6 +18,12 @@ const routes: Routes = [
   { path: '', redirectTo: 'tasks', pathMatch: 'full'}
 ];
 
+export const externalUrlProviderActivateGuard = (route: ActivatedRouteSnapshot) => {
+
+  const externalUrl = route.paramMap.get('externalUrl');
+  window.open(externalUrl, '_self');
+};
+
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {})
@@ -29,18 +34,7 @@ const routes: Routes = [
   providers: [
     {
       provide: externalUrlProvider,
-      useValue: (route: ActivatedRouteSnapshot) => {
-
-        const externalUrl = route.paramMap.get('externalUrl');
-        window.open(externalUrl, '_self');
-      },
-    },
-    {
-      provide: deactivateGuard,
-      useValue: () => {
-        console.log('Guard function is called.');
-        return false;
-      }
+      useValue: externalUrlProviderActivateGuard,
     },
   ],
   declarations: []

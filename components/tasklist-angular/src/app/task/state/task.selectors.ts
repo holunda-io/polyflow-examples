@@ -25,18 +25,6 @@ export const getCount = createSelector(
 
 export const itemsPerPage = 7;
 
-export const getFilterParams = createSelector(
-  selectFeature,
-  (state: TaskState): any => {
-    return {
-      filter: [''],
-      page: state.page,
-      size: itemsPerPage,
-      sort: state.sortingColumn ? state.sortingColumn.direction + state.sortingColumn.fieldName : undefined,
-    };
-  }
-);
-
 export const getSelectedPage = createSelector(
   selectFeature,
   state => state.page
