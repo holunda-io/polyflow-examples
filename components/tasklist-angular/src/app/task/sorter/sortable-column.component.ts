@@ -2,14 +2,14 @@ import { Component, HostListener, Input, OnDestroy, OnInit, inject } from '@angu
 import { Field, SortDirection } from 'app/task/state/task.reducer';
 import { TaskStoreService } from 'app/task/state/task.store-service';
 import { Subscription } from 'rxjs';
-import { NgIf } from '@angular/common';
+
 
 @Component({
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[tasks-sortable-column]',
     templateUrl: './sortable-column.component.html',
     styleUrls: [],
-    imports: [NgIf]
+
 })
 export class SortableColumnComponent implements OnInit, OnDestroy {
   private taskStore = inject(TaskStoreService);

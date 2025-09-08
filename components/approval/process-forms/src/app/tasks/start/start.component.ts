@@ -4,7 +4,7 @@ import { EnvironmentHelperService } from 'app/services/environment.helper.servic
 import { ActivatedRoute, Router } from '@angular/router';
 import { Environment } from 'process/models/environment';
 import * as ApprovalRequestDraftSamples from 'app/data/approval-request-draft';
-import { NgIf } from '@angular/common';
+
 import { RequestFormComponent } from 'app/components/request-form/request-form.component';
 import { FormsModule } from '@angular/forms';
 
@@ -13,7 +13,7 @@ import { FormsModule } from '@angular/forms';
     selector: 'app-start',
     templateUrl: './start.component.html',
     styleUrls: ['../tasks.component.scss'],
-    imports: [NgIf, RequestFormComponent, FormsModule]
+    imports: [RequestFormComponent, FormsModule]
 })
 export class StartComponent {
   private client = inject(RequestService);
