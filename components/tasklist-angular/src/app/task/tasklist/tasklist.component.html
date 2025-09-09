@@ -5,11 +5,11 @@
       <div class="card-body">
         <table class="table">
           <thead class="thead-light">
-          <tr>
-            <th class="align-top" tasks-sortable-column="task.process">Process</th>
-            <th class="align-top" tasks-sortable-column="task.name">Name</th>
-            <th class="w-30 align-top">
-              Details
+            <tr>
+              <th class="align-top" tasks-sortable-column="task.process">Process</th>
+              <th class="align-top" tasks-sortable-column="task.name">Name</th>
+              <th class="w-30 align-top">
+                Details
                 <div class="btn-group btn-group-toggle btn-group-sm pull-right">
                   <input
                     id="data-tab-description"
@@ -18,7 +18,7 @@
                     name="dataTab"
                     [(ngModel)]="currentDataTab"
                     [value]="'description'"
-                  />
+                    />
                   <label
                     class="btn btn-outline-secondary btn-sm"
                     for="data-tab-description"
@@ -30,95 +30,118 @@
                     name="dataTab"
                     [(ngModel)]="currentDataTab"
                     [value]="'data'"
-                  >
+                    >
                   <label
                     for="data-tab-data"
                     class="btn-outline-secondary btn btn-sm"
                   >Data</label>
                 </div>
-            </th>
-            <th class="align-top" tasks-sortable-column="task.createTime">Created</th>
-            <th class="align-top" tasks-sortable-column="task.dueDate">Due</th>
-            <th class="align-top" tasks-sortable-column="task.priority">Prio</th>
-            <th colspan="2" class="align-top">
-              Assigned / Actions
-              <div class="pull-right">
+              </th>
+              <th class="align-top" tasks-sortable-column="task.createTime">Created</th>
+              <th class="align-top" tasks-sortable-column="task.dueDate">Due</th>
+              <th class="align-top" tasks-sortable-column="task.priority">Prio</th>
+              <th colspan="2" class="align-top">
+                Assigned / Actions
+                <div class="pull-right">
                   <button type="button" name="refresh" class="btn btn-outline-secondary btn-sm " (click)="reload()" title="Reload tasks">
-                      <i class="fa fa-refresh"></i> Reload
+                    <i class="fa fa-refresh"></i> Reload
                   </button>
-              </div>
-            </th>
-          </tr>
+                </div>
+              </th>
+            </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let taskWithEntryData of (tasks | async) index as i">
-            <td class="nowrap">{{ taskWithEntryData.task.processName }}</td>
-            <td class="nowrap"><a tasksExternalUrl [href]="taskWithEntryData.task.url">{{ taskWithEntryData.task.name }}</a></td>
-            <td>
-                <div *ngIf="currentDataTab === 'description'">
-                    {{ taskWithEntryData.task.description }}
-                </div>
-                <div *ngIf="currentDataTab === 'data'">
-                    <div class="data-block">
+            @for (taskWithEntryData of (tasks | async); track taskWithEntryData) {
+              <tr>
+                <td class="nowrap">{{ taskWithEntryData.task.processName }}</td>
+                <td class="nowrap"><a tasksExternalUrl [href]="taskWithEntryData.task.url">{{ taskWithEntryData.task.name }}</a></td>
+                <td>
+                  @if (currentDataTab === 'description') {
+                    <div>
+                      {{ taskWithEntryData.task.description }}
+                    </div>
+                  }
+                  @if (currentDataTab === 'data') {
+                    <div>
+                      <div class="data-block">
                         <i class="fa fa-archive" aria-hidden="true"></i><i>&nbsp;Process Payload</i>
                         <ul class="list-group list-group-flush fieldlist">
-                            <li class="list-group-item" *ngFor="let payloadEntry of toFieldSet(taskWithEntryData.task.payload) index as j">
+                          @for (payloadEntry of toFieldSet(taskWithEntryData.task.payload); track payloadEntry) {
+                            <li class="list-group-item">
                               <div class="row">
                                 <div class="col-lg-3">{{ payloadEntry.name | fieldName }}:</div>
                                 <div class="col-lg-9">{{ payloadEntry.value }}</div>
                               </div>
                             </li>
+                          }
                         </ul>
-                    </div>
-                    <div class="data-block">
+                      </div>
+                      <div class="data-block">
                         <i class="fa fa-link" aria-hidden="true"></i><i>&nbsp;Correlated Business Data</i>
                         <ul class="list-unstyled tabbed">
-                          <li *ngFor="let dataEntry of taskWithEntryData.dataEntries index as j">
-                            <div class="fieldlist">
-                              <b>{{dataEntry.entryType | fieldName }}</b>
-                              <ul class="list-group list-group-flush">
-                                <li class="list-group-item" *ngFor="let businessPayloadEntry of toFieldSet(dataEntry.payload) index as k">
-                                  <div class="row">
-                                    <div class="col-lg-3">{{ businessPayloadEntry.name | fieldName }}:</div>
-                                    <div class="col-lg-9">{{ businessPayloadEntry.value }}</div>
-                                  </div>
-                                </li>
-                              </ul>
-                            </div>
-                          </li>
+                          @for (dataEntry of taskWithEntryData.dataEntries; track dataEntry) {
+                            <li>
+                              <div class="fieldlist">
+                                <b>{{dataEntry.entryType | fieldName }}</b>
+                                <ul class="list-group list-group-flush">
+                                  @for (businessPayloadEntry of toFieldSet(dataEntry.payload); track businessPayloadEntry) {
+                                    <li class="list-group-item">
+                                      <div class="row">
+                                        <div class="col-lg-3">{{ businessPayloadEntry.name | fieldName }}:</div>
+                                        <div class="col-lg-9">{{ businessPayloadEntry.value }}</div>
+                                      </div>
+                                    </li>
+                                  }
+                                </ul>
+                              </div>
+                            </li>
+                          }
                         </ul>
+                      </div>
                     </div>
-                </div>
-            </td>
-            <td>{{ taskWithEntryData.task.createTime | date: 'short' }}</td>
-            <td>{{ taskWithEntryData.task.dueDate | date: 'short' }}</td>
-            <td>{{ taskWithEntryData.task.priority }}</td>
-            <td>
-              <span *ngIf="taskWithEntryData.task.assignee">
-                <i class="fa fa-user-o" title="{{ taskWithEntryData.task.assignee }}"></i>&nbsp;
-              </span>
-              <span *ngIf="taskWithEntryData.task.candidateUsers && taskWithEntryData.task.candidateUsers.length"><i class="fa fa-user" title="{{ taskWithEntryData.task.candidateUsers }}"></i>&nbsp;</span>
-              <span *ngIf="taskWithEntryData.task.candidateGroups && taskWithEntryData.task.candidateGroups.length"><i class="fa fa-users" title="{{ taskWithEntryData.task.candidateGroups }}"></i></span>
-            </td>
-            <td>
-              <span *ngIf="!taskWithEntryData.task.assignee" class="pull-right">
-                <button type="button" name="claim"
-                  class="btn btn-outline-secondary btn-sm"
-                  (click)="claim($event, taskWithEntryData.task)"
-                  title="{{ (currentProfile$ | async).username }}">claim</button>&nbsp;
-              </span>
-              <span *ngIf="taskWithEntryData.task.assignee === (currentProfile$ | async).username" class="pull-right">
-                <button type="button" name="unclaim"
-                  class="btn btn-outline-secondary btn-sm"
-                  (click)="unclaim($event, taskWithEntryData.task)"
-                  title="{{ (currentProfile$ | async).username }}">unclaim</button>&nbsp;
-              </span>
-
-            </td>
-          </tr>
-          <tr *ngIf="(tasks| async).length === 0">
-            <td colspan="7">No tasks</td>
-          </tr>
+                  }
+                </td>
+                <td>{{ taskWithEntryData.task.createTime | date: 'short' }}</td>
+                <td>{{ taskWithEntryData.task.dueDate | date: 'short' }}</td>
+                <td>{{ taskWithEntryData.task.priority }}</td>
+                <td>
+                  @if (taskWithEntryData.task.assignee) {
+                    <span>
+                      <i class="fa fa-user-o" title="{{ taskWithEntryData.task.assignee }}"></i>&nbsp;
+                    </span>
+                  }
+                  @if (taskWithEntryData.task.candidateUsers && taskWithEntryData.task.candidateUsers.length) {
+                    <span><i class="fa fa-user" title="{{ taskWithEntryData.task.candidateUsers }}"></i>&nbsp;</span>
+                  }
+                  @if (taskWithEntryData.task.candidateGroups && taskWithEntryData.task.candidateGroups.length) {
+                    <span><i class="fa fa-users" title="{{ taskWithEntryData.task.candidateGroups }}"></i></span>
+                  }
+                </td>
+                <td>
+                  @if (!taskWithEntryData.task.assignee) {
+                    <span class="pull-right">
+                      <button type="button" name="claim"
+                        class="btn btn-outline-secondary btn-sm"
+                        (click)="claim($event, taskWithEntryData.task)"
+                      title="{{ (currentProfile$ | async).username }}">claim</button>&nbsp;
+                    </span>
+                  }
+                  @if (taskWithEntryData.task.assignee === (currentProfile$ | async).username) {
+                    <span class="pull-right">
+                      <button type="button" name="unclaim"
+                        class="btn btn-outline-secondary btn-sm"
+                        (click)="unclaim($event, taskWithEntryData.task)"
+                      title="{{ (currentProfile$ | async).username }}">unclaim</button>&nbsp;
+                    </span>
+                  }
+                </td>
+              </tr>
+            }
+            @if ((tasks| async).length === 0) {
+              <tr>
+                <td colspan="7">No tasks</td>
+              </tr>
+            }
           </tbody>
         </table>
       </div>
@@ -129,7 +152,7 @@
           [page]="(page | async)"
           [maxSize]="7"
           [rotate]="false"
-          (pageChange)="loadPage($event)"></ngb-pagination>
+        (pageChange)="loadPage($event)"></ngb-pagination>
       </div>
     </div>
   </div>

@@ -4,10 +4,14 @@
   </div>
 </div>
 
-<div *ngIf="startFailure" class="alert alert-danger">An error occurred while starting the approval process. Please try
-  again later.
-</div>
-<div *ngIf="startSuccess" class="alert alert-success">Approval process started successfully.</div>
+@if (startFailure) {
+  <div class="alert alert-danger">An error occurred while starting the approval process. Please try
+    again later.
+  </div>
+}
+@if (startSuccess) {
+  <div class="alert alert-success">Approval process started successfully.</div>
+}
 
 <div class="row">
   <div class="col-lg-12 content">
