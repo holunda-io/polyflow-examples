@@ -1,12 +1,15 @@
-<div class="nav-item dropdown avatar" ngbDropdown>
-  <div class="nav-link dropdown-toggle" ngbDropdownToggle>
+<div class="btn-group" ngbDropdown>
+  <button class="btn btn-light" disabled>
+        <i class="fa fa-user" aria-label="current user:"></i>
+    {{ (currentProfile$ | async).fullName }}
+  </button>
+  <button class="btn btn-outline-secondary dropdown-toggle dropdown-toggle-split" ngbDropdownToggle>
     <!--
     <img src="{{ user.avatar }}" class="rounded-circle z-depth-0" alt="avatar image" height="35">
     -->
-    <i class="fa fa-user"></i>
-    {{ (currentProfile$ | async).fullName }}
-  </div>
-  <ul class="dropdown-menu" ngbDropdownMenu>
+    <span class="visually-hidden">Change user</span>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end" ngbDropdownMenu aria-label="available users">
 
     @for (user of (availableUsers$ | async); track user) {
       <li><button class="dropdown-item" (click)="setCurrentUser(user.id)">{{ user.username }}</button></li>

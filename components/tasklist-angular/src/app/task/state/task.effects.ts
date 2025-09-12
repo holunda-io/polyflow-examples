@@ -41,6 +41,7 @@ export class TaskEffects {
   loadTasks$ = createEffect(() => this.actions$.pipe(
     ofType(loadTasks),
     withLatestFrom(this.userStore.userId$),
+    filter(([, userId]) => !!userId),
     mergeMap(([, userId]) =>
       this.taskService.getTasks$Response({
         'X-Current-User-ID': userId

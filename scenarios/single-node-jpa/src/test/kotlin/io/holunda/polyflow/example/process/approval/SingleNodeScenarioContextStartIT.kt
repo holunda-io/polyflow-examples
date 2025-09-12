@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.test.context.ActiveProfiles
 
-@SpringBootTest
-@ActiveProfiles("itest", "jpa")
-class SingleNodeScenarioContextStartIT {
+class SingleNodeScenarioContextStartIT : AbstractIT() {
 
   @Autowired
   lateinit var userService: UserService

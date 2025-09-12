@@ -1,16 +1,16 @@
 <div class="nav-item dropdown" ngbDropdown>
-  <div class="nav-link dropdown-toggle" ngbDropdownToggle>Start new...</div>
+  <button class="btn btn-outline-primary dropdown-toggle" ngbDropdownToggle>Start Process...</button>
 
-  <div class="dropdown-menu" ngbDropdownMenu>
+  <ul class="dropdown-menu" ngbDropdownMenu aria-label="Startable Processes Models">
     @for (process of (processes$ | async); track process.url) {
-      <a
+      <li><a
         tasksExternalUrl
         class="dropdown-item"
         data-toggle="tooltip"
         data-placement="bottom"
         title="{{ process.description }}"
         [href]="process.url"
-      >{{ process.name }}</a>
+      >{{ process.name }}</a></li>
     }
-  </div>
+  </ul>
 </div>
