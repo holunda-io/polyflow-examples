@@ -22,13 +22,14 @@ jobs:
       - name: Prepare Maven Wrapper
         run: chmod +x ./mvnw
 
+        # install is required so the install-browsers step finds all the other modules
       - name: Build with Maven
-        run: ./mvnw clean verify -U -B -ntp -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=120
+        run: ./mvnw clean install -U -B -ntp -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=120
 
       - name: Prepare I-Tests
         run: mkdir -p target/jgiven-reports/json
 
-      - name: Ensure browsers are installed
+      - name: Install Browsers for Playwright
         run: ./mvnw exec:java -e -f scenarios/single-node-jpa -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
 
       - name: Run I-Tests with Maven
