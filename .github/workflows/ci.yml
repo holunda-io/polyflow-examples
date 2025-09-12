@@ -28,8 +28,11 @@ jobs:
       - name: Prepare I-Tests
         run: mkdir -p target/jgiven-reports/json
 
+      - name: Ensure browsers are installed
+        run: ./mvnw exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
+
       - name: Run I-Tests with Maven
-        run: ./mvnw integration-test failsafe:verify -Pitest -DskipFrontend -B -ntp
+        run: ./mvnw integration-test failsafe:verify -Pitest -B -ntp
 
       - name: Upload coverage information
         uses: codecov/codecov-action@v3
