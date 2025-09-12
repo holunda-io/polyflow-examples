@@ -29,7 +29,7 @@ jobs:
         run: mkdir -p target/jgiven-reports/json
 
       - name: Ensure browsers are installed
-        run: ./mvnw exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
+        run: ./mvnw exec:java -e -f scenarios/single-node-jpa -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
 
       - name: Run I-Tests with Maven
         run: ./mvnw integration-test failsafe:verify -Pitest -B -ntp
