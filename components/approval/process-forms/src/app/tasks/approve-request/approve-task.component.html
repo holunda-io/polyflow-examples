@@ -28,9 +28,11 @@
               </div>
               <div class="col-lg-12 description">
                 <form #approvalForm="ngForm" novalidate>
-                  <input type="radio" required name="approvalDecision" value="APPROVE" label="Approve request" [(ngModel)]="submitData.decision">&nbsp;Approve request<br/>
-                  <input type="radio" name="approvalDecision" value="REJECT" label="Reject equestr" [(ngModel)]="submitData.decision">&nbsp;Reject request<br/>
-                  <input type="radio" name="approvalDecision" value="RETURN" label="Return to origintaor" [(ngModel)]="submitData.decision">&nbsp;Return request to originator<br/>
+                  <label>
+                  <input type="radio" required name="approvalDecision" value="APPROVE" [(ngModel)]="submitData.decision">&nbsp;Approve request
+                  </label><br/>
+                  <label><input type="radio" name="approvalDecision" value="REJECT" [(ngModel)]="submitData.decision">&nbsp;Reject request</label><br/>
+                  <label><input type="radio" name="approvalDecision" value="RETURN" [(ngModel)]="submitData.decision">&nbsp;Return request to originator</label><br/>
 
                   <div class="buttons">
                     <button [disabled]="!approvalForm.valid" class="btn btn-primary" type="button" (click)="complete()">Complete</button>&nbsp;

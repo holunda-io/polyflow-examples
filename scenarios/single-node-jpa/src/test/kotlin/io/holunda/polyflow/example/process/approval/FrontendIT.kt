@@ -45,7 +45,7 @@ class FrontendIT: AbstractIT() {
 
     page.navigate("http://localhost:${port}/polyflow")
 
-    // SPA is being served correctly
+    // Tasklist SPA is being served correctly
     assertThat(page).hasTitle("POLYFLOW Process Platform")
 
     // process definitions are being shown
@@ -62,7 +62,24 @@ class FrontendIT: AbstractIT() {
     assertThat(page.getByRole(AriaRole.BUTTON, Page.GetByRoleOptions().setName("current user:"))).hasText("Fozzy");
 
     // there is a task in the list
+    assertThat(page.getByLabel("Open Tasks")).hasText("Please approve request .* from kermit on behalf of piggy".toPattern())
+
+    // go to task
+    val taskLink = page.getByRole(AriaRole.LINK, Page.GetByRoleOptions().setName("Approve Request"))
+    taskLink.click()
+
+    // Example Process SPA is being served correctly
+    assertThat(page).hasTitle("Example process approval")
+
+    assertThat(page.getByText("Approval Request")).isInViewport()
+
+    // complete task
+    page.getByRole(AriaRole.RADIO, Page.GetByRoleOptions().setName("Approve request")).check()
+    page.getByRole(AriaRole.BUTTON, Page.GetByRoleOptions().setName("Complete")).click()
+
+    // tasklist is shown again, now empty
     val taskList = page.getByLabel("Open Tasks")
-    assertThat(taskList).hasText("Please approve request .* from kermit on behalf of piggy".toPattern())
+    assertThat(taskList).isInViewport()
+    assertThat(taskList).hasText("No tasks");
   }
 }

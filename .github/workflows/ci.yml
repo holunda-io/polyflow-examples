@@ -30,7 +30,7 @@ jobs:
         run: mkdir -p target/jgiven-reports/json
 
       - name: Install Browsers for Playwright
-        run: ./mvnw exec:java -e -f scenarios/single-node-jpa -Dexec.classpathScope="test" -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
+        run: ./mvnw exec:java -B -e -f scenarios/single-node-jpa -Dexec.classpathScope="test" -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps"
 
       - name: Run I-Tests with Maven
         run: ./mvnw integration-test failsafe:verify -Pitest -B -ntp
