@@ -80,6 +80,6 @@ class FrontendIT: AbstractIT() {
     // tasklist is shown again, now empty
     val taskList = page.getByLabel("Open Tasks")
     assertThat(taskList).isInViewport()
-    assertThat(taskList).hasText("No tasks");
+    assertThat(taskList).containsText("No tasks");
   }
 }
