@@ -27,7 +27,7 @@
       <dependency>
         <groupId>org.axonframework</groupId>
         <artifactId>axon-server-connector</artifactId>
-        <version>4.12.1</version> <!-- FIXME check axon version usage -->
+        <version>5.0.0-preview</version> <!-- FIXME check axon version usage -->
         <scope>runtime</scope>
       </dependency>
 
