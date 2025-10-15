@@ -49,7 +49,7 @@
     <camunda-bpm-mockito.version>7.21.0</camunda-bpm-mockito.version>
 
 
-    <version.camunda.spin>7.23.0</version.camunda.spin>
+    <version.camunda.spin>7.24.0</version.camunda.spin>
     <camunda-bpm-data.version>2025.07.1</camunda-bpm-data.version>
 
     <springdoc.version>2.8.11</springdoc.version>
