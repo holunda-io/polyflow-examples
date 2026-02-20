@@ -71,6 +71,13 @@
       <groupId>io.holunda.polyflow</groupId>
       <artifactId>polyflow-example-infrastructure</artifactId>
     </dependency>
+    <!-- Smoke Tests -->
+    <dependency>
+      <groupId>com.microsoft.playwright</groupId>
+      <artifactId>playwright</artifactId>
+      <version>1.54.0</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>

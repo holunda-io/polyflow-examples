@@ -6,7 +6,7 @@ import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
 import {bootstrapApplication} from '@angular/platform-browser';
 import {provideAnimations} from '@angular/platform-browser/animations';
 import {externalUrlProvider, externalUrlProviderActivateGuard, routes} from 'app/app-routing.module';
-import {provideState, provideStore} from '@ngrx/store';
+import {ActionReducer, provideState, provideStore} from '@ngrx/store';
 import {storePersist} from 'app/store-persist';
 import {provideEffects} from '@ngrx/effects';
 import {provideStoreDevtools} from '@ngrx/store-devtools';
@@ -30,6 +30,16 @@ if (environment.production) {
   enableProdMode();
 }
 
+/**
+ * Helper for debugging dispatched actions during java-based integration tests
+ * */
+const logActions = (reducer: ActionReducer<unknown>): ActionReducer<unknown> => {
+  return (state, action) => {
+    console.log(action)
+    return reducer(state, action);
+  }
+}
+
 bootstrapApplication(AppComponent, {
     providers: [
         importProvidersFrom(
@@ -48,7 +58,7 @@ bootstrapApplication(AppComponent, {
       provideHttpClient(withInterceptorsFromDi()),
       // ngrx store
       provideStore({}, {
-        metaReducers: [storePersist],
+        metaReducers: [storePersist, logActions],
         runtimeChecks: { strictStateImmutability: true, strictActionImmutability: true }
       }),
       provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
