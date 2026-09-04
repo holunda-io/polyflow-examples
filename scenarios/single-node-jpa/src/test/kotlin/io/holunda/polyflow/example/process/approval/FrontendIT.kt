@@ -9,12 +9,14 @@ import com.microsoft.playwright.junit.UsePlaywright
 import com.microsoft.playwright.options.AriaRole
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
+import org.junit.jupiter.api.condition.DisabledIfSystemProperty
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.web.server.LocalServerPort
 import java.nio.file.Paths
 
 
 @UsePlaywright
+@DisabledIfSystemProperty(named = "skipFrontend", matches = "true")
 class FrontendIT: AbstractIT() {
 
   @LocalServerPort
