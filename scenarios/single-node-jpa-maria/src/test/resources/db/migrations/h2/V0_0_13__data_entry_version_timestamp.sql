@@ -1,0 +1,1 @@
+alter table PLF_DATA_ENTRY add column VERSION_TIMESTAMP INT8;
