@@ -436,7 +436,7 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-surefire-plugin</artifactId>
-          <version>3.5.5</version>
+          <version>3.6.0</version>
           <configuration>
             <useSystemClassLoader>false</useSystemClassLoader>
             <includes>
@@ -524,7 +524,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.5.5</version>
+        <version>3.6.0</version>
         <configuration>
           <useSystemClassLoader>false</useSystemClassLoader>
           <runOrder>random</runOrder>
