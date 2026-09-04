@@ -2,6 +2,7 @@ package io.holunda.polyflow.example.other
 
 import io.holunda.camunda.bpm.data.CamundaBpmData.builder
 import io.holunda.camunda.bpm.data.CamundaBpmData.stringVariable
+import io.holunda.camunda.bpm.data.Writers
 import io.holunda.camunda.taskpool.api.business.AuthorizationChange
 import io.holunda.camunda.taskpool.api.business.ProcessingType
 import io.holunda.polyflow.datapool.sender.DataEntryCommandSender
@@ -30,7 +31,7 @@ class OtherDataEntryApplicationRunner(
     dataEntryCommandSender.sendDataEntryChange(
       entryId = UUID.randomUUID().toString(),
       entryType = "example.OtherDataEntry",
-      payload = builder().set(VAR, "value").build(),
+      payload = Writers.C7.builder().set(VAR, "value").build(),
       type = "Other Data Entry",
       state = ProcessingType.IN_PROGRESS.of("processing"),
       authorizationChanges = listOf(AuthorizationChange.addUser("kermit"))

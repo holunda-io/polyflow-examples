@@ -27,6 +27,6 @@ class TaskEventMapperTest {
       taskDefinitionKey = "")
 
     val dto = taskEventMapper.dto(TaskEventWithMetaData(event, now, MetaData.emptyInstance()))
-    assertThat(dto.created.toInstant()).isEqualTo(now)
+    assertThat(dto.created?.toInstant()).isEqualTo(now)
   }
 }
