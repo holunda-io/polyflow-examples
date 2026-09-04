@@ -28,7 +28,7 @@
       <dependency>
         <groupId>org.axonframework.extensions.kafka</groupId>
         <artifactId>axon-kafka-spring-boot-starter</artifactId>
-        <version>4.12.0</version>
+        <version>4.12.1</version>
       </dependency>
 
     </dependencies>
