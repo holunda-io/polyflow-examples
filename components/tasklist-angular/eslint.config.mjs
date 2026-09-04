@@ -50,6 +50,14 @@ export default defineConfig(
     },
   },
   {
+    files: ["**/*.spec.ts", "src/test.ts"],
+    rules: {
+      // TypeScript 6 cannot resolve the Jasmine globals used by these legacy tests.
+      // Keep the type-aware unsafe-call check enabled for production code.
+      "@typescript-eslint/no-unsafe-call": "off",
+    },
+  },
+  {
     files: ["**/*.html"],
     extends: [
       ...angular.configs.templateRecommended,

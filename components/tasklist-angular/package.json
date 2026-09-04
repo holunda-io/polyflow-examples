@@ -50,6 +50,7 @@
     "karma-jasmine": "^5.1.0",
     "karma-jasmine-html-reporter": "^2.1.0",
     "karma-junit-reporter": "^2.0.1",
+    "istanbul-lib-instrument": "^6.0.3",
     "ng-openapi-gen": "^0.51.0",
     "puppeteer": "^22.15.0",
     "ts-node": "^10.9.2",

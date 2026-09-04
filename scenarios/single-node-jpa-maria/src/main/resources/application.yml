@@ -67,9 +67,6 @@ camunda:
       enabled: false
     webapp:
       index-redirect-enabled: false
-    generic-properties.properties:
-      telemetry-reporter-activate: false
-
 polyflow:
   integration:
     client:
@@ -148,4 +145,3 @@ logging.level:
 #  org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: TRACE
 # To log web access
 # org.springframework.web: DEBUG
-
