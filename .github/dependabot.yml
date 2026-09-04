@@ -6,8 +6,14 @@ updates:
     interval: daily
   open-pull-requests-limit: 10
   labels:
-  - "Type: dependencies"
-    # Enable version updates for npm
+    - "Type: dependencies"
+  groups:
+    maven-patches:
+      patterns:
+        - "*"
+      update-types:
+        - "patch"
+  # Enable version updates for npm
 - package-ecosystem: "npm"
   # Look for `package.json` and `lock` files in the `root` directory
   directory: "/components"
@@ -15,3 +21,15 @@ updates:
     interval: weekly
   labels:
     - "Type: dependencies"
+  groups:
+    npm-patches:
+      patterns:
+        - "*"
+      update-types:
+        - "patch"
+    npm-minor-and-major:
+      patterns:
+        - "*"
+      update-types:
+        - "minor"
+        - "major"
