@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@angular/build": "^22.1.7",
-    "@angular/cli": "22.1.7",
+    "@angular/cli": "22.2.3",
     "@angular/compiler-cli": "22.1.5",
     "@angular/language-service": "22.1.5",
     "@angular/localize": "22.1.5",
