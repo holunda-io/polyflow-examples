@@ -21,7 +21,7 @@
     "@angular/localize": "20.3.25",
     "@angular/platform-browser": "20.3.25",
     "@angular/platform-browser-dynamic": "20.3.25",
-    "@angular/router": "20.3.25",
+    "@angular/router": "20.3.33",
     "@ng-bootstrap/ng-bootstrap": "^19.0.1",
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
