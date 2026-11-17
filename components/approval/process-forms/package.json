@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@angular/build": "^20.3.2",
-    "@angular/cli": "20.3.28",
+    "@angular/cli": "22.2.7",
     "@angular/compiler-cli": "20.3.25",
     "@angular/language-service": "20.3.25",
     "@types/jasmine": "~5.1.4",
@@ -51,6 +51,6 @@
     "puppeteer": "^22.11.2",
     "ts-node": "^10.9.2",
     "typescript": "5.9.2",
-    "typescript-eslint": "^8.42.0"
+    "typescript-eslint": "^8.73.0"
   }
 }
